@@ -8,8 +8,8 @@ namespace Teste_WPF.ViewModels
 {
     public enum FormaPagamento
     {
-        dinheiro,
-        cartão,
-        boleto
+        Dinheiro,
+        Cartão,
+        Boleto
     }
 }

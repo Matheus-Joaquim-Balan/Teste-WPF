@@ -4,10 +4,10 @@ namespace Teste_WPF.ViewModels
 {
     public class Pessoa
     {
-        public int idPessoa { get; set; }
-        public string nomePessoa { get; set; }
+        public int IdPessoa { get; set; }
+        public string NomePessoa { get; set; }
         public string CPF { get; set; }
-        public string endereco { get; set; }
+        public string Endereco { get; set; }
 
         public Pessoa()
         {
@@ -15,10 +15,10 @@ namespace Teste_WPF.ViewModels
         }
         public Pessoa(int id, string nome, string CPF, string endereco)
         {
-            this.idPessoa = id;
-            this.nomePessoa = nome;
+            this.IdPessoa = id;
+            this.NomePessoa = nome;
             this.CPF = CPF;
-            this.endereco = endereco;
+            this.Endereco = endereco;
         }
 
         

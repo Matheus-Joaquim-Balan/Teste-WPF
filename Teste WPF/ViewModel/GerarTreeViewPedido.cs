@@ -11,22 +11,22 @@ namespace Teste_WPF
             StackPanel level2_TVI = new StackPanel();
 
             TreeViewItem pessoaTVI = new TreeViewItem();
-            pessoaTVI.Header = "Nome: " + pedido.pessoas.nomePessoa;
+            pessoaTVI.Header = "Nome: " + pedido.Pessoas.NomePessoa;
 
             TreeViewItem produtosPedidoTVI = new TreeViewItem();
             produtosPedidoTVI.Header = "Produtos:";
 
             TreeViewItem valorTotalTVI = new TreeViewItem();
-            valorTotalTVI.Header = "Valor: R$ " + pedido.valorTotal;
+            valorTotalTVI.Header = "Valor: R$ " + pedido.ValorTotal;
 
             TreeViewItem dataVendalTVI = new TreeViewItem();
-            dataVendalTVI.Header = "Data do pedido: " + pedido.dataVenda;
+            dataVendalTVI.Header = "Data do pedido: " + pedido.DataVenda;
 
             TreeViewItem formaPagamentoTVI = new TreeViewItem();
-            formaPagamentoTVI.Header = "Forma de pagamento: " + pedido.formaPagamento;
+            formaPagamentoTVI.Header = "Forma de pagamento: " + pedido.FormaPagamento;
 
             TreeViewItem statusTVI = new TreeViewItem();
-            statusTVI.Header = "Status: " + pedido.status;
+            statusTVI.Header = "Status: " + pedido.Status;
 
             produtosPedidoTVI.Items.Add(GerarTreePedidoLevel3(pedido));
 
@@ -56,10 +56,10 @@ namespace Teste_WPF
             level3_TVI.RowDefinitions.Add(row2);
 
             TreeViewItem produto1TVI = new TreeViewItem();
-            produto1TVI.Header = pedido.produtos.nomeProduto;
+            produto1TVI.Header = pedido.Produtos.NomeProduto;
 
             TreeViewItem qntdProduto1TVI = new TreeViewItem();
-            qntdProduto1TVI.Header = "Qtd: " + pedido.produtos.qntProduto;
+            qntdProduto1TVI.Header = "Qtd: " + pedido.Produtos.QntProduto;
 
            // TreeViewItem produto2TVI = new TreeViewItem();
           //  produto2TVI.Header = "Carro";
