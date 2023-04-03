@@ -31,17 +31,14 @@ namespace Teste_WPF
             pessoa = new Pessoa();
             produto = new Produto();
 
-            dataGridPessoa.ItemsSource = pessoas;
             dataGridProduto.ItemsSource = produtos;
 
-            idPessoaBox.Text = $"{pessoas.Count + 1}";
             idProdutoBox.Text = $"{produtos.Count + 1}";
 
             GerarTreeViewPedido tree = new GerarTreeViewPedido();         
-            TreeViewItem level1_TVI = new TreeViewItem();            
-            Pedido pedido = new Pedido();           
-            level1_TVI.Header = "Pedido " + pedido.id;           
-            level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(pedido));           
+            TreeViewItem level1_TVI = new TreeViewItem();
+            level1_TVI.Header = "Pedido " + new Pedido().id;           
+            level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(new Pedido()));           
             TreeViewPedido.Items.Add(level1_TVI);                      
         }
 
@@ -60,11 +57,10 @@ namespace Teste_WPF
             this.btnProduto.Background = Brushes.Transparent;
             this.btnPedido.Background = Brushes.Transparent;
 
-            dataGridPessoa.ItemsSource = null;
-
             dataGridPessoa.ItemsSource = pessoas;
+
         }
- 
+
         private void AbrirProduto(object sender, RoutedEventArgs e)
         {
             this.dataGridPessoa.Visibility = Visibility.Collapsed;
@@ -103,6 +99,9 @@ namespace Teste_WPF
             this.TreeViewPedido.Visibility = Visibility.Collapsed;
             this.gridCadastrarPessoa.Visibility = Visibility.Visible;
 
+            idPessoaBox.Text = $"{pessoas.Count + 1}";
+
+
         }
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)
@@ -116,37 +115,23 @@ namespace Teste_WPF
             CPFBox.Text = "";
             EnderecoBox.Text = "";
 
-
             this.dataGridPessoa.Visibility = Visibility.Visible;
             this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
         }
 
         private void BtnPesquisarNomeCPF_Click(object sender, RoutedEventArgs e)
         {
-            var dadoPessoa = from p in pessoas
-                             where txtBoxPesquisaPessoa.Text == p.CPF || txtBoxPesquisaPessoa.Text == p.nomePessoa
-                             select p;
-
-
-
-            if (dadoPessoa.Any())
-            {
-                dataGridPessoa.ItemsSource = null;
-                dataGridPessoa.Items.Add(dadoPessoa);
-            }
-            else
-            {
-                MessageBox.Show("Pessoa não encontrada!!!");
-            }
+            dataGridPessoa.ItemsSource = pessoas.Where(g => g.nomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();  
         }
 
         public void SalvarPessoa()
         {
-            pessoa = new Pessoa();
-
-            pessoa.nomePessoa = nomePessoaBox.Text.ToUpper();
-            pessoa.CPF = CPFBox.Text;
-            pessoa.endereco = EnderecoBox.Text.ToUpper();
+            pessoa = new Pessoa
+            {
+                nomePessoa = nomePessoaBox.Text.ToUpper(),
+                CPF = CPFBox.Text,
+                endereco = EnderecoBox.Text.ToUpper()
+            };
 
             if (nomePessoaBox.Text != "" && CPFBox.Text != "")
             {
@@ -178,10 +163,8 @@ namespace Teste_WPF
     
 
         private void BtnExcluirPessoa_Click(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = (DataRowView)dataGridPessoa.SelectedItem;
-
-            row.Delete();
+        {  
+          //  dataGridPessoa.ItemsSource = delete ;
         }
 
         #endregion
