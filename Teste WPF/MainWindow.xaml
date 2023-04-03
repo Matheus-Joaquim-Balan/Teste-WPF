@@ -1,0 +1,204 @@
+﻿<Window x:Class="Teste_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Teste_WPF"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <Button x:Name="btnPessoa" Content="Pessoa" Background="LightGray" Height="30" Margin="0 0 0 10" Click="AbrirPessoa"/>
+            <Button x:Name="btnProduto" Content="Produto" Background="Transparent" Height="30" Margin="0 0 0 10" Click="AbrirProduto"/>
+            <Button x:Name="btnPedido" Content="Pedido" Background="Transparent" Height="30" Click="AbrirPedido" Margin="0 0 0 100" Command=""/>
+
+            <!--Botões Pessoa-->
+            <StackPanel x:Name="btnsPessoa" Visibility="Visible" Grid.Column="0" Margin="0,0,10,0">
+                <Button x:Name="btnCadastrarPessoa" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarPessoa_Click"/>
+                <Button x:Name="btnEditarPessoa" Content="Editar"  Background="DeepSkyBlue" Height="25" Margin="0 0 0 10" />
+            </StackPanel>
+
+            <!--Botões Produto-->
+            <StackPanel x:Name="btnsProduto" Visibility="Collapsed" Grid.Column="0" Margin="0,0,10,0">
+                <Button x:Name="btnCadastrarProduto" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarProduto_Click"/>
+                <Button x:Name="btnEditarProduto" Content="Editar" Background="DeepSkyBlue" Height="25" Margin="0 0 0 10"/>
+                <Button x:Name="btnExcluirProduto"   Content="Excluir" Background="Red" Height="25" Margin="0 0 0 10"/>
+            </StackPanel>
+
+            <!--Botões Pedido-->
+            <StackPanel x:Name="btnsPedido" Visibility="Collapsed" Grid.Column="0" Margin="0,0,10,0">
+                <Button x:Name="btnCadastrarPedido" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10"/>
+                <Button x:Name="btnEditarPedido" Content="Editar" Background="DeepSkyBlue" Height="25" Margin="0 0 0 10"/>
+                <Button x:Name="btnExcuirPedido" Content="Excluir" Background="Red" Height="25"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="3" x:Name="stackMain">
+            <!--Inicio Dados Pessoa-->
+            <Grid x:Name="gridPesquisa" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por nome ou Código:</TextBlock>
+                <TextBox Grid.Column="1" x:Name="txtBoxPesquisaPessoa" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>
+                <Button x:Name="btnPesquisarNomeCPF" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" Margin="136,0,0,4.8" Height="20" Width="30" Grid.ColumnSpan="2" Click="BtnPesquisarNomeCPF_Click">
+                    <Image Source="images/Lupa.png" />
+                </Button>
+            </Grid>
+
+            <DataGrid AreRowDetailsFrozen="True" CanUserReorderColumns="False" CanUserResizeColumns="False" 
+                      Visibility="Collapsed" x:Name="dataGridPessoa" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
+                      AutoGenerateColumns="False" ItemsSource="{Binding pessoas}">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="LightGray" />
+                        <Setter Property="FontWeight" Value="Regular" />
+                        <Setter Property="BorderThickness" Value="1 1 1 1" />
+                        <Setter Property="BorderBrush" Value="DarkGray" />
+                        <Setter Property="Padding" Value="3 0 0 0" />
+
+                    </Style>
+                </DataGrid.Resources>
+          
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding idPessoa}" Width="*"/>
+                    <DataGridTextColumn Header="Nome" Binding="{Binding nomePessoa}" Width="3*">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="CPF" Binding="{Binding CPF}" Width="2.5*"/>
+                    <DataGridTextColumn Header="Endereço" Binding="{Binding endereco}" Width="5*">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Excluir">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="excluirPessoa" Content="Excluir" Background="Red" Click="BtnExcluirPessoa_Click">
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid x:Name="gridCadastrarPessoa" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="8*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock FontSize="20" Grid.Column="0" HorizontalAlignment="Left">CADASTRO</TextBlock>
+
+                <TextBlock x:Name="idPessoaBlock" Grid.Column="0" Grid.Row="1" Text="Id" Margin="0 0 10 10" HorizontalAlignment="Right"/>
+                <TextBox x:Name="idPessoaBox" Grid.Column="1" Grid.Row="1" Background="#eee" Width="100" HorizontalAlignment="Left" IsReadOnly="True" Margin="0 0 30 10"/>
+
+                <TextBlock x:Name="nomePessoaBlock" Grid.Column="0" Grid.Row="2" Text="Nome*" Margin="0 0 10 10" HorizontalAlignment="Right"/>
+                <TextBox x:Name="nomePessoaBox" Grid.Column="1" Grid.Row="2" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+
+                <TextBlock x:Name="CPFBlock" Grid.Column="0" Grid.Row="3" Text="CPF*" Margin="0 0 10 10" HorizontalAlignment="Right" />
+                <TextBox x:Name="CPFBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
+
+                <TextBlock x:Name="EnderecoBlock" Grid.Column="0" Grid.Row="4" Text="Endereço" Margin="0 0 10 0" HorizontalAlignment="Right" />
+                <TextBox x:Name="EnderecoBox" Grid.Column="1" Width="350" HorizontalAlignment="Left" Grid.Row="4"  Margin="0 0 30 0" />
+
+                <Button Visibility="Visible" x:Name="btnSalvarPessoa"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0" Click="BtnSalvarPessoa_Click"/>
+
+                <Button Visibility="Visible" x:Name="btnCancelarPessoa"  Grid.Row="5" Grid.Column="0" 
+                        Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
+                        Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnCancelarPessoa_Click"/>
+
+            </Grid>
+
+            <!--Fim Dados Pessoa-->
+
+            <!--Inicio Dados Produto-->
+            <DataGrid Visibility="Collapsed" x:Name="dataGridProduto" Margin="0,0,0.2,0" Height="350" >
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="LightGray" />
+                        <Setter Property="FontWeight" Value="Regular" />
+                        <Setter Property="BorderThickness" Value="1 1 1 1" />
+                        <Setter Property="BorderBrush" Value="DarkGray" />
+                        <Setter Property="Padding" Value="3 0 0 0" />
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding idProduto}" Width="*"/>
+                    <DataGridTextColumn Header="Nome" Binding="{Binding nomeProduto}" Width="3*" />
+                    <DataGridTextColumn Header="Código" Binding="{Binding codigo}" Width="2*"/>
+                    <DataGridTextColumn Header="Qnt" Binding="{Binding qntProduto}" Width="*"/>
+                    <DataGridTextColumn Header="Valor" Binding="{Binding valor}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid x:Name="gridCadastrarProduto" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock  Visibility="Visible" x:Name="idProdutoBlock" Grid.Column="0" Grid.Row="0" Text="Id" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+                <TextBox Visibility="Visible" x:Name="idProdutoBox" Grid.Column="1" Grid.Row="0" Background="#eee" Width="70" HorizontalAlignment="Left" IsReadOnly="True"   Margin="0 0 30 10"/>
+
+                <TextBlock Visibility="Visible" x:Name="nomeProdutoBlock" Grid.Column="0" Grid.Row="1" Text="Nome" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+                <TextBox Visibility="Visible" x:Name="nomeProdutoBox" Grid.Column="1" Grid.Row="1" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+
+                <TextBlock Visibility="Visible" x:Name="codigoProdutoBlock" Grid.Column="0" Grid.Row="2" Text="Código" HorizontalAlignment="Right" Margin="0 0 10 0" />
+                <TextBox Visibility="Visible" x:Name="codigoProdutoBox" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
+
+                <TextBlock Visibility="Visible" x:Name="qntProdutoBlock" Grid.Column="0" Grid.Row="3" Text="Quantidade" HorizontalAlignment="Right" Margin="0 0 10 0" />
+                <TextBox Visibility="Visible" x:Name="qntProdutoBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+
+                <TextBlock Visibility="Visible" x:Name="valorProdutoBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor"  Margin="0 0 10 0" />
+                <TextBox Visibility="Visible" x:Name="valorProdutoBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+            </Grid>
+            <!--Fim Dados Produto-->
+
+            <!--TreeView Pedido-->
+            <TreeView Visibility="Collapsed" x:Name="TreeViewPedido" />
+        </StackPanel>
+    </Grid>
+</Window>
