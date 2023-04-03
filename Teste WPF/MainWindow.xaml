@@ -59,7 +59,7 @@
 
             <DataGrid AreRowDetailsFrozen="True" CanUserReorderColumns="False" CanUserResizeColumns="False" 
                       Visibility="Collapsed" x:Name="dataGridPessoa" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
-                      AutoGenerateColumns="False" ItemsSource="{Binding pessoas}">
+                      AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pessoas}">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">

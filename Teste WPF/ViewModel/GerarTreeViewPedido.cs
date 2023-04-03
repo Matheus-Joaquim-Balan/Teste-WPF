@@ -61,11 +61,11 @@ namespace Teste_WPF
             TreeViewItem qntdProduto1TVI = new TreeViewItem();
             qntdProduto1TVI.Header = "Qtd: " + pedido.produtos.qntProduto;
 
-           // TreeViewItem produto2TVI = new TreeViewItem();
-          //  produto2TVI.Header = "Carro";
+            TreeViewItem produto2TVI = new TreeViewItem();
+            produto2TVI.Header = "Carro";
 
-         //   TreeViewItem qntdProduto2TVI = new TreeViewItem();
-         //   qntdProduto2TVI.Header = "Qtd: 45687984";
+            TreeViewItem qntdProduto2TVI = new TreeViewItem();
+            qntdProduto2TVI.Header = "Qtd: 45687984";
 
             Grid.SetRow(produto1TVI, 0);
             Grid.SetColumn(produto1TVI, 0);
@@ -73,17 +73,17 @@ namespace Teste_WPF
             Grid.SetRow(qntdProduto1TVI, 0);
             Grid.SetColumn(qntdProduto1TVI, 1);
 
-          //  Grid.SetRow(produto2TVI, 1);
-           // Grid.SetColumn(produto2TVI, 0);
+            Grid.SetRow(produto2TVI, 1);
+            Grid.SetColumn(produto2TVI, 0);
 
-           // Grid.SetRow(qntdProduto2TVI, 1);
-          //  Grid.SetColumn(qntdProduto2TVI, 1);
+            Grid.SetRow(qntdProduto2TVI, 1);
+            Grid.SetColumn(qntdProduto2TVI, 1);
 
             level3_TVI.Children.Add(produto1TVI);
             level3_TVI.Children.Add(qntdProduto1TVI);
 
-           // level3_TVI.Children.Add(produto2TVI);
-          //  level3_TVI.Children.Add(qntdProduto2TVI);
+            level3_TVI.Children.Add(produto2TVI);
+            level3_TVI.Children.Add(qntdProduto2TVI);
 
             return level3_TVI;
         }
