@@ -25,17 +25,17 @@ namespace Teste_WPF
             pessoa = new Pessoa();
             produto = new Produto();
 
-            GerarTreeViewPedido tree = new GerarTreeViewPedido();         
-            TreeViewItem level1_TVI = new TreeViewItem();            
-            Pedido pedido = new Pedido();           
-            level1_TVI.Header = "Pedido " + pedido.Id;           
-            level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(pedido));           
+            GerarTreeViewPedido tree = new GerarTreeViewPedido();
+            TreeViewItem level1_TVI = new TreeViewItem();
+            Pedido pedido = new Pedido();
+            level1_TVI.Header = "Pedido " + pedido.Id;
+            level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(pedido));
             TreeViewPedido.Items.Add(level1_TVI);
         }
 
         private void AbrirPessoa(object sender, RoutedEventArgs e)
         {
-           
+
             dataGridPessoa.Visibility = Visibility.Visible;
             btnsPessoa.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Visible;
@@ -90,7 +90,7 @@ namespace Teste_WPF
 
             btnPessoa.Background = Brushes.Transparent;
             btnProduto.Background = Brushes.Transparent;
-            btnPedido.Background = Brushes.LightGray;            
+            btnPedido.Background = Brushes.LightGray;
         }
 
         #region Botões Pessoa
@@ -108,8 +108,8 @@ namespace Teste_WPF
                 IdPessoaLista = 1;
                 idPessoaBox.Text = $"{IdPessoaLista}";
             }
-            else           
-                idPessoaBox.Text = $"{IdPessoaLista}";              
+            else
+                idPessoaBox.Text = $"{IdPessoaLista}";
         }
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)
@@ -130,7 +130,7 @@ namespace Teste_WPF
         }
 
         private void BtnPesquisarNomeCPF_Click(object sender, RoutedEventArgs e)
-        {          
+        {
             var dadosGrid = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();
 
             if (dadosGrid.Count > 0)
@@ -204,13 +204,17 @@ namespace Teste_WPF
                 valorProdutoBox.Text = "";
             }
 
-            else {
+            else
+            {
                 MessageBox.Show("Campos obrigatórios não preenchidos!!");
             }
 
         }
 
-        // private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
+        private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         #endregion
 
@@ -226,12 +230,27 @@ namespace Teste_WPF
             idProdutoBox.Text = $"{produtos.Count + 1}";
         }
 
-        private void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
+        private void DataGridProduto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        public void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
         {
             SalvarProduto();
         }
 
-        private void BtnCancelarProduto_Click(object sender, RoutedEventArgs e)
+        public void BtnCancelarProduto_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnPesquisarProduto_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnEditarProduto_Click(object sender, RoutedEventArgs e)
         {
 
         }
