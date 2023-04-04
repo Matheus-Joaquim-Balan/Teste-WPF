@@ -38,7 +38,6 @@
                 <Button x:Name="btnEditarPedido" Content="Editar" Background="DeepSkyBlue" Height="25" Margin="0 0 0 10"/>
                 <Button x:Name="btnExcuirPedido" Content="Excluir" Background="Red" Height="25"/>
             </StackPanel>
-
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="3" x:Name="stackMain">
@@ -68,7 +67,6 @@
                         <Setter Property="BorderThickness" Value="1 1 1 1" />
                         <Setter Property="BorderBrush" Value="DarkGray" />
                         <Setter Property="Padding" Value="3 0 0 0" />
-
                     </Style>
                 </DataGrid.Resources>
           
