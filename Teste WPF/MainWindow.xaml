@@ -57,7 +57,7 @@
                 </Button>
             </Grid>
 
-            <DataGrid AreRowDetailsFrozen="True" CanUserReorderColumns="False" CanUserResizeColumns="False" 
+            <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
                       Visibility="Collapsed" x:Name="dataGridPessoa" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
                       AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pessoas}">
 
@@ -73,26 +73,16 @@
                 </DataGrid.Resources>
           
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding IdPessoa}" Width="*"/>
-                    <DataGridTextColumn Header="Nome" Binding="{Binding NomePessoa}" Width="3*">
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style TargetType="TextBox">
-                                <Setter Property="CharacterCasing" Value="Upper"/>
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="CPF" Binding="{Binding CPF}" Width="2.5*"/>
-                    <DataGridTextColumn Header="Endereço" Binding="{Binding Endereco}" Width="5*">
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style TargetType="TextBox">
-                                <Setter Property="CharacterCasing" Value="Upper"/>
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Excluir">
+                    <DataGridTextColumn Header="Id" IsReadOnly="True" Binding="{Binding IdPessoa}" Width="*"/>
+                    <DataGridTextColumn Header="Nome" IsReadOnly="True" Binding="{Binding NomePessoa}" Width="3*" />
+                    <DataGridTextColumn Header="CPF" IsReadOnly="True" Binding="{Binding CPF}" Width="2*"/>
+                    <DataGridTextColumn Header="Endereço" IsReadOnly="True" Binding="{Binding Endereco}" Width="4*"/>
+                    <DataGridTemplateColumn Header="Excluir" Width=".5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="excluirPessoa" Content="Excluir" Background="Red" Click="BtnExcluirPessoa_Click">
+                                <Button x:Name="excluirPessoa" Content="Excluir" HorizontalAlignment="Center" Background="{Binding Cor , 
+                                                                                                Mode=TwoWay, 
+                                                                                                UpdateSourceTrigger=PropertyChanged}" Command="Delete">
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -143,7 +133,7 @@
             <!--Fim Dados Pessoa-->
                                                                     <!--AQUI-->
             <!--Inicio Dados Produto-->
-            <DataGrid Visibility="Visible" x:Name="dataGridProduto" Margin="0,0,0.2,0" Height="350" >
+            <DataGrid Visibility="Collapsed" x:Name="dataGridProduto" Margin="0,0,0.2,0" Height="350" >
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">

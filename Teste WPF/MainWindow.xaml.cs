@@ -22,7 +22,7 @@ namespace Teste_WPF
         private Produto produto;
         private ObservableCollection<Pessoa> pessoas;
         private ObservableCollection<Produto> produtos;
-
+        public int IdPessoaLista { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -31,13 +31,12 @@ namespace Teste_WPF
             pessoa = new Pessoa();
             produto = new Produto();
 
-
             GerarTreeViewPedido tree = new GerarTreeViewPedido();         
             TreeViewItem level1_TVI = new TreeViewItem();            
             Pedido pedido = new Pedido();           
             level1_TVI.Header = "Pedido " + pedido.Id;           
             level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(pedido));           
-            TreeViewPedido.Items.Add(level1_TVI);                      
+            TreeViewPedido.Items.Add(level1_TVI);
         }
 
         private void AbrirPessoa(object sender, RoutedEventArgs e)
@@ -60,7 +59,6 @@ namespace Teste_WPF
             btnPedido.Background = Brushes.Transparent;
 
             dataGridPessoa.ItemsSource = pessoas;
-
         }
 
         private void AbrirProduto(object sender, RoutedEventArgs e)
@@ -111,7 +109,18 @@ namespace Teste_WPF
             gridCadastrarPessoa.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
-            idPessoaBox.Text = $"{pessoas.Count + 1}";
+            if (pessoas.Count < 1)
+            {
+                IdPessoaLista = 1;
+                idPessoaBox.Text = $"{IdPessoaLista}";
+            }
+            else
+            {
+                idPessoaBox.Text = $"{IdPessoaLista}";
+            }
+                
+
+            
         }
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)
@@ -133,13 +142,19 @@ namespace Teste_WPF
 
         private void BtnPesquisarNomeCPF_Click(object sender, RoutedEventArgs e)
         {          
-            dataGridPessoa.ItemsSource = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();  
+            var dadosGrid = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();
+
+            if (dadosGrid.Count > 0)
+                dataGridPessoa.ItemsSource = dadosGrid;
+            else
+                MessageBox.Show("Pessoa não encontrada!");
         }
 
         public void SalvarPessoa()
         {
             pessoa = new Pessoa
             {
+                IdPessoa = IdPessoaLista,
                 NomePessoa = nomePessoaBox.Text.ToUpper(),
                 CPF = CPFBox.Text,
                 Endereco = EnderecoBox.Text.ToUpper()
@@ -149,7 +164,7 @@ namespace Teste_WPF
             {
                 if (Pessoa.ValidaCpf(pessoa.CPF))
                 {
-                    pessoas.Add(new Pessoa(pessoas.Count + 1, pessoa.NomePessoa, pessoa.CPF, pessoa.Endereco));
+                    pessoas.Add(new Pessoa(IdPessoaLista, pessoa.NomePessoa, pessoa.CPF, pessoa.Endereco));
 
                     dataGridPessoa.Visibility = Visibility.Visible;
                     gridCadastrarPessoa.Visibility = Visibility.Collapsed;
@@ -161,6 +176,8 @@ namespace Teste_WPF
                     EnderecoBox.Text = "";
 
                     gridPesquisaPessoa.Visibility = Visibility.Visible;
+
+                    IdPessoaLista++;
                 }
                 else
                 {
@@ -204,13 +221,7 @@ namespace Teste_WPF
 
         }
 
-        //   private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
-
-
-        private void BtnExcluirPessoa_Click(object sender, RoutedEventArgs e)
-        {  
-          //  dataGridPessoa.ItemsSource = delete ;
-        }
+        // private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
 
         #endregion
 
