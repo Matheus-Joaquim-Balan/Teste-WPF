@@ -31,7 +31,6 @@ namespace Teste_WPF
             pessoa = new Pessoa();
             produto = new Produto();
 
-            dataGridProduto.ItemsSource = produtos;
 
             GerarTreeViewPedido tree = new GerarTreeViewPedido();         
             TreeViewItem level1_TVI = new TreeViewItem();            
@@ -79,7 +78,10 @@ namespace Teste_WPF
 
             btnPessoa.Background = Brushes.Transparent;
             btnProduto.Background = Brushes.LightGray;
-            btnPedido.Background = Brushes.Transparent;            
+            btnPedido.Background = Brushes.Transparent;
+
+            dataGridProduto.ItemsSource = produtos;
+
         }
 
         private void AbrirPedido(object sender, RoutedEventArgs e)
@@ -92,7 +94,6 @@ namespace Teste_WPF
             btnsPedido.Visibility = Visibility.Visible;
             btnsProduto.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
-
 
             dataGridProduto.Visibility = Visibility.Collapsed;
 
@@ -109,7 +110,6 @@ namespace Teste_WPF
             TreeViewPedido.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
-
 
             idPessoaBox.Text = $"{pessoas.Count + 1}";
         }
@@ -132,8 +132,7 @@ namespace Teste_WPF
         }
 
         private void BtnPesquisarNomeCPF_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {          
             dataGridPessoa.ItemsSource = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();  
         }
 
@@ -224,6 +223,7 @@ namespace Teste_WPF
 
             dataGridProduto.Visibility = Visibility.Collapsed;
 
+            idProdutoBox.Text = $"{produtos.Count + 1}";
         }
 
         private void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
