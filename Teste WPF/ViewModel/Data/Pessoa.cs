@@ -13,12 +13,12 @@ namespace Teste_WPF.ViewModels
         {
             
         }
-        public Pessoa(int id, string nome, string CPF, string endereco)
+        public Pessoa(int id, string nome, string cpf, string endereco)
         {
-            this.IdPessoa = id;
-            this.NomePessoa = nome;
-            this.CPF = CPF;
-            this.Endereco = endereco;
+            IdPessoa = id;
+            NomePessoa = nome;
+            CPF = cpf;
+            Endereco = endereco;
         }
 
         
