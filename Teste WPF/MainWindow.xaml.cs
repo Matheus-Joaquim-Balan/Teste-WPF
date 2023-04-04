@@ -44,20 +44,21 @@ namespace Teste_WPF
         private void AbrirPessoa(object sender, RoutedEventArgs e)
         {
            
-            this.dataGridPessoa.Visibility = Visibility.Visible;
-            this.gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
-            this.TreeViewPedido.Visibility = Visibility.Collapsed;
-            this.btnsPessoa.Visibility = Visibility.Visible;
-            this.btnsPedido.Visibility = Visibility.Collapsed;
-            this.btnsProduto.Visibility = Visibility.Collapsed;
+            dataGridPessoa.Visibility = Visibility.Visible;
+            gridCadastrarProduto.Visibility = Visibility.Collapsed;
+            gridCadastrarPessoa.Visibility = Visibility.Collapsed;
+            TreeViewPedido.Visibility = Visibility.Collapsed;
+            btnsPessoa.Visibility = Visibility.Visible;
+            btnsPedido.Visibility = Visibility.Collapsed;
+            btnsProduto.Visibility = Visibility.Collapsed;
+            gridPesquisaPessoa.Visibility = Visibility.Visible;
 
             dataGridProduto.Visibility = Visibility.Collapsed;
 
 
-            this.btnPessoa.Background = Brushes.LightGray;
-            this.btnProduto.Background = Brushes.Transparent;
-            this.btnPedido.Background = Brushes.Transparent;
+            btnPessoa.Background = Brushes.LightGray;
+            btnProduto.Background = Brushes.Transparent;
+            btnPedido.Background = Brushes.Transparent;
 
             dataGridPessoa.ItemsSource = pessoas;
 
@@ -65,46 +66,50 @@ namespace Teste_WPF
 
         private void AbrirProduto(object sender, RoutedEventArgs e)
         {
-            this.dataGridPessoa.Visibility = Visibility.Collapsed;
-            this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
-            this.gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            this.TreeViewPedido.Visibility = Visibility.Collapsed;
-            this.btnsPessoa.Visibility = Visibility.Collapsed;
-            this.btnsPedido.Visibility = Visibility.Collapsed;
-            this.btnsProduto.Visibility = Visibility.Visible;
+            dataGridPessoa.Visibility = Visibility.Collapsed;
+            gridCadastrarPessoa.Visibility = Visibility.Collapsed;
+            gridCadastrarProduto.Visibility = Visibility.Collapsed;
+            TreeViewPedido.Visibility = Visibility.Collapsed;
+            btnsPessoa.Visibility = Visibility.Collapsed;
+            btnsPedido.Visibility = Visibility.Collapsed;
+            btnsProduto.Visibility = Visibility.Visible;
+            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
             dataGridProduto.Visibility = Visibility.Visible;
 
-            this.btnPessoa.Background = Brushes.Transparent;
-            this.btnProduto.Background = Brushes.LightGray;
-            this.btnPedido.Background = Brushes.Transparent;            
+            btnPessoa.Background = Brushes.Transparent;
+            btnProduto.Background = Brushes.LightGray;
+            btnPedido.Background = Brushes.Transparent;            
         }
 
         private void AbrirPedido(object sender, RoutedEventArgs e)
         {
-            this.dataGridPessoa.Visibility = Visibility.Collapsed;
-            this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
-            this.gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            this.TreeViewPedido.Visibility = Visibility.Visible;
-            this.btnsPessoa.Visibility = Visibility.Collapsed;
-            this.btnsPedido.Visibility = Visibility.Visible;
-            this.btnsProduto.Visibility = Visibility.Collapsed;
+            dataGridPessoa.Visibility = Visibility.Collapsed;
+            gridCadastrarPessoa.Visibility = Visibility.Collapsed;
+            gridCadastrarProduto.Visibility = Visibility.Collapsed;
+            TreeViewPedido.Visibility = Visibility.Visible;
+            btnsPessoa.Visibility = Visibility.Collapsed;
+            btnsPedido.Visibility = Visibility.Visible;
+            btnsProduto.Visibility = Visibility.Collapsed;
+            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
 
             dataGridProduto.Visibility = Visibility.Collapsed;
 
-            this.btnPessoa.Background = Brushes.Transparent;
-            this.btnProduto.Background = Brushes.Transparent;
-            this.btnPedido.Background = Brushes.LightGray;            
+            btnPessoa.Background = Brushes.Transparent;
+            btnProduto.Background = Brushes.Transparent;
+            btnPedido.Background = Brushes.LightGray;            
         }
 
         #region Botões Pessoa
         private void BtnCadastrarPessoa_Click(object sender, RoutedEventArgs e)
         {
-            this.dataGridPessoa.Visibility = Visibility.Collapsed;
-            this.gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            this.TreeViewPedido.Visibility = Visibility.Collapsed;
-            this.gridCadastrarPessoa.Visibility = Visibility.Visible;
+            dataGridPessoa.Visibility = Visibility.Collapsed;
+            gridCadastrarProduto.Visibility = Visibility.Collapsed;
+            TreeViewPedido.Visibility = Visibility.Collapsed;
+            gridCadastrarPessoa.Visibility = Visibility.Visible;
+            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
+
 
             idPessoaBox.Text = $"{pessoas.Count + 1}";
         }
@@ -120,23 +125,25 @@ namespace Teste_WPF
             CPFBox.Text = "";
             EnderecoBox.Text = "";
 
-            this.dataGridPessoa.Visibility = Visibility.Visible;
-            this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
+            dataGridPessoa.Visibility = Visibility.Visible;
+            gridCadastrarPessoa.Visibility = Visibility.Collapsed;
+            gridPesquisaPessoa.Visibility = Visibility.Visible;
+
         }
 
         private void BtnPesquisarNomeCPF_Click(object sender, RoutedEventArgs e)
         {
             
-            dataGridPessoa.ItemsSource = pessoas.Where(g => g.nomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();  
+            dataGridPessoa.ItemsSource = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();  
         }
 
         public void SalvarPessoa()
         {
             pessoa = new Pessoa
             {
-                nomePessoa = nomePessoaBox.Text.ToUpper(),
+                NomePessoa = nomePessoaBox.Text.ToUpper(),
                 CPF = CPFBox.Text,
-                endereco = EnderecoBox.Text.ToUpper()
+                Endereco = EnderecoBox.Text.ToUpper()
             };
 
             if (nomePessoaBox.Text != "" && CPFBox.Text != "")
@@ -145,14 +152,16 @@ namespace Teste_WPF
                 {
                     pessoas.Add(new Pessoa(pessoas.Count + 1, pessoa.NomePessoa, pessoa.CPF, pessoa.Endereco));
 
-                    this.dataGridPessoa.Visibility = Visibility.Visible;
-                    this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
+                    dataGridPessoa.Visibility = Visibility.Visible;
+                    gridCadastrarPessoa.Visibility = Visibility.Collapsed;
 
                     MessageBox.Show("Cadastro efetuado com sucesso");
 
                     nomePessoaBox.Text = "";
                     CPFBox.Text = "";
                     EnderecoBox.Text = "";
+
+                    gridPesquisaPessoa.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -208,10 +217,10 @@ namespace Teste_WPF
 
         private void BtnCadastrarProduto_Click(object sender, RoutedEventArgs e)
         {
-            this.dataGridPessoa.Visibility = Visibility.Collapsed;
-            this.gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            this.TreeViewPedido.Visibility = Visibility.Collapsed;
-            this.gridCadastrarProduto.Visibility = Visibility.Visible;
+            dataGridPessoa.Visibility = Visibility.Collapsed;
+            gridCadastrarProduto.Visibility = Visibility.Collapsed;
+            TreeViewPedido.Visibility = Visibility.Collapsed;
+            gridCadastrarProduto.Visibility = Visibility.Visible;
 
             dataGridProduto.Visibility = Visibility.Collapsed;
 

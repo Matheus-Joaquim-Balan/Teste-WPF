@@ -43,7 +43,7 @@
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="3" x:Name="stackMain">
             <!--Inicio Dados Pessoa-->
-            <Grid x:Name="gridPesquisa" Visibility="Collapsed">
+            <Grid x:Name="gridPesquisaPessoa" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="1*"/>
