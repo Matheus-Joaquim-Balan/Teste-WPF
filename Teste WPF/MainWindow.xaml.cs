@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using Teste_WPF.ViewModels;
 using System.Linq;
 using System.Collections.ObjectModel;
-using System.Windows.Data;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using System.Data;
 
 namespace Teste_WPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
 
@@ -43,16 +37,15 @@ namespace Teste_WPF
         {
            
             dataGridPessoa.Visibility = Visibility.Visible;
+            btnsPessoa.Visibility = Visibility.Visible;
+            gridPesquisaPessoa.Visibility = Visibility.Visible;
+
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
             TreeViewPedido.Visibility = Visibility.Collapsed;
-            btnsPessoa.Visibility = Visibility.Visible;
             btnsPedido.Visibility = Visibility.Collapsed;
             btnsProduto.Visibility = Visibility.Collapsed;
-            gridPesquisaPessoa.Visibility = Visibility.Visible;
-
             dataGridProduto.Visibility = Visibility.Collapsed;
-
 
             btnPessoa.Background = Brushes.LightGray;
             btnProduto.Background = Brushes.Transparent;
@@ -63,16 +56,16 @@ namespace Teste_WPF
 
         private void AbrirProduto(object sender, RoutedEventArgs e)
         {
+            btnsProduto.Visibility = Visibility.Visible;
+            dataGridProduto.Visibility = Visibility.Visible;
+
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             TreeViewPedido.Visibility = Visibility.Collapsed;
             btnsPessoa.Visibility = Visibility.Collapsed;
             btnsPedido.Visibility = Visibility.Collapsed;
-            btnsProduto.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
-
-            dataGridProduto.Visibility = Visibility.Visible;
 
             btnPessoa.Background = Brushes.Transparent;
             btnProduto.Background = Brushes.LightGray;
@@ -84,15 +77,15 @@ namespace Teste_WPF
 
         private void AbrirPedido(object sender, RoutedEventArgs e)
         {
+            TreeViewPedido.Visibility = Visibility.Visible;
+            btnsPedido.Visibility = Visibility.Visible;
+
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            TreeViewPedido.Visibility = Visibility.Visible;
             btnsPessoa.Visibility = Visibility.Collapsed;
-            btnsPedido.Visibility = Visibility.Visible;
             btnsProduto.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
-
             dataGridProduto.Visibility = Visibility.Collapsed;
 
             btnPessoa.Background = Brushes.Transparent;
@@ -103,10 +96,11 @@ namespace Teste_WPF
         #region Botões Pessoa
         private void BtnCadastrarPessoa_Click(object sender, RoutedEventArgs e)
         {
+            gridCadastrarPessoa.Visibility = Visibility.Visible;
+
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             TreeViewPedido.Visibility = Visibility.Collapsed;
-            gridCadastrarPessoa.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
             if (pessoas.Count < 1)
@@ -114,13 +108,8 @@ namespace Teste_WPF
                 IdPessoaLista = 1;
                 idPessoaBox.Text = $"{IdPessoaLista}";
             }
-            else
-            {
-                idPessoaBox.Text = $"{IdPessoaLista}";
-            }
-                
-
-            
+            else           
+                idPessoaBox.Text = $"{IdPessoaLista}";              
         }
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)

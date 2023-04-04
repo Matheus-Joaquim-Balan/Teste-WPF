@@ -12,6 +12,7 @@ namespace Teste_WPF.ViewModels
         public string DataVenda { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
         public Status Status { get; set; }
+        public int QntProduto { get; set; }
 
 
         public Pedido()
@@ -20,7 +21,7 @@ namespace Teste_WPF.ViewModels
             Produtos = new Produto();
 
             this.Id = 1;
-            this.ValorTotal = this.Produtos.Valor * this.Produtos.QntProduto;
+            this.ValorTotal = this.Produtos.Valor * this.QntProduto;
             this.DataVenda = DateTime.Now.ToString("dd-MM-yyyy");
             this.FormaPagamento = ViewModels.FormaPagamento.Cartão;
             this.Status = Status.Pendente;
