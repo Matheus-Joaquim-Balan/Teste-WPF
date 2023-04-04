@@ -33,12 +33,11 @@ namespace Teste_WPF
 
             dataGridProduto.ItemsSource = produtos;
 
-            idProdutoBox.Text = $"{produtos.Count + 1}";
-
             GerarTreeViewPedido tree = new GerarTreeViewPedido();         
-            TreeViewItem level1_TVI = new TreeViewItem();
-            level1_TVI.Header = "Pedido " + new Pedido().id;           
-            level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(new Pedido()));           
+            TreeViewItem level1_TVI = new TreeViewItem();            
+            Pedido pedido = new Pedido();           
+            level1_TVI.Header = "Pedido " + pedido.Id;           
+            level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(pedido));           
             TreeViewPedido.Items.Add(level1_TVI);                      
         }
 
@@ -53,6 +52,9 @@ namespace Teste_WPF
             this.btnsPedido.Visibility = Visibility.Collapsed;
             this.btnsProduto.Visibility = Visibility.Collapsed;
 
+            dataGridProduto.Visibility = Visibility.Collapsed;
+
+
             this.btnPessoa.Background = Brushes.LightGray;
             this.btnProduto.Background = Brushes.Transparent;
             this.btnPedido.Background = Brushes.Transparent;
@@ -65,11 +67,13 @@ namespace Teste_WPF
         {
             this.dataGridPessoa.Visibility = Visibility.Collapsed;
             this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
-            this.gridCadastrarProduto.Visibility = Visibility.Visible;
+            this.gridCadastrarProduto.Visibility = Visibility.Collapsed;
             this.TreeViewPedido.Visibility = Visibility.Collapsed;
             this.btnsPessoa.Visibility = Visibility.Collapsed;
             this.btnsPedido.Visibility = Visibility.Collapsed;
             this.btnsProduto.Visibility = Visibility.Visible;
+
+            dataGridProduto.Visibility = Visibility.Visible;
 
             this.btnPessoa.Background = Brushes.Transparent;
             this.btnProduto.Background = Brushes.LightGray;
@@ -86,6 +90,9 @@ namespace Teste_WPF
             this.btnsPedido.Visibility = Visibility.Visible;
             this.btnsProduto.Visibility = Visibility.Collapsed;
 
+
+            dataGridProduto.Visibility = Visibility.Collapsed;
+
             this.btnPessoa.Background = Brushes.Transparent;
             this.btnProduto.Background = Brushes.Transparent;
             this.btnPedido.Background = Brushes.LightGray;            
@@ -100,8 +107,6 @@ namespace Teste_WPF
             this.gridCadastrarPessoa.Visibility = Visibility.Visible;
 
             idPessoaBox.Text = $"{pessoas.Count + 1}";
-
-
         }
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)
@@ -121,6 +126,7 @@ namespace Teste_WPF
 
         private void BtnPesquisarNomeCPF_Click(object sender, RoutedEventArgs e)
         {
+            
             dataGridPessoa.ItemsSource = pessoas.Where(g => g.nomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();  
         }
 
@@ -137,7 +143,7 @@ namespace Teste_WPF
             {
                 if (Pessoa.ValidaCpf(pessoa.CPF))
                 {
-                    pessoas.Add(new Pessoa(pessoas.Count + 1, pessoa.nomePessoa, pessoa.CPF, pessoa.endereco));
+                    pessoas.Add(new Pessoa(pessoas.Count + 1, pessoa.NomePessoa, pessoa.CPF, pessoa.Endereco));
 
                     this.dataGridPessoa.Visibility = Visibility.Visible;
                     this.gridCadastrarPessoa.Visibility = Visibility.Collapsed;
@@ -159,8 +165,39 @@ namespace Teste_WPF
             }
 
         }
-     //   private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
-    
+
+
+        public void SalvarProduto()
+        {
+            produto = new Produto();
+
+            produto.NomeProduto = nomeProdutoBox.Text.ToUpper();
+            produto.Codigo = codigoProdutoBox.Text;
+            produto.Valor = double.Parse(valorProdutoBox.Text);
+
+
+            if (nomeProdutoBox.Text != "" && codigoProdutoBox.Text != "" && valorProdutoBox.Text != "")
+            {
+                produtos.Add(new Produto(produtos.Count + 1, produto.NomeProduto, produto.Codigo, produto.Valor));
+
+                gridCadastrarProduto.Visibility = Visibility.Collapsed;
+                dataGridProduto.Visibility = Visibility.Visible;
+
+                MessageBox.Show("Cadastro efetuado com sucesso");
+
+                nomeProdutoBox.Text = "";
+                codigoProdutoBox.Text = "";
+                valorProdutoBox.Text = "";
+            }
+
+            else {
+                MessageBox.Show("Campos obrigatórios não preenchidos!!");
+            }
+
+        }
+
+        //   private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
+
 
         private void BtnExcluirPessoa_Click(object sender, RoutedEventArgs e)
         {  
@@ -176,8 +213,19 @@ namespace Teste_WPF
             this.TreeViewPedido.Visibility = Visibility.Collapsed;
             this.gridCadastrarProduto.Visibility = Visibility.Visible;
 
+            dataGridProduto.Visibility = Visibility.Collapsed;
+
         }
-         
+
+        private void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
+        {
+            SalvarProduto();
+        }
+
+        private void BtnCancelarProduto_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

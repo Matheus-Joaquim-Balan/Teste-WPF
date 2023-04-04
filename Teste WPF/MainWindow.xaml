@@ -43,7 +43,7 @@
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="3" x:Name="stackMain">
             <!--Inicio Dados Pessoa-->
-            <Grid x:Name="gridPesquisa" Visibility="Visible">
+            <Grid x:Name="gridPesquisa" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="1*"/>
@@ -73,8 +73,8 @@
                 </DataGrid.Resources>
           
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding idPessoa}" Width="*"/>
-                    <DataGridTextColumn Header="Nome" Binding="{Binding nomePessoa}" Width="3*">
+                    <DataGridTextColumn Header="Id" Binding="{Binding IdPessoa}" Width="*"/>
+                    <DataGridTextColumn Header="Nome" Binding="{Binding NomePessoa}" Width="3*">
                         <DataGridTextColumn.EditingElementStyle>
                             <Style TargetType="TextBox">
                                 <Setter Property="CharacterCasing" Value="Upper"/>
@@ -82,7 +82,7 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="CPF" Binding="{Binding CPF}" Width="2.5*"/>
-                    <DataGridTextColumn Header="Endereço" Binding="{Binding endereco}" Width="5*">
+                    <DataGridTextColumn Header="Endereço" Binding="{Binding Endereco}" Width="5*">
                         <DataGridTextColumn.EditingElementStyle>
                             <Style TargetType="TextBox">
                                 <Setter Property="CharacterCasing" Value="Upper"/>
@@ -141,9 +141,9 @@
             </Grid>
 
             <!--Fim Dados Pessoa-->
-
+                                                                    <!--AQUI-->
             <!--Inicio Dados Produto-->
-            <DataGrid Visibility="Collapsed" x:Name="dataGridProduto" Margin="0,0,0.2,0" Height="350" >
+            <DataGrid Visibility="Visible" x:Name="dataGridProduto" Margin="0,0,0.2,0" Height="350" >
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -156,11 +156,10 @@
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding idProduto}" Width="*"/>
-                    <DataGridTextColumn Header="Nome" Binding="{Binding nomeProduto}" Width="3*" />
-                    <DataGridTextColumn Header="Código" Binding="{Binding codigo}" Width="2*"/>
-                    <DataGridTextColumn Header="Qnt" Binding="{Binding qntProduto}" Width="*"/>
-                    <DataGridTextColumn Header="Valor" Binding="{Binding valor}" Width="*"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding IdProduto}" Width="*"/>
+                    <DataGridTextColumn Header="Nome" Binding="{Binding NomeProduto}" Width="3*" />
+                    <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" Width="2*"/>
+                    <DataGridTextColumn Header="Valor" Binding="{Binding Valor}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid x:Name="gridCadastrarProduto" Visibility="Collapsed">
@@ -189,11 +188,18 @@
                 <TextBlock Visibility="Visible" x:Name="codigoProdutoBlock" Grid.Column="0" Grid.Row="2" Text="Código" HorizontalAlignment="Right" Margin="0 0 10 0" />
                 <TextBox Visibility="Visible" x:Name="codigoProdutoBox" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
 
-                <TextBlock Visibility="Visible" x:Name="qntProdutoBlock" Grid.Column="0" Grid.Row="3" Text="Quantidade" HorizontalAlignment="Right" Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="qntProdutoBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="valorProdutoBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor"  Margin="0 0 10 0" />
                 <TextBox Visibility="Visible" x:Name="valorProdutoBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+
+                <Button Visibility="Visible" x:Name="btnSalvarProduto"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0" Click="BtnSalvarProduto_Click"/>
+
+                <Button Visibility="Visible" x:Name="btnCancelarProduto"  Grid.Row="5" Grid.Column="0" 
+                        Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
+                        Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnCancelarProduto_Click"/>
+
             </Grid>
             <!--Fim Dados Produto-->
 
