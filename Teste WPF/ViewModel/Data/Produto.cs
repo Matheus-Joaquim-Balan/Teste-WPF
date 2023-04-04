@@ -12,7 +12,6 @@ namespace Teste_WPF.ViewModels
         public string NomeProduto { get; set; }
         public string Codigo { get; set; }
         public double Valor { get; set; }
-        public int QntProduto { get; set; }
 
         public Produto()
         {

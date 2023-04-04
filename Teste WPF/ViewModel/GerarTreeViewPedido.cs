@@ -59,7 +59,7 @@ namespace Teste_WPF
             produto1TVI.Header = pedido.Produtos.NomeProduto;
 
             TreeViewItem qntdProduto1TVI = new TreeViewItem();
-            qntdProduto1TVI.Header = "Qtd: " + pedido.Produtos.QntProduto;
+            qntdProduto1TVI.Header = "Qtd: " + pedido.QntProduto;
 
             TreeViewItem produto2TVI = new TreeViewItem();
             produto2TVI.Header = "Carro";
