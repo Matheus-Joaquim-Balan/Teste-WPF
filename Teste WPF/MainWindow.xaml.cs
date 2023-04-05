@@ -5,6 +5,7 @@ using Teste_WPF.ViewModels;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Data;
+using System;
 
 namespace Teste_WPF
 {
@@ -17,6 +18,7 @@ namespace Teste_WPF
         private ObservableCollection<Pessoa> pessoas;
         private ObservableCollection<Produto> produtos;
         public int IdPessoaLista { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -24,6 +26,8 @@ namespace Teste_WPF
             produtos = new ObservableCollection<Produto>();
             pessoa = new Pessoa();
             produto = new Produto();
+
+            dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
 
             GerarTreeViewPedido tree = new GerarTreeViewPedido();
             TreeViewItem level1_TVI = new TreeViewItem();
@@ -46,6 +50,8 @@ namespace Teste_WPF
             btnsPedido.Visibility = Visibility.Collapsed;
             btnsProduto.Visibility = Visibility.Collapsed;
             dataGridProduto.Visibility = Visibility.Collapsed;
+
+            txtBoxPesquisaPessoa.Text = "";
 
             btnPessoa.Background = Brushes.LightGray;
             btnProduto.Background = Brushes.Transparent;
@@ -97,13 +103,15 @@ namespace Teste_WPF
         private void BtnCadastrarPessoa_Click(object sender, RoutedEventArgs e)
         {
             gridCadastrarPessoa.Visibility = Visibility.Visible;
+            btnSalvarNovaPessoa.Visibility = Visibility.Visible;
 
+            btnSalvarPessoaEdit.Visibility = Visibility.Collapsed;
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             TreeViewPedido.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
-            if (pessoas.Count < 1)
+            if (IdPessoaLista < 1)
             {
                 IdPessoaLista = 1;
                 idPessoaBox.Text = $"{IdPessoaLista}";
@@ -114,7 +122,7 @@ namespace Teste_WPF
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)
         {
-            SalvarPessoa();
+            SalvarNovaPessoa();
         }
 
         private void BtnCancelarPessoa_Click(object sender, RoutedEventArgs e)
@@ -139,23 +147,17 @@ namespace Teste_WPF
                 MessageBox.Show("Pessoa não encontrada!");
         }
 
-        public void SalvarPessoa()
-        {
-            pessoa = new Pessoa
-            {
-                IdPessoa = IdPessoaLista,
-                NomePessoa = nomePessoaBox.Text.ToUpper(),
-                CPF = CPFBox.Text,
-                Endereco = EnderecoBox.Text.ToUpper()
-            };
-
+        public void SalvarNovaPessoa()
+        {        
             if (nomePessoaBox.Text != "" && CPFBox.Text != "")
             {
-                if (Pessoa.ValidaCpf(pessoa.CPF))
+                if (Pessoa.ValidaCpf(CPFBox.Text))
                 {
-                    pessoas.Add(new Pessoa(IdPessoaLista, pessoa.NomePessoa, pessoa.CPF, pessoa.Endereco));
+                    pessoas.Add(new Pessoa(IdPessoaLista, nomePessoaBox.Text.ToUpper(), CPFBox.Text, EnderecoBox.Text.ToUpper()));
 
                     dataGridPessoa.Visibility = Visibility.Visible;
+                    gridPesquisaPessoa.Visibility = Visibility.Visible;
+
                     gridCadastrarPessoa.Visibility = Visibility.Collapsed;
 
                     MessageBox.Show("Cadastro efetuado com sucesso");
@@ -163,8 +165,6 @@ namespace Teste_WPF
                     nomePessoaBox.Text = "";
                     CPFBox.Text = "";
                     EnderecoBox.Text = "";
-
-                    gridPesquisaPessoa.Visibility = Visibility.Visible;
 
                     IdPessoaLista++;
                 }
@@ -180,6 +180,70 @@ namespace Teste_WPF
 
         }
 
+        private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
+        {
+            gridCadastrarPessoa.Visibility = Visibility.Visible;
+            btnSalvarPessoaEdit.Visibility = Visibility.Visible;
+
+            btnSalvarNovaPessoa.Visibility = Visibility.Collapsed;
+            dataGridPessoa.Visibility = Visibility.Collapsed;
+            gridCadastrarProduto.Visibility = Visibility.Collapsed;
+            TreeViewPedido.Visibility = Visibility.Collapsed;
+            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
+
+            var data = dataGridPessoa.SelectedIndex;
+
+            if (data != -1) {
+                idPessoaBox.Text = Convert.ToString(pessoas[data].IdPessoa);
+                nomePessoaBox.Text = pessoas[data].NomePessoa;
+                CPFBox.Text = pessoas[data].CPF;
+                EnderecoBox.Text = pessoas[data].Endereco;
+            }
+        }
+
+        private void btnSalvarPessoaEdit_Click(object sender, RoutedEventArgs e)
+        {
+            SalvarPessoaEditada();
+        }
+
+        public void SalvarPessoaEditada()
+        {
+            if (nomePessoaBox.Text != "" && CPFBox.Text != "")
+            {
+                if (Pessoa.ValidaCpf(CPFBox.Text))
+                {
+                    int idEdit = Convert.ToInt32(idPessoaBox.Text);
+                 
+                    pessoas[idEdit - 1].NomePessoa = nomePessoaBox.Text.ToUpper();
+                    pessoas[idEdit - 1].CPF = CPFBox.Text;
+                    pessoas[idEdit - 1].Endereco = EnderecoBox.Text.ToUpper();
+
+                    dataGridPessoa.Visibility = Visibility.Visible;
+                    gridPesquisaPessoa.Visibility = Visibility.Visible;
+
+                    gridCadastrarPessoa.Visibility = Visibility.Collapsed;
+
+                    MessageBox.Show($"Pessoa: {nomePessoaBox.Text} editada com sucesso");
+
+                    idPessoaBox.Text = "";
+                    nomePessoaBox.Text = "";
+                    CPFBox.Text = "";
+                    EnderecoBox.Text = "";
+
+                }
+                else
+                {
+                    MessageBox.Show("CPF Inválido!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Campos obrigatórios não preenchidos!!");
+            }
+
+        }
+        
+        #endregion
 
         public void SalvarProduto()
         {
@@ -211,13 +275,6 @@ namespace Teste_WPF
 
         }
 
-        private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        #endregion
-
         private void BtnCadastrarProduto_Click(object sender, RoutedEventArgs e)
         {
             dataGridPessoa.Visibility = Visibility.Collapsed;
@@ -228,11 +285,6 @@ namespace Teste_WPF
             dataGridProduto.Visibility = Visibility.Collapsed;
 
             idProdutoBox.Text = $"{produtos.Count + 1}";
-        }
-
-        private void DataGridProduto_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
 
         public void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
@@ -254,6 +306,7 @@ namespace Teste_WPF
         {
 
         }
+
     }
 
 }

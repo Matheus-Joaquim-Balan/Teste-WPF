@@ -20,9 +20,8 @@
             <Button x:Name="btnPedido" Content="Pedido" Background="Transparent" Height="30" Click="AbrirPedido" Margin="0 0 0 100" Command=""/>
 
             <!--Botões Pessoa-->
-            <StackPanel x:Name="btnsPessoa" Visibility="Visible" Grid.Column="0" Margin="0,0,10,0">
-                <Button x:Name="btnCadastrarPessoa" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarPessoa_Click"/>
-                <Button x:Name="btnEditarPessoa" Content="Editar"  Background="DeepSkyBlue" Height="25" Margin="0 0 0 10" />
+            <StackPanel x:Name="btnsPessoa" Visibility="Collapsed" Grid.Column="0" Margin="0,0,10,0">
+                <Button x:Name="btnCadastrarPessoa" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarPessoa_Click" HorizontalAlignment="Left" Width="104"/>
             </StackPanel>
 
             <!--Botões Produto-->
@@ -48,7 +47,7 @@
                     <ColumnDefinition Width=".5*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por nome ou Código:</TextBlock>
+                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por nome ou CPF:</TextBlock>
                 <TextBox Grid.Column="1" x:Name="txtBoxPesquisaPessoa" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>
                 <Button x:Name="btnPesquisarNomeCPF" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" Margin="136,0,0,4.8" Height="20" Width="30" Grid.ColumnSpan="2" Click="BtnPesquisarNomeCPF_Click">
                     <Image Source="images/Lupa.png" />
@@ -71,9 +70,28 @@
           
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" IsReadOnly="True" Binding="{Binding IdPessoa}" Width="*"/>
-                    <DataGridTextColumn Header="Nome" IsReadOnly="True" Binding="{Binding NomePessoa}" Width="3*" />
+                    <DataGridTextColumn Header="Nome" IsReadOnly="True" Binding="{Binding NomePessoa}" Width="3*">
+                        <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="CPF" IsReadOnly="True" Binding="{Binding CPF}" Width="2*"/>
-                    <DataGridTextColumn Header="Endereço" IsReadOnly="True" Binding="{Binding Endereco}" Width="4*"/>
+                    <DataGridTextColumn Header="Endereço" IsReadOnly="True" Binding="{Binding Endereco}" Width="4*">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Editar" Width=".5*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnEditarPessoa" Content="Editar"  Background="DeepSkyBlue" Click="BtnEditarPessoa_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Excluir" Width=".5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -117,9 +135,13 @@
                 <TextBlock x:Name="EnderecoBlock" Grid.Column="0" Grid.Row="4" Text="Endereço" Margin="0 0 10 0" HorizontalAlignment="Right" />
                 <TextBox x:Name="EnderecoBox" Grid.Column="1" Width="350" HorizontalAlignment="Left" Grid.Row="4"  Margin="0 0 30 0" />
 
-                <Button Visibility="Visible" x:Name="btnSalvarPessoa"  Grid.Row="5" Grid.Column="1" 
+                <Button Visibility="Visible" x:Name="btnSalvarNovaPessoa"  Grid.Row="5" Grid.Column="1" 
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
                         Height="25" Margin="0 50 50 0" Click="BtnSalvarPessoa_Click"/>
+
+                <Button Visibility="Collapsed" x:Name="btnSalvarPessoaEdit"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0" Click="btnSalvarPessoaEdit_Click"/>
 
                 <Button Visibility="Visible" x:Name="btnCancelarPessoa"  Grid.Row="5" Grid.Column="0" 
                         Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
@@ -130,7 +152,7 @@
             <!--Fim Dados Pessoa-->
                                                                     <!--AQUI-->
             <!--Inicio Dados Produto-->
-            <Grid x:Name="gridPesquisaProduto" Visibility="Visible">
+            <Grid x:Name="gridPesquisaProduto" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="1*"/>
@@ -144,7 +166,7 @@
                 </Button>
             </Grid>
 
-            <DataGrid Visibility="Visible" x:Name="dataGridProduto" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0.2,0" Height="350" SelectionChanged="DataGridProduto_SelectionChanged" >
+            <DataGrid Visibility="Collapsed" x:Name="dataGridProduto" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0.2,0" Height="350" >
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
