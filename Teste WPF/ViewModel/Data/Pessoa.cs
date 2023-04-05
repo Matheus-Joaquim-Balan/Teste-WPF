@@ -4,21 +4,21 @@ namespace Teste_WPF.ViewModels
 {
     public class Pessoa
     {
-        public int idPessoa { get; set; }
-        public string nomePessoa { get; set; }
+        public int IdPessoa { get; set; }
+        public string NomePessoa { get; set; }
         public string CPF { get; set; }
-        public string endereco { get; set; }
+        public string Endereco { get; set; }
 
         public Pessoa()
         {
             
         }
-        public Pessoa(int id, string nome, string CPF, string endereco)
+        public Pessoa(int id, string nome, string cpf, string endereco)
         {
-            this.idPessoa = id;
-            this.nomePessoa = nome;
-            this.CPF = CPF;
-            this.endereco = endereco;
+            IdPessoa = id;
+            NomePessoa = nome;
+            CPF = cpf;
+            Endereco = endereco;
         }
 
         
