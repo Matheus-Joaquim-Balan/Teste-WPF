@@ -1,17 +1,22 @@
 ﻿using System.Windows;
+using PropertyChanged;
+using System.Windows.Media;
 
 namespace Teste_WPF.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class Pessoa
     {
         public int IdPessoa { get; set; }
         public string NomePessoa { get; set; }
         public string CPF { get; set; }
         public string Endereco { get; set; }
+        public Brush Cor { get; set; }
+
 
         public Pessoa()
         {
-            
+            Cor = Brushes.Red;
         }
         public Pessoa(int id, string nome, string cpf, string endereco)
         {
@@ -19,10 +24,11 @@ namespace Teste_WPF.ViewModels
             NomePessoa = nome;
             CPF = cpf;
             Endereco = endereco;
+            Cor = Brushes.Red;
         }
 
-        
-	     public static bool ValidaCpf(string cpf)
+
+        public static bool ValidaCpf(string cpf)
 	     {
 		    int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 		    int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
