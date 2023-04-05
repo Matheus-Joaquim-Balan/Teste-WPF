@@ -24,15 +24,5 @@ namespace Teste_WPF.ViewModels
             Codigo = codigo;
             Valor = valor;
         }
-
-        /*
-        public Produto()
-        {
-            this.IdProduto = 1;
-            this.NomeProduto = "PC Gamer";
-            this.Codigo = "477852";
-            this.QntProduto = 56;
-            this.Valor = 2499.99;
-        }*/
     }
 }

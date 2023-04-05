@@ -22,13 +22,11 @@
             <!--Botões Pessoa-->
             <StackPanel x:Name="btnsPessoa" Visibility="Visible" Grid.Column="0" Margin="0,0,10,0">
                 <Button x:Name="btnCadastrarPessoa" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarPessoa_Click"/>
-                <Button x:Name="btnEditarPessoa" Content="Editar"  Background="DeepSkyBlue" Height="25" Margin="0 0 0 10" />
             </StackPanel>
 
             <!--Botões Produto-->
             <StackPanel x:Name="btnsProduto" Visibility="Collapsed" Grid.Column="0" Margin="0,0,10,0">
                 <Button x:Name="btnCadastrarProduto" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarProduto_Click"/>
-                <Button x:Name="btnEditarProduto" Click="BtnEditarProduto_Click" Content="Editar" Background="DeepSkyBlue" Height="25" Margin="0 0 0 10"/>
             </StackPanel>
 
             <!--Botões Pedido-->
@@ -91,7 +89,8 @@
                     <DataGridTemplateColumn Header="Excluir">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="excluirPessoa" Content="Excluir" Background="Red" Click="BtnExcluirPessoa_Click">
+                                <Button x:Name="excluirPessoa" Content="Excluir" Background="Red"
+                                        Command="Delete">
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -156,7 +155,8 @@
                 </Button>
             </Grid>
 
-            <DataGrid Visibility="Visible" x:Name="dataGridProduto" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0.2,0" Height="350" >
+            <DataGrid Visibility="Visible" x:Name="dataGridProduto" AutoGenerateColumns="False" CanUserAddRows="False" 
+                      Margin="0,0,0.2,0" Height="350">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -169,10 +169,19 @@
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding IdProduto}" Width="*"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding IdProduto}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Nome" Binding="{Binding NomeProduto}" Width="3*" />
-                    <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" Width="2*"/>
+                    <DataGridTextColumn Header="Codigo" Binding="{Binding Codigo}" Width="2*"/>
                     <DataGridTextColumn Header="Valor" Binding="{Binding Valor}" Width="*"/>
+                    <DataGridTemplateColumn Header="Editar">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="editarProduto" Content="Editar" Background="DeepSkyBlue"
+                                        Click="EditarProduto_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                     <DataGridTemplateColumn Header="Excluir">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -215,8 +224,12 @@
                 <TextBox Visibility="Visible" x:Name="valorProdutoBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <Button Visibility="Visible" x:Name="btnSalvarProduto"  Grid.Row="5" Grid.Column="1" 
-                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Yellow" 
                         Height="25" Margin="0 50 50 0" Click="BtnSalvarProduto_Click"/>
+
+                <Button Visibility="Collapsed" x:Name="btnSalvarProdutoEdit"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0" Click="BtnSalvarProdutoEdit_Click"/>
 
                 <Button Visibility="Visible" x:Name="btnCancelarProduto"  Grid.Row="5" Grid.Column="0" 
                         Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
