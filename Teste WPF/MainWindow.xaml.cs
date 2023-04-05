@@ -181,10 +181,34 @@ namespace Teste_WPF
         {
             DataRowView row = (DataRowView)dataGridPessoa.SelectedItem;
 
-            row.Delete();
-        }
+            produto.NomeProduto = nomeProdutoBox.Text.ToUpper();
+            produto.Codigo = codigoProdutoBox.Text;
 
-        #endregion
+            if (!string.IsNullOrEmpty(valorProdutoBox.Text))
+            {
+                produto.Valor = double.Parse(valorProdutoBox.Text);
+            }
+
+            if (nomeProdutoBox.Text != "" && codigoProdutoBox.Text != "" && valorProdutoBox.Text != "")
+            {
+                produtos.Add(new Produto(produtos.Count + 1, produto.NomeProduto, produto.Codigo, produto.Valor));
+
+                gridCadastrarProduto.Visibility = Visibility.Collapsed;
+                dataGridProduto.Visibility = Visibility.Visible;
+
+                MessageBox.Show("Cadastro efetuado com sucesso");
+
+                nomeProdutoBox.Text = "";
+                codigoProdutoBox.Text = "";
+                valorProdutoBox.Text = "";
+            }
+
+            else
+            {
+                MessageBox.Show("Campos obrigatórios não preenchidos!!");
+            }
+
+        }
 
         private void BtnCadastrarProduto_Click(object sender, RoutedEventArgs e)
         {
@@ -197,4 +221,45 @@ namespace Teste_WPF
          
     }
 
+        private void BtnPesquisarProduto_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridProduto.ItemsSource = produtos.Where(p => p.NomeProduto.Contains(txtBoxPesquisaProduto.Text) || p.Codigo.Contains(txtBoxPesquisaProduto.Text)).ToList();
+        }
+
+        private void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
+        {
+            SalvarProduto();
+        }
+
+        private void BtnCancelarProduto_Click(object sender, RoutedEventArgs e)
+        {
+            nomeProdutoBox.Text = "";
+            codigoProdutoBox.Text = "";
+            valorProdutoBox.Text = "";
+
+            dataGridProduto.Visibility = Visibility.Visible;
+            gridCadastrarProduto.Visibility = Visibility.Collapsed;
+            gridPesquisaProduto.Visibility = Visibility.Visible;
+        }
+
+        private void BtnEditarProduto_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridProduto.HasItems)
+            {
+                dataGridPessoa.Visibility = Visibility.Collapsed;
+                gridCadastrarProduto.Visibility = Visibility.Collapsed;
+                TreeViewPedido.Visibility = Visibility.Collapsed;
+                gridCadastrarProduto.Visibility = Visibility.Visible;
+                dataGridProduto.Visibility = Visibility.Collapsed;
+                gridPesquisaProduto.Visibility = Visibility.Collapsed;
+
+
+            }
+            else
+            {
+                MessageBox.Show("Nenhum cadastro para alterar");
+            }
+        }
+    }
+        #endregion
 }

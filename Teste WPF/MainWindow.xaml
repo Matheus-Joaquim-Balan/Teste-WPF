@@ -145,6 +145,15 @@
             <!--Inicio Dados Produto-->
             <DataGrid Visibility="Collapsed" x:Name="dataGridProduto" Margin="0,0,0.2,0" Height="350" >
 
+                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por nome ou Código:</TextBlock>
+                <TextBox Grid.Column="1" x:Name="txtBoxPesquisaProduto" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>
+                <Button x:Name="btnPesquisarProduto" Click="BtnPesquisarProduto_Click" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" Margin="136,0,0,4.8" Height="20" Width="30" Grid.ColumnSpan="2">
+                    <Image Source="images/Lupa.png" />
+                </Button>
+            </Grid>
+
+            <DataGrid Visibility="Visible" x:Name="dataGridProduto" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0.2,0" Height="350" >
+
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="LightGray" />
@@ -156,11 +165,18 @@
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding idProduto}" Width="*"/>
-                    <DataGridTextColumn Header="Nome" Binding="{Binding nomeProduto}" Width="3*" />
-                    <DataGridTextColumn Header="Código" Binding="{Binding codigo}" Width="2*"/>
-                    <DataGridTextColumn Header="Qnt" Binding="{Binding qntProduto}" Width="*"/>
-                    <DataGridTextColumn Header="Valor" Binding="{Binding valor}" Width="*"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding IdProduto}" Width="*"/>
+                    <DataGridTextColumn Header="Nome" Binding="{Binding NomeProduto}" Width="3*" />
+                    <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" Width="2*"/>
+                    <DataGridTextColumn Header="Valor" Binding="{Binding Valor}" Width="*"/>
+                    <DataGridTemplateColumn Header="Excluir">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="excluirProduto" Content="Excluir" Background="Red" 
+                                        Command="Delete"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid x:Name="gridCadastrarProduto" Visibility="Collapsed">
@@ -194,6 +210,15 @@
 
                 <TextBlock Visibility="Visible" x:Name="valorProdutoBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor"  Margin="0 0 10 0" />
                 <TextBox Visibility="Visible" x:Name="valorProdutoBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+
+                <Button Visibility="Visible" x:Name="btnSalvarProduto"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0" Click="BtnSalvarProduto_Click"/>
+
+                <Button Visibility="Visible" x:Name="btnCancelarProduto"  Grid.Row="5" Grid.Column="0" 
+                        Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
+                        Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnCancelarProduto_Click"/>
+
             </Grid>
             <!--Fim Dados Produto-->
 
