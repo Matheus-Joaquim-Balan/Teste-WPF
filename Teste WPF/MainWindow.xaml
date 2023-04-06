@@ -24,8 +24,8 @@
             </StackPanel>
 
             <!--Botões Produto-->
-            <StackPanel x:Name="btnsProduto" Visibility="Collapsed" Grid.Column="0" Margin="0,0,10,0">
-                <Button x:Name="btnCadastrarProduto" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarProduto_Click"/>
+            <StackPanel x:Name="btnsProduto" Visibility="Collapsed" Grid.Column="0" Margin="0,0,-0.4,0">
+                <Button x:Name="btnCadastrarProduto" Content="Cadastrar" Background="Green" Height="25" Margin="0 50 0 10" Click="BtnCadastrarProduto_Click"/>
             </StackPanel>
 
         </StackPanel>
@@ -145,18 +145,25 @@
             <!--Fim Dados Pessoa-->
                                                                     <!--AQUI-->
             <!--Inicio Dados Produto-->
-            <Grid x:Name="gridPesquisaProduto" Visibility="Collapsed">
+            <Grid x:Name="gridPesquisaProduto" Visibility="Visible">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por nome ou Código:</TextBlock>
+                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Left">Pesquisar por nome ou Código:</TextBlock>
                 <TextBox Grid.Column="1" x:Name="txtBoxPesquisaProduto" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>
                 <Button x:Name="btnPesquisarProduto" Click="BtnPesquisarProduto_Click" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" Margin="136,0,0,4.8" Height="20" Width="30" Grid.ColumnSpan="2">
                     <Image Source="images/Lupa.png" />
                 </Button>
+                <TextBlock Text="Valor: " Grid.Column="3" HorizontalAlignment="Right"/>
+                <TextBox x:Name="minimoTB"  Grid.Column="4" Height="20" Width="65" VerticalAlignment="Top"/>
+                <TextBox x:Name="maximoTB"  Grid.Column="5" Height="20" Width="65" VerticalAlignment="Top"/>
+
             </Grid>
 
             <DataGrid Visibility="Collapsed" x:Name="dataGridProduto" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0.2,0" Height="350" >
