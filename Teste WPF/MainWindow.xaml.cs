@@ -220,22 +220,13 @@ namespace Teste_WPF
             {
                 if (Pessoa.ValidaCpf(CPFBox.Text))
                 {
-                    int idList = 0;
-                    int count = 0;
+                    int idText = Convert.ToInt32(idPessoaBox.Text);
+                    int indexList = pessoas.IndexOf(pessoas.Where(p => p.IdPessoa == idText).FirstOrDefault());
 
-                    foreach (var p in pessoas)
-                    {
-                        if (p.IdPessoa == Convert.ToInt32(idPessoaBox.Text))
-                        {
-                            idList = count;
-                            break;
-                        }
-                        count++;
-                    }
 
-                    pessoas[idList].NomePessoa = nomePessoaBox.Text.ToUpper();
-                    pessoas[idList].CPF = CPFBox.Text;
-                    pessoas[idList].Endereco = EnderecoBox.Text.ToUpper();
+                    pessoas[indexList].NomePessoa = nomePessoaBox.Text.ToUpper();
+                    pessoas[indexList].CPF = CPFBox.Text;
+                    pessoas[indexList].Endereco = EnderecoBox.Text.ToUpper();
 
                     dataGridPessoa.Visibility = Visibility.Visible;
                     gridPesquisaPessoa.Visibility = Visibility.Visible;
