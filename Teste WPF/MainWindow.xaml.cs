@@ -255,6 +255,7 @@ namespace Teste_WPF
 
         #endregion
 
+
         public void SalvarProduto()
         {
             produto = new Produto();
