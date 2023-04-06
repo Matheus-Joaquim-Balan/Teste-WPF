@@ -5,7 +5,7 @@ namespace Teste_WPF.ViewModels
 {
     public class Pedido
     {
-        public int Id { get; set; }
+        public int IdPedido { get; set; }
         public Pessoa Pessoas { get; set; }
         public Produto Produtos { get; set; }
         public double ValorTotal { get; set; }
@@ -20,7 +20,7 @@ namespace Teste_WPF.ViewModels
             Pessoas = new Pessoa();
             Produtos = new Produto();
 
-            this.Id = 1;
+            this.IdPedido = 1;
             this.ValorTotal = this.Produtos.Valor * this.QntProduto;
             this.DataVenda = DateTime.Now.ToString("dd-MM-yyyy");
             this.FormaPagamento = ViewModels.FormaPagamento.Cartão;

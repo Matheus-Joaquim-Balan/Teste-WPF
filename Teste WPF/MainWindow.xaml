@@ -247,6 +247,11 @@
             </Grid>
             <!--Fim Dados Produto-->
 
+            <!-- Inicio dos dados do Pedido -->
+
+
+            <!-- Fim dos dados do Pedido -->
+
             <!--TreeView Pedido-->
             <TreeView Visibility="Collapsed" x:Name="TreeViewPedido" />
         </StackPanel>

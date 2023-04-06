@@ -19,9 +19,8 @@ namespace Teste_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private Pessoa pessoa;
-
+        public int IdPessoaLista { get; set; }
         private Produto produto;
         public int IdProdutoLista { get; set; }
         private ObservableCollection<Pessoa> pessoas;
@@ -38,7 +37,7 @@ namespace Teste_WPF
             GerarTreeViewPedido tree = new GerarTreeViewPedido();         
             TreeViewItem level1_TVI = new TreeViewItem();            
             Pedido pedido = new Pedido();           
-            level1_TVI.Header = "Pedido " + pedido.Id;           
+            level1_TVI.Header = "Pedido " + pedido.IdPedido;           
             level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(pedido));           
             TreeViewPedido.Items.Add(level1_TVI);                      
         }
@@ -122,7 +121,13 @@ namespace Teste_WPF
             gridCadastrarPessoa.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
-            idPessoaBox.Text = $"{pessoas.Count + 1}";
+            if (IdPessoaLista < 1)
+            {
+                IdPessoaLista = 1;
+                idPessoaBox.Text = $"{IdPessoaLista}";
+            }
+            else
+                idPessoaBox.Text = $"{IdPessoaLista}";
         }
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)
@@ -142,8 +147,13 @@ namespace Teste_WPF
         }
 
         private void BtnPesquisarNomeCPF_Click(object sender, RoutedEventArgs e)
-        {          
-            dataGridPessoa.ItemsSource = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();  
+        {
+            var dadosGrid = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();
+
+            if (dadosGrid.Count > 0)
+                dataGridPessoa.ItemsSource = dadosGrid;
+            else
+                MessageBox.Show("Pessoa não encontrada!");
         }
 
         public void SalvarPessoa()
@@ -183,7 +193,16 @@ namespace Teste_WPF
 
         }
 
-        //   private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
+        private void BtnEditarPessoa_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSalvarPessoaEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
         private void BtnExcluirPessoa_Click(object sender, RoutedEventArgs e)
         {  
@@ -201,10 +220,11 @@ namespace Teste_WPF
 
             if (nomeProdutoBox.Text != "" && codigoProdutoBox.Text != "" && valorProdutoBox.Text != "")
             {
-                produtos.Add(new Produto(IdProdutoLista, nomeProdutoBox.Text.ToUpper(), codigoProdutoBox.Text, produto.Valor));
+                produtos.Add(new Produto(IdProdutoLista, nomeProdutoBox.Text.ToUpper(), codigoProdutoBox.Text, double.Parse(valorProdutoBox.Text)));
 
                 gridCadastrarProduto.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Visible;
+                gridPesquisaProduto.Visibility = Visibility.Visible;
 
                 MessageBox.Show("Cadastro efetuado com sucesso");
 
@@ -219,6 +239,8 @@ namespace Teste_WPF
 
         }
 
+
+
         public void SalvarProdutoEdit()
         {
             if (nomeProdutoBox.Text != "" && codigoProdutoBox.Text != "" && valorProdutoBox.Text != "")
@@ -226,7 +248,7 @@ namespace Teste_WPF
 
                 int idEdit = Convert.ToInt32(idProdutoBox.Text);
 
-                produtos[idEdit - 1].NomeProduto = nomeProdutoBox.Text.ToUpper();
+                produtos[idEdit - 1].NomeProduto = nomeProdutoBox.Text;
                 produtos[idEdit - 1].Codigo = codigoProdutoBox.Text;
 
                 if (!string.IsNullOrEmpty(valorProdutoBox.Text))
@@ -269,57 +291,15 @@ namespace Teste_WPF
 
         private void BtnPesquisarProduto_Click(object sender, RoutedEventArgs e)
         {
-            dataGridProduto.ItemsSource = produtos.Where(p => p.NomeProduto.Contains(txtBoxPesquisaProduto.Text) || p.Codigo.Contains(txtBoxPesquisaProduto.Text)).ToList();
-        }
+            //dataGridProduto.ItemsSource = produtos.Where(p => p.NomeProduto.Contains(txtBoxPesquisaProduto.Text) || p.Codigo.Contains(txtBoxPesquisaProduto.Text)).ToList();
 
-        private void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
-        {
-            SalvarProduto();
-        }
 
-        private void BtnCancelarProduto_Click(object sender, RoutedEventArgs e)
-        {
-            nomeProdutoBox.Text = "";
-            codigoProdutoBox.Text = "";
-            valorProdutoBox.Text = "";
+            var dadosGrid = produtos.Where(p => p.NomeProduto.Contains(txtBoxPesquisaProduto.Text) || p.Codigo.Contains(txtBoxPesquisaProduto.Text)).ToList();
 
-        }
-    }
-
-   
-
-        private void EditarProduto_Click(object sender, RoutedEventArgs e)
-        {
-                dataGridPessoa.Visibility = Visibility.Collapsed;
-                gridCadastrarProduto.Visibility = Visibility.Collapsed;
-                TreeViewPedido.Visibility = Visibility.Collapsed;
-                gridCadastrarProduto.Visibility = Visibility.Visible;
-                dataGridProduto.Visibility = Visibility.Collapsed;
-                gridPesquisaProduto.Visibility = Visibility.Collapsed;
-                btnSalvarProduto.Visibility = Visibility.Collapsed;
-                btnSalvarProdutoEdit.Visibility = Visibility.Visible;
-
-                var data = dataGridProduto.SelectedIndex;
-
-                if (data != -1)
-                {
-
-                    idProdutoBox.Text = produtos[data].IdProduto.ToString();
-                    nomeProdutoBox.Text = produtos[data].NomeProduto;
-                    codigoProdutoBox.Text = produtos[data].Codigo;
-                    valorProdutoBox.Text = produtos[data].Valor.ToString();
-            }
-        }
-
-        private void BtnSalvarProdutoEdit_Click(object sender, RoutedEventArgs e)
-        {
-            SalvarProdutoEdit();
-        }
-    }
-        #endregion
-        private void BtnPesquisarProduto_Click(object sender, RoutedEventArgs e)
-        {
-            dataGridProduto.ItemsSource = produtos.Where(p => p.NomeProduto.Contains(txtBoxPesquisaProduto.Text) || p.Codigo.Contains(txtBoxPesquisaProduto.Text)).ToList();
+            if (dadosGrid.Count > 0)
+                dataGridProduto.ItemsSource = dadosGrid;
+            else
+                MessageBox.Show("Produto não encontrado!");
         }
 
         private void BtnSalvarProduto_Click(object sender, RoutedEventArgs e)
@@ -338,6 +318,33 @@ namespace Teste_WPF
             gridPesquisaProduto.Visibility = Visibility.Visible;
         }
 
+        private void EditarProduto_Click(object sender, RoutedEventArgs e)
+        {
+                dataGridPessoa.Visibility = Visibility.Collapsed;
+                gridCadastrarProduto.Visibility = Visibility.Collapsed;
+                TreeViewPedido.Visibility = Visibility.Collapsed;
+                gridCadastrarProduto.Visibility = Visibility.Visible;
+                dataGridProduto.Visibility = Visibility.Collapsed;
+                gridPesquisaProduto.Visibility = Visibility.Collapsed;
+                btnSalvarProduto.Visibility = Visibility.Collapsed;
+                btnSalvarProdutoEdit.Visibility = Visibility.Visible;
+
+                var data = dataGridProduto.SelectedIndex;
+
+                if (data != -1)
+                {
+                    idProdutoBox.Text = produtos[data].IdProduto.ToString();
+                    nomeProdutoBox.Text = produtos[data].NomeProduto;
+                    codigoProdutoBox.Text = produtos[data].Codigo;
+                    valorProdutoBox.Text = produtos[data].Valor.ToString();
+            }
+        }
+
+        private void BtnSalvarProdutoEdit_Click(object sender, RoutedEventArgs e)
+        {
+            SalvarProdutoEdit();
+        }
+        
         private void BtnEditarProduto_Click(object sender, RoutedEventArgs e)
         {
             if (dataGridProduto.HasItems)
@@ -348,8 +355,6 @@ namespace Teste_WPF
                 gridCadastrarProduto.Visibility = Visibility.Visible;
                 dataGridProduto.Visibility = Visibility.Collapsed;
                 gridPesquisaProduto.Visibility = Visibility.Collapsed;
-
-
             }
             else
             {
