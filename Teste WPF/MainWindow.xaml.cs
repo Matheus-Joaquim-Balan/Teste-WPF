@@ -16,25 +16,24 @@ namespace Teste_WPF
         public int IdPessoaLista { get; set; }
         private Produto produto;
         public int IdProdutoLista { get; set; }
+        private Pedido pedido;
+        public int IdPedidoLista { get; set; }
         private ObservableCollection<Pessoa> pessoas;
         private ObservableCollection<Produto> produtos;
+        private ObservableCollection<Pedido> pedidos;
 
         public MainWindow()
         {
             InitializeComponent();
             pessoas = new ObservableCollection<Pessoa>();
             produtos = new ObservableCollection<Produto>();
+            pedidos = new ObservableCollection<Pedido>();
             pessoa = new Pessoa();
             produto = new Produto();
+            pedido = new Pedido();
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
 
-            GerarTreeViewPedido tree = new GerarTreeViewPedido();
-            TreeViewItem level1_TVI = new TreeViewItem();
-            Pedido pedido = new Pedido();
-            level1_TVI.Header = "Pedido " + pedido.IdPedido;
-            level1_TVI.Items.Add(tree.GerarTreePedidoLevel2(pedido));
-            TreeViewPedido.Items.Add(level1_TVI);
         }
 
         private void AbrirPessoa(object sender, RoutedEventArgs e)
@@ -46,8 +45,6 @@ namespace Teste_WPF
 
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
-            TreeViewPedido.Visibility = Visibility.Collapsed;
-            btnsPedido.Visibility = Visibility.Collapsed;
             btnsProduto.Visibility = Visibility.Collapsed;
             dataGridProduto.Visibility = Visibility.Collapsed;
             gridPesquisaProduto.Visibility = Visibility.Collapsed;
@@ -56,7 +53,6 @@ namespace Teste_WPF
 
             btnPessoa.Background = Brushes.LightGray;
             btnProduto.Background = Brushes.Transparent;
-            btnPedido.Background = Brushes.Transparent;
 
             dataGridPessoa.ItemsSource = pessoas;
         }
@@ -69,22 +65,18 @@ namespace Teste_WPF
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            TreeViewPedido.Visibility = Visibility.Collapsed;
             btnsPessoa.Visibility = Visibility.Collapsed;
-            btnsPedido.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
             gridPesquisaProduto.Visibility = Visibility.Visible;
 
             btnPessoa.Background = Brushes.Transparent;
             btnProduto.Background = Brushes.LightGray;
-            btnPedido.Background = Brushes.Transparent;
 
             dataGridProduto.ItemsSource = produtos;
         }
 
-        private void AbrirPedido(object sender, RoutedEventArgs e)
+    /*    private void AbrirPedido(object sender, RoutedEventArgs e)
         {
-            TreeViewPedido.Visibility = Visibility.Visible;
             btnsPedido.Visibility = Visibility.Visible;
 
             dataGridPessoa.Visibility = Visibility.Collapsed;
@@ -98,7 +90,7 @@ namespace Teste_WPF
             btnPessoa.Background = Brushes.Transparent;
             btnProduto.Background = Brushes.Transparent;
             btnPedido.Background = Brushes.LightGray;
-        }
+        }*/
 
         #region Botões Pessoa
         private void BtnCadastrarPessoa_Click(object sender, RoutedEventArgs e)
@@ -109,7 +101,6 @@ namespace Teste_WPF
             btnSalvarPessoaEdit.Visibility = Visibility.Collapsed;
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            TreeViewPedido.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
             if (IdPessoaLista < 1)
@@ -195,7 +186,6 @@ namespace Teste_WPF
                 btnSalvarNovaPessoa.Visibility = Visibility.Collapsed;
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 gridCadastrarProduto.Visibility = Visibility.Collapsed;
-                TreeViewPedido.Visibility = Visibility.Collapsed;
                 gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
                 idPessoaBox.Text = Convert.ToString(pessoas[indexList].IdPessoa);
@@ -251,6 +241,11 @@ namespace Teste_WPF
             }
         }
 
+        private void ExcluirPessoa_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic data = dataGridPessoa.SelectedItem;
+            pessoas.Remove(data);
+        }
         #endregion
 
         #region Botões Produto
@@ -314,7 +309,6 @@ namespace Teste_WPF
         {
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            TreeViewPedido.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Visible;
             btnSalvarProduto.Visibility = Visibility.Visible;
             btnSalvarProdutoEdit.Visibility = Visibility.Collapsed;
@@ -357,7 +351,6 @@ namespace Teste_WPF
         {
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            TreeViewPedido.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Visible;
             dataGridProduto.Visibility = Visibility.Collapsed;
             gridPesquisaProduto.Visibility = Visibility.Collapsed;
