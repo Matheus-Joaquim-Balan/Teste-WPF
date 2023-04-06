@@ -195,7 +195,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="excluirProduto" Content="Excluir" Background="Red" 
-                                        Command="Delete"/>
+                                        Command="Delete" Click="ExcluirProduto_Click"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
