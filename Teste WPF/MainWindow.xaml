@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Teste_WPF"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow">
+        Title="MainWindow" >
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -17,11 +17,10 @@
         <StackPanel Grid.Column="0" Margin="0,0,10,0">
             <Button x:Name="btnPessoa" Content="Pessoa" Background="LightGray" Height="30" Margin="0 0 0 10" Click="AbrirPessoa"/>
             <Button x:Name="btnProduto" Content="Produto" Background="Transparent" Height="30" Margin="0 0 0 10" Click="AbrirProduto"/>
-            <Button x:Name="btnPedido" Content="Pedido" Background="Transparent" Height="30" Click="AbrirPedido" Margin="0 0 0 100" Command=""/>
 
             <!--Botões Pessoa-->
-            <StackPanel x:Name="btnsPessoa" Visibility="Visible" Grid.Column="0" Margin="0,0,10,0">
-                <Button x:Name="btnCadastrarPessoa" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarPessoa_Click"/>
+            <StackPanel x:Name="btnsPessoa" Visibility="Visible" Grid.Column="0" Margin="0,0,-0.4,0">
+                <Button x:Name="btnCadastrarPessoa" Content="Cadastrar" Background="Green" Height="25" Margin="0 50 0 10" Click="BtnCadastrarPessoa_Click"/>
             </StackPanel>
 
             <!--Botões Produto-->
@@ -29,12 +28,6 @@
                 <Button x:Name="btnCadastrarProduto" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarProduto_Click"/>
             </StackPanel>
 
-            <!--Botões Pedido-->
-            <StackPanel x:Name="btnsPedido" Visibility="Collapsed" Grid.Column="0" Margin="0,0,10,0">
-                <Button x:Name="btnCadastrarPedido" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10"/>
-                <Button x:Name="btnEditarPedido" Content="Editar" Background="DeepSkyBlue" Height="25" Margin="0 0 0 10"/>
-                <Button x:Name="btnExcuirPedido" Content="Excluir" Background="Red" Height="25"/>
-            </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="3" x:Name="stackMain">
@@ -78,7 +71,8 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="CPF" IsReadOnly="True" Binding="{Binding CPF}" Width="2*"/>
                     <DataGridTextColumn Header="Endereço" IsReadOnly="True" Binding="{Binding Endereco}" Width="4*">
-                    <DataGridTextColumn.EditingElementStyle>
+
+                        <DataGridTextColumn.EditingElementStyle>
                         <Style TargetType="TextBox">
                             <Setter Property="CharacterCasing" Value="Upper"/>
                         </Style>
@@ -96,7 +90,7 @@
                             <DataTemplate>
                                 <Button x:Name="excluirPessoa" Content="Excluir" HorizontalAlignment="Center" Background="{Binding Cor , 
                                                                                                 Mode=TwoWay, 
-                                                                                                UpdateSourceTrigger=PropertyChanged}" Command="Delete">
+                                                                                                UpdateSourceTrigger=PropertyChanged}" Command="Delete" Click="ExcluirPessoa_Click">
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -247,8 +241,6 @@
             </Grid>
             <!--Fim Dados Produto-->
 
-            <!--TreeView Pedido-->
-            <TreeView Visibility="Collapsed" x:Name="TreeViewPedido" />
         </StackPanel>
     </Grid>
 </Window>
