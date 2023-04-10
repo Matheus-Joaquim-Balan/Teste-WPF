@@ -76,8 +76,8 @@ namespace Teste_WPF
 
             if(dataGridProduto.DataContext == null)
             {
-                minimoTB.Text = "Mínimo";
-                maximoTB.Text = "Máximo";
+                minimoTB.Text = "0";
+                maximoTB.Text = "9999999";
             }
             else 
             {
@@ -274,6 +274,7 @@ namespace Teste_WPF
                 dataGridProduto.Visibility = Visibility.Visible;
                 gridPesquisaProduto.Visibility = Visibility.Visible;
 
+                
                 MessageBox.Show("Cadastro efetuado com sucesso");
 
                 IdProdutoLista++;
@@ -327,6 +328,7 @@ namespace Teste_WPF
             btnSalvarProdutoEdit.Visibility = Visibility.Collapsed;
             gridPesquisaProduto.Visibility = Visibility.Collapsed;
 
+            dataGridProduto.Items.Refresh();
             dataGridProduto.Visibility = Visibility.Collapsed;
 
             if (IdProdutoLista < 1)
@@ -420,9 +422,5 @@ namespace Teste_WPF
 
         #endregion
 
-        private void BtnPesquisarValor_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
