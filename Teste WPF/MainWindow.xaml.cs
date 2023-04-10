@@ -73,6 +73,17 @@ namespace Teste_WPF
             btnProduto.Background = Brushes.LightGray;
 
             dataGridProduto.ItemsSource = produtos;
+
+            if(dataGridProduto.DataContext == null)
+            {
+                minimoTB.Text = "Mínimo";
+                maximoTB.Text = "Máximo";
+            }
+            else 
+            {
+                maximoTB.Text = Convert.ToString(produtos.Max(p => p.Valor));
+                minimoTB.Text = Convert.ToString(produtos.Min(p => p.Valor));
+            }
         }
 
     /*    private void AbrirPedido(object sender, RoutedEventArgs e)
@@ -246,9 +257,11 @@ namespace Teste_WPF
             dynamic data = dataGridPessoa.SelectedItem;
             pessoas.Remove(data);
         }
+
         #endregion
 
         #region Botões Produto
+
         public void SalvarProduto()
         {
             produto = new Produto();
@@ -312,6 +325,7 @@ namespace Teste_WPF
             gridCadastrarProduto.Visibility = Visibility.Visible;
             btnSalvarProduto.Visibility = Visibility.Visible;
             btnSalvarProdutoEdit.Visibility = Visibility.Collapsed;
+            gridPesquisaProduto.Visibility = Visibility.Collapsed;
 
             dataGridProduto.Visibility = Visibility.Collapsed;
 
@@ -345,6 +359,14 @@ namespace Teste_WPF
                 dataGridProduto.ItemsSource = dadosGrid;
             else
                 MessageBox.Show("Produto não encontrado!");
+
+
+            var dadosValor = produtos.Where(p => p.Valor > double.Parse(minimoTB.Text) && p.Valor <= double.Parse(maximoTB.Text)).ToList();
+
+            if (dadosValor.Count > 0)
+            {
+                dataGridProduto.ItemsSource = dadosValor;
+            }
         }
 
         private void EditarProduto_Click(object sender, RoutedEventArgs e)
@@ -389,12 +411,18 @@ namespace Teste_WPF
                 MessageBox.Show("Nenhum cadastro para alterar");
             }
         }
-        #endregion
 
         private void ExcluirProduto_Click(object sender, RoutedEventArgs e)
         {
             dynamic data = dataGridProduto.SelectedItem;
             produtos.Remove(data);
+        }
+
+        #endregion
+
+        private void BtnPesquisarValor_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
