@@ -40,12 +40,13 @@ namespace Teste_WPF
         {
 
             dataGridPessoa.Visibility = Visibility.Visible;
-            btnsPessoa.Visibility = Visibility.Visible;
+            btnCadastrarPessoa.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Visible;
 
+            gridPedido.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
-            btnsProduto.Visibility = Visibility.Collapsed;
+            btnCadastrarProduto.Visibility = Visibility.Collapsed;
             dataGridProduto.Visibility = Visibility.Collapsed;
             gridPesquisaProduto.Visibility = Visibility.Collapsed;
 
@@ -59,13 +60,14 @@ namespace Teste_WPF
 
         private void AbrirProduto(object sender, RoutedEventArgs e)
         {
-            btnsProduto.Visibility = Visibility.Visible;
+            btnCadastrarProduto.Visibility = Visibility.Visible;
             dataGridProduto.Visibility = Visibility.Visible;
 
+            gridPedido.Visibility = Visibility.Collapsed;
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            btnsPessoa.Visibility = Visibility.Collapsed;
+            btnCadastrarPessoa.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
             gridPesquisaProduto.Visibility = Visibility.Visible;
 
@@ -422,5 +424,31 @@ namespace Teste_WPF
 
         #endregion
 
+        private void BtnDetalhesPedido_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic data = dataGridPessoa.SelectedItem;
+            string indexData = data.NomePessoa;
+            int indexList = pedidos.IndexOf(pedidos.Where(p => p.Pessoas.NomePessoa == indexData).FirstOrDefault());
+
+            if (indexList != -1)
+            {
+                gridPedido.Visibility = Visibility.Visible;
+
+                dataGridPessoa.Visibility = Visibility.Collapsed;
+                dataGridProduto.Visibility = Visibility.Collapsed;
+
+                idPedidoBox.Text = pedidos[indexList].Id.ToString();
+                nomePedidoPessoaBox.Text = pedidos[indexList].Pessoas.NomePessoa;
+                produtosPedidoBox.Text = pedidos[indexList].Produtos.NomeProduto;
+                valorTotalPedidoBox.Text = Convert.ToString(pedidos[indexList].Produtos.Valor * pedido.QntProduto);
+                DataPedidoBox.Text = pedidos[indexList].DataVenda;
+                FormaPagPedidoBox.Text = Convert.ToString(pedidos[indexList].FormaPagamento);
+                StatusPedidoBox.Text = Convert.ToString(pedidos[indexList].Status);
+            }
+            else
+            {
+               MessageBox.Show("Nenhum pedido encontrado!!");                                         
+            }
+        }
     }
 }
