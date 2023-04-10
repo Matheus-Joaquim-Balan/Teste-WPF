@@ -74,7 +74,6 @@ C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.cspr
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\MainWindow.g.cs
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\App.g.cs
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF_MarkupCompile.cache
-C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF_MarkupCompile.lref
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.exe
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.pdb
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\Teste WPF.exe.config
