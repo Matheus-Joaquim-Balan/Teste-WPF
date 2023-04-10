@@ -159,8 +159,8 @@
                     <Image Source="images/Lupa.png" />
                 </Button>
                 <TextBlock Text="Valor: " Grid.Column="3" HorizontalAlignment="Right"/>
-                <TextBox x:Name="minimoTB"  Grid.Column="4" Height="20" Width="65" VerticalAlignment="Top"/>
-                <TextBox x:Name="maximoTB"  Grid.Column="5" Height="20" Width="65" VerticalAlignment="Top"/>
+                <TextBox x:Name="minimoTB"  Grid.Column="4" Height="20" Width="65" VerticalAlignment="Top" TextChanged="MinimoTB_TextChanged"/>
+                <TextBox x:Name="maximoTB"  Grid.Column="5" Height="20" Width="65" VerticalAlignment="Top" TextChanged="MaximoTB_TextChanged"/>
 
             </Grid>
 
@@ -245,9 +245,9 @@
 
             </Grid>
             <!--Fim Dados Produto-->
-            <TextBlock FontSize="20" Grid.Column="0" HorizontalAlignment="Left">DETALHES PEDIDO</TextBlock>
+            <TextBlock Visibility="Collapsed" FontSize="20" Grid.Column="0" HorizontalAlignment="Left">DETALHES PEDIDO</TextBlock>
 
-            <Grid x:Name="gridPedido" Visibility="Visible">
+            <Grid x:Name="gridPedido" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="3*"/>

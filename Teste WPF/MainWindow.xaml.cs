@@ -78,8 +78,8 @@ namespace Teste_WPF
 
             if(dataGridProduto.DataContext == null)
             {
-                minimoTB.Text = "Mínimo";
-                maximoTB.Text = "Máximo";
+                minimoTB.Text = "0";
+                maximoTB.Text = "9999999";
             }
             else 
             {
@@ -276,6 +276,7 @@ namespace Teste_WPF
                 dataGridProduto.Visibility = Visibility.Visible;
                 gridPesquisaProduto.Visibility = Visibility.Visible;
 
+                
                 MessageBox.Show("Cadastro efetuado com sucesso");
 
                 IdProdutoLista++;
@@ -329,6 +330,7 @@ namespace Teste_WPF
             btnSalvarProdutoEdit.Visibility = Visibility.Collapsed;
             gridPesquisaProduto.Visibility = Visibility.Collapsed;
 
+            dataGridProduto.Items.Refresh();
             dataGridProduto.Visibility = Visibility.Collapsed;
 
             if (IdProdutoLista < 1)
@@ -353,17 +355,46 @@ namespace Teste_WPF
             gridPesquisaProduto.Visibility = Visibility.Visible;
         }
 
+        //Para permitir apenas números
+        private void MinimoTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(minimoTB.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Digite apenas números");
+                minimoTB.Text = minimoTB.Text.Remove(minimoTB.Text.Length - 1);
+            }
+        }
+
+        private void MaximoTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(maximoTB.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Digite apenas números");
+                maximoTB.Text = maximoTB.Text.Remove(maximoTB.Text.Length - 1);
+            }
+        }
+
+
         private void BtnPesquisarProduto_Click(object sender, RoutedEventArgs e)
         {
+            if(minimoTB.Text == "" || maximoTB.Text == "")
+            {
+                minimoTB.Text = "0";
+                maximoTB.Text = "9999999";
+            }
+
             var dadosGrid = produtos.Where(p => p.NomeProduto.Contains(txtBoxPesquisaProduto.Text) || p.Codigo.Contains(txtBoxPesquisaProduto.Text)).ToList();
 
             if (dadosGrid.Count > 0)
+            {
                 dataGridProduto.ItemsSource = dadosGrid;
+            }
             else
+            {
                 MessageBox.Show("Produto não encontrado!");
+            }
 
-
-            var dadosValor = produtos.Where(p => p.Valor > double.Parse(minimoTB.Text) && p.Valor <= double.Parse(maximoTB.Text)).ToList();
+            var dadosValor = produtos.Where(p => p.Valor >= double.Parse(minimoTB.Text) && p.Valor <= double.Parse(maximoTB.Text)).ToList();
 
             if (dadosValor.Count > 0)
             {
@@ -403,7 +434,8 @@ namespace Teste_WPF
             {
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 gridCadastrarProduto.Visibility = Visibility.Collapsed;
-                TreeViewPedido.Visibility = Visibility.Collapsed;
+                //Conciliar depois
+                //TreeViewPedido.Visibility = Visibility.Collapsed;
                 gridCadastrarProduto.Visibility = Visibility.Visible;
                 dataGridProduto.Visibility = Visibility.Collapsed;
                 gridPesquisaProduto.Visibility = Visibility.Collapsed;
@@ -435,7 +467,7 @@ namespace Teste_WPF
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Collapsed;
 
-                idPedidoBox.Text = pedidos[indexList].Id.ToString();
+                idPedidoBox.Text = pedidos[indexList].IdPedido.ToString();
                 nomePedidoPessoaBox.Text = pedidos[indexList].Pessoas.NomePessoa;
                 produtosPedidoBox.Text = pedidos[indexList].Produtos.NomeProduto;
                 valorTotalPedidoBox.Text = Convert.ToString(pedidos[indexList].Produtos.Valor * pedido.QntProduto);
@@ -448,5 +480,6 @@ namespace Teste_WPF
                MessageBox.Show("Nenhum pedido encontrado!!");                                         
             }
         }
+
     }
 }
