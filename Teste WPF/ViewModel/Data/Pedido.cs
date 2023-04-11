@@ -18,7 +18,6 @@ namespace Teste_WPF
 
         public Pedido()
         {
-           
         }
 
         public Pedido(int id, string nomePessoa, List<Produto> produtos, double valor, int formaPagamento ,int status)

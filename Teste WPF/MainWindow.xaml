@@ -306,7 +306,7 @@
             </Grid>
             <!-- Grid Produto -->
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                      Visibility="Collapsed" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
+                      Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
                       AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding pedidos}">
 
                 <DataGrid.Resources>
@@ -331,9 +331,15 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Header="Produtos">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="expandirPedido" Click="ExpandirPedido_Click" Content="Expandir" Background="DeepSkyBlue"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     
-                    <DataGridTextColumn Header="Produtos" IsReadOnly="True" 
-                                        Binding="{Binding produtosPedido}" Width="2*"/> <!-- aqui -->
                     <DataGridTextColumn Header="Data" IsReadOnly="True" 
                                         Binding="{Binding DataVenda}" Width="*"> 
                         <DataGridTextColumn.EditingElementStyle>
@@ -370,23 +376,16 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Expandir">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="expandirPedido" Content="Expandir" Background="DeepSkyBlue"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
             
             <!-- Pedidos expandido -->
             <Grid>
                 <StackPanel>
-                    <TextBlock Text="NOME"/>
+                    <!--lembrar de deixar junto-->
+                    <TextBlock Text="NOME" Visibility="Collapsed"/>
                     <Grid>
-                        <DataGrid x:Name="dataGridPedidoExpandido" Height="350" AutoGenerateColumns="False" CanUserAddRows="False" >
+                        <DataGrid x:Name="dataGridPedidoExpandido" Visibility="Collapsed" Height="350" AutoGenerateColumns="False" CanUserAddRows="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Produto" 
                                                     Binding="{Binding NomeProduto}" Width="*" />
