@@ -321,7 +321,7 @@
                     </DataGridTextColumn>
                     
                     <DataGridTextColumn Header="Produtos" IsReadOnly="True" 
-                                        Binding="{Binding Produtos}" Width="2*"/> <!-- aqui -->
+                                        Binding="{Binding NomeProduto}" Width="2*"/> <!-- aqui -->
                     <DataGridTextColumn Header="Data" IsReadOnly="True" 
                                         Binding="{Binding DataVenda}" Width="*"> 
                         <DataGridTextColumn.EditingElementStyle>
