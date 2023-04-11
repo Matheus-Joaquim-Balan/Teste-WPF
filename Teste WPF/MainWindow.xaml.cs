@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Teste_WPF.ViewModels;
+using Teste_WPF;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -30,9 +30,9 @@ namespace Teste_WPF
             pedidos = new ObservableCollection<Pedido>();
             pessoa = new Pessoa();
             produto = new Produto();
-            pedido = new Pedido();
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
+            dataGridPedidos.DataContext = pedido;
 
         }
 
@@ -374,7 +374,6 @@ namespace Teste_WPF
             }
         }
 
-
         private void BtnPesquisarProduto_Click(object sender, RoutedEventArgs e)
         {
             if(minimoTB.Text == "" || maximoTB.Text == "")
@@ -480,6 +479,7 @@ namespace Teste_WPF
                MessageBox.Show("Nenhum pedido encontrado!!");                                         
             }
         }
+
 
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System.Windows;
 using PropertyChanged;
 using System.Windows.Media;
+using System.Collections.Generic;
 
-namespace Teste_WPF.ViewModels
+namespace Teste_WPF
 {
     [AddINotifyPropertyChangedInterface]
     public class Pessoa
@@ -12,7 +13,6 @@ namespace Teste_WPF.ViewModels
         public string CPF { get; set; }
         public string Endereco { get; set; }
         public Brush Cor { get; set; }
-
 
         public Pessoa()
         {
@@ -63,7 +63,6 @@ namespace Teste_WPF.ViewModels
 		    digito = digito + resto.ToString();
 		    return cpf.EndsWith(digito);
 	     }
-
     }
 }
 
