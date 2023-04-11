@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\EnumBindingSourceExtension.cs" />
     <Compile Include="ViewModel\Enums\FormaPagamento.cs" />
     <Compile Include="ViewModel\Data\Pedido.cs" />
     <Compile Include="ViewModel\Data\Pessoa.cs" />

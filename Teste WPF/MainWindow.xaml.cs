@@ -472,7 +472,6 @@ namespace Teste_WPF
                 valorTotalPedidoBox.Text = Convert.ToString(pedidos[indexList].Produtos.Valor * pedido.QntProduto);
                 DataPedidoBox.Text = pedidos[indexList].DataVenda;
                 FormaPagPedidoBox.Text = Convert.ToString(pedidos[indexList].FormaPagamento);
-                StatusPedidoBox.Text = Convert.ToString(pedidos[indexList].Status);
             }
             else
             {
@@ -480,6 +479,81 @@ namespace Teste_WPF
             }
         }
 
+        private void BtnIncluirPedido_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic data = dataGridPessoa.SelectedItem;
+            string indexData = data.NomePessoa;
+            int indexList = pedidos.IndexOf(pedidos.Where(p => p.Pessoas.NomePessoa == indexData).FirstOrDefault());
 
+            if (pedidos.Count == 0)
+            {
+                IdPedidoLista = 1;
+                gridPedido.Visibility = Visibility.Visible;
+
+                btnCadastrarPessoa.Visibility = Visibility.Collapsed;
+                dataGridPessoa.Visibility = Visibility.Collapsed;
+                dataGridProduto.Visibility = Visibility.Collapsed;
+
+                idPedidoBox.Text = IdPedidoLista.ToString();
+                nomePedidoPessoaBox.Text = indexData;
+                produtosPedidoBox.Text = "";
+                valorTotalPedidoBox.Text = "";
+                DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            }
+            else if(indexList != -1)
+            {
+                gridPedido.Visibility = Visibility.Visible;
+
+                btnCadastrarPessoa.Visibility = Visibility.Collapsed;
+                dataGridPessoa.Visibility = Visibility.Collapsed;
+                dataGridProduto.Visibility = Visibility.Collapsed;
+
+                idPedidoBox.Text = pedidos[indexList].Id.ToString();
+                nomePedidoPessoaBox.Text = indexData;
+                produtosPedidoBox.Text = "";
+                valorTotalPedidoBox.Text = "";
+                DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            }
+            else
+            {
+                MessageBox.Show("Nenhum pedido encontrado!!");
+            }
+        }
+
+        private void BtnSalvaPedido_Click(object sender, RoutedEventArgs e)
+        {
+            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedidoBox.Text, Convert.ToDouble(valorProdutoBox.Text), DataPedidoBox.Text, FormaPagPedidoBox.Text, "Pendente"));
+
+            dataGridPessoa.Visibility = Visibility.Visible;
+            btnCadastrarPessoa.Visibility = Visibility.Visible;
+            gridPesquisaPessoa.Visibility = Visibility.Visible;
+
+            gridPedido.Visibility = Visibility.Collapsed;
+
+            MessageBox.Show("Cadastro efetuado com sucesso");
+
+            nomePessoaBox.Text = "";
+            CPFBox.Text = "";
+            EnderecoBox.Text = "";
+
+            IdPedidoLista++;
+        }
+
+        private void BtnCancelarPedido_Click(object sender, RoutedEventArgs e)
+        {
+            idPedidoBox.Text = "";
+            nomePedidoPessoaBox.Text = "";
+            produtosPedidoBox.Text = "";
+            valorProdutoBox.Text = "";
+            DataPedidoBox.Text = "";
+            FormaPagPedidoBox.Text = "";
+
+            dataGridPessoa.Visibility = Visibility.Visible;
+            gridPesquisaPessoa.Visibility = Visibility.Visible;
+            btnCadastrarPessoa.Visibility = Visibility.Visible;
+
+            gridPedido.Visibility = Visibility.Collapsed;
+
+        }
     }
 }

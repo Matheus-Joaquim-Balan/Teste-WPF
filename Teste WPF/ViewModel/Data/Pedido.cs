@@ -18,6 +18,11 @@ namespace Teste_WPF
 
         public Pedido()
         {
+           
+        }
+
+        public Pedido(int id, string nomePessoa, string produtos, double valorTotal, string dataVenda, string formaPagamento)
+        {
             Pessoas = new Pessoa();
             Produtos = new Produto();
 
