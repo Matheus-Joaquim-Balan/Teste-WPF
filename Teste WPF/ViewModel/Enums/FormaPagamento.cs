@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Teste_WPF.ViewModels
+namespace Teste_WPF
 {
     public enum FormaPagamento
     {
         Dinheiro,
-        Cartão,
+        Cartao,
         Boleto
     }
 }
