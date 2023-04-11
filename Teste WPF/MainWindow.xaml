@@ -316,7 +316,7 @@
             </Grid>
             <!-- Grid Produto -->
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                      Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
+                      Visibility="Collapsed" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
                       AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pessoas}">
 
                 <DataGrid.Resources>
@@ -390,6 +390,27 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+            
+            <!-- Pedidos expandido -->
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="NOME"/>
+                    <Grid>
+                        <DataGrid x:Name="dataGridPedidoExpandido" Height="350" AutoGenerateColumns="False" CanUserAddRows="False" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Produto" 
+                                                    Binding="{Binding NomeProduto}" Width="*" />
+                                <DataGridTextColumn Header="Preço" 
+                                                    Binding="{Binding Valor}" Width="*"/>
+                                <DataGridTextColumn Header="Quantidade" 
+                                                    Binding="{Binding QntProduto}" Width="*"/>
+                                <DataGridTextColumn Header="Sub Total" 
+                                                    Binding="{Binding SubTotal}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </StackPanel>
+            </Grid>
 
         </StackPanel>
     </Grid>

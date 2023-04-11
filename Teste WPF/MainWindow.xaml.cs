@@ -508,7 +508,7 @@ namespace Teste_WPF
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Collapsed;
 
-                idPedidoBox.Text = pedidos[indexList].Id.ToString();
+                idPedidoBox.Text = pedidos[indexList].IdPedido.ToString();
                 nomePedidoPessoaBox.Text = indexData;
                 produtosPedidoBox.Text = "";
                 valorTotalPedidoBox.Text = "";
@@ -522,7 +522,7 @@ namespace Teste_WPF
 
         private void BtnSalvaPedido_Click(object sender, RoutedEventArgs e)
         {
-            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedidoBox.Text, Convert.ToDouble(valorProdutoBox.Text), DataPedidoBox.Text, FormaPagPedidoBox.Text, "Pendente"));
+            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedidoBox.Text, Convert.ToDouble(valorProdutoBox.Text), DataPedidoBox.Text, FormaPagPedidoBox.Text));
 
             dataGridPessoa.Visibility = Visibility.Visible;
             btnCadastrarPessoa.Visibility = Visibility.Visible;
