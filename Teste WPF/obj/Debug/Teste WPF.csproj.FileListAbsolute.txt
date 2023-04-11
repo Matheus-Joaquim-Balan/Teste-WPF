@@ -105,4 +105,9 @@ C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.cspr
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.csproj.CopyComplete
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF_MarkupCompile.lref
+<<<<<<< HEAD
+C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\obj\Debug\Teste WPF_MarkupCompile.lref
+=======
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.csprojAssemblyReference.cache
+>>>>>>> 1bcc0488e845c939949dd1ebf420544fa61d1800
