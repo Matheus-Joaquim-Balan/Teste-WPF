@@ -3,9 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Teste_WPF"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" >
 
+   <!-- <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:Status"/>
+            </ObjectDataProvider.MethodParameters>
+            
+        </ObjectDataProvider>
+    </Window.Resources>
+    -->
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -72,6 +84,13 @@
                         </Style>
                     </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Incluir" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnIncluirPedido" Content="Incluir"  Background="Lime" Click="BtnIncluirPedido_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Pedido" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -126,18 +145,20 @@
 
                 <TextBlock x:Name="EnderecoBlock" Grid.Column="0" Grid.Row="4" Text="Endereço" Margin="0 0 10 0" HorizontalAlignment="Right" />
                 <TextBox x:Name="EnderecoBox" Grid.Column="1" Width="350" HorizontalAlignment="Left" Grid.Row="4"  Margin="0 0 30 0" />
+                
+                <Button Visibility="Visible" x:Name="btnCancelarPessoa"  Grid.Row="5" Grid.Column="0" 
+                        Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
+                        Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnCancelarPessoa_Click"/>
 
                 <Button Visibility="Visible" x:Name="btnSalvarNovaPessoa"  Grid.Row="5" Grid.Column="1" 
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
                         Height="25" Margin="0 50 50 0" Click="BtnSalvarPessoa_Click"/>
+                
 
                 <Button Visibility="Collapsed" x:Name="btnSalvarPessoaEdit"  Grid.Row="5" Grid.Column="1" 
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
                         Height="25" Margin="0 50 50 0" Click="btnSalvarPessoaEdit_Click"/>
 
-                <Button Visibility="Visible" x:Name="btnCancelarPessoa"  Grid.Row="5" Grid.Column="0" 
-                        Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
-                        Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnCancelarPessoa_Click"/>
 
             </Grid>
 
@@ -229,17 +250,17 @@
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Yellow" 
                         Height="25" Margin="0 50 50 0" Click="BtnSalvarProduto_Click"/>
 
-                <Button Visibility="Collapsed" x:Name="btnSalvarProdutoEdit"  Grid.Row="5" Grid.Column="1" 
-                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
-                        Height="25" Margin="0 50 50 0" Click="BtnSalvarProdutoEdit_Click"/>
-
                 <Button Visibility="Visible" x:Name="btnCancelarProduto"  Grid.Row="5" Grid.Column="0" 
                         Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
                         Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnCancelarProduto_Click"/>
 
+                <Button Visibility="Collapsed" x:Name="btnSalvarProdutoEdit"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0" Click="BtnSalvarProdutoEdit_Click"/>
+
             </Grid>
             <!--Fim Dados Produto-->
-            <TextBlock FontSize="20" Grid.Column="0" HorizontalAlignment="Left">DETALHES PEDIDO</TextBlock>
+            <TextBlock FontSize="20" Grid.Column="0" HorizontalAlignment="Left">CADASTRAR PEDIDO</TextBlock>
 
             <Grid x:Name="gridPedido" Visibility="Visible">
                 <Grid.ColumnDefinitions>
@@ -275,10 +296,15 @@
                 <TextBox Visibility="Visible" x:Name="DataPedidoBox" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="FormaPagPedidoBlock" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Text="Forma de Pagamento"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="FormaPagPedidoBox" Grid.Column="1" Grid.Row="6" Width="120" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <ComboBox  Visibility="Visible" x:Name="FormaPagPedidoBox" ItemsSource="{local:EnumBindingSource local:FormaPagamento}" Grid.Column="1" Grid.Row="6" Width="120" HorizontalAlignment="Left" Margin="0 0 30 10" />
 
-                <TextBlock Visibility="Visible" x:Name="StatusPedidoBlock" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Text="Status do pedido"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="StatusPedidoBox" Grid.Column="1" Grid.Row="7" Width="120" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <Button Visibility="Visible" x:Name="btnCancelarPedido"  Grid.Row="7" Grid.Column="0" 
+                        Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
+                        Height="25" Margin="0 50 50 0" Click="BtnCancelarPedido_Click"/>
+
+                <Button Visibility="Visible" x:Name="btnSalvaPedido"  Grid.Row="7" Grid.Column="1"
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime"
+                        Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnSalvaPedido_Click"/>
 
             </Grid>
         </StackPanel>

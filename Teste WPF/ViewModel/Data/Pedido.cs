@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Teste_WPF.ViewModels
+namespace Teste_WPF
 {
     public class Pedido
     {
@@ -17,14 +17,20 @@ namespace Teste_WPF.ViewModels
 
         public Pedido()
         {
+           
+        }
+
+        public Pedido(int id, string nomePessoa, string produtos, double valorTotal, string dataVenda, string formaPagamento)
+        {
             Pessoas = new Pessoa();
             Produtos = new Produto();
 
-            this.Id = 1;
-            this.ValorTotal = this.Produtos.Valor * this.QntProduto;
-            this.DataVenda = DateTime.Now.ToString("dd-MM-yyyy");
-            this.FormaPagamento = ViewModels.FormaPagamento.Cartão;
-            this.Status = Status.Pendente;
+            Id = id;
+            nomePessoa
+            ValorTotal = this.Produtos.Valor * this.QntProduto;
+            DataVenda = DateTime.Now.ToString("dd-MM-yyyy");
+            FormaPagamento = FormaPagamento.Cartão;
+            Status = Status.Pendente;
         }
     }
 }

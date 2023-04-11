@@ -2,7 +2,7 @@
 using PropertyChanged;
 using System.Windows.Media;
 
-namespace Teste_WPF.ViewModels
+namespace Teste_WPF
 {
     [AddINotifyPropertyChangedInterface]
     public class Pessoa

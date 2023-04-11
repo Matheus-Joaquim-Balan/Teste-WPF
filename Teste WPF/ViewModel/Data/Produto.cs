@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Teste_WPF.ViewModels
+namespace Teste_WPF
 {
     public class Produto
     {
@@ -17,7 +17,7 @@ namespace Teste_WPF.ViewModels
         {
         }
 
-        public Produto(int idProduto, string nomeProduto, string codigo, double valor)
+        public Produto(int idProduto, string nomeProduto, string codigo, double valor, string status)
         {
             IdProduto = idProduto;
             NomeProduto = nomeProduto;
