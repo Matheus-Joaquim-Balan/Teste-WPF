@@ -481,7 +481,6 @@ namespace Teste_WPF
         {
             dynamic data = dataGridPessoa.SelectedItem;
             string indexData = data.NomePessoa;
-            int indexList = pedidos.IndexOf(pedidos.Where(p => p.Pessoas.NomePessoa == indexData).FirstOrDefault());
 
             if (pedidos.Count == 0)
             {
@@ -498,7 +497,7 @@ namespace Teste_WPF
                 valorTotalPedidoBox.Text = "";
                 DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
             }
-            else if(indexList != -1 && pedidos.Count > 0)
+            else if(pedidos.Count > 0)
             {
                 gridPedido.Visibility = Visibility.Visible;
 
@@ -506,7 +505,7 @@ namespace Teste_WPF
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Collapsed;
 
-                idPedidoBox.Text = pedidos[indexList].IdPedido.ToString();
+                idPedidoBox.Text = IdPedidoLista.ToString();
                 nomePedidoPessoaBox.Text = indexData;
                 produtosPedidoBox.Text = "";
                 valorTotalPedidoBox.Text = "";
@@ -520,9 +519,6 @@ namespace Teste_WPF
 
         private void BtnSalvaPedido_Click(object sender, RoutedEventArgs e)
         {
-            
-            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedidoBox.Text, Convert.ToDouble(valorProdutoBox.Text), DataPedidoBox.Text, FormaPagPedidoBox.Text));
-
             if (!string.IsNullOrEmpty(valorProdutoBox.Text))
             {
                 produto.Valor = double.Parse(valorProdutoBox.Text);
@@ -563,6 +559,11 @@ namespace Teste_WPF
 
             gridPedido.Visibility = Visibility.Collapsed;
 
+        }
+
+        private void ExpandirPedido_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridPedidoExpandido.Visibility = Visibility.Visible;
         }
     }
 }
