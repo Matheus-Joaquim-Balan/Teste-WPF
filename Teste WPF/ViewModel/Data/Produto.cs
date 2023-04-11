@@ -25,6 +25,11 @@ namespace Teste_WPF
             Valor = valor;
         }
 
+        public Produto(string nomeProduto)
+        {
+            NomeProduto = nomeProduto;
+        }
+
         /*
         public Produto()
         {
