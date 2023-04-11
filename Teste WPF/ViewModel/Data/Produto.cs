@@ -17,7 +17,7 @@ namespace Teste_WPF
         {
         }
 
-        public Produto(int idProduto, string nomeProduto, string codigo, double valor, string status)
+        public Produto(int idProduto, string nomeProduto, string codigo, double valor)
         {
             IdProduto = idProduto;
             NomeProduto = nomeProduto;

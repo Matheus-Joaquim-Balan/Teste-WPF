@@ -21,18 +21,18 @@ namespace Teste_WPF
            
         }
 
-        public Pedido(int id, string nomePessoa, string produtos, double valorTotal, string dataVenda, string formaPagamento)
+        public Pedido(int id, string nomePessoa, string produtos, double valorTotal, int formaPagamento ,int status)
         {
             Pessoas = new Pessoa();
             Produtos = new Produto();
 
             this.IdPedido = 1;
-            this.NomePessoa = this.Pessoas.NomePessoa;
-            this.NomeProduto = this.Produtos.NomeProduto;
-            this.ValorTotal = this.Produtos.Valor * this.QntProduto;
+            this.NomePessoa = nomePessoa;
+            this.NomeProduto = produtos;
+            this.ValorTotal = valorTotal;
             this.DataVenda = DateTime.Now.ToString("dd-MM-yyyy");
-            this.FormaPagamento = FormaPagamento.Cartao;
-            this.Status = Status.Pendente;
+            this.FormaPagamento = (FormaPagamento)formaPagamento;
+            this.Status = (Status)status;
         }
 
        /* List<Pedido> pedidosTeste = new List<Pedido>()

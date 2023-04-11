@@ -4,20 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Teste_WPF"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" >
 
-   <!-- <Window.Resources>
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
-                            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:Status"/>
-            </ObjectDataProvider.MethodParameters>
-            
-        </ObjectDataProvider>
-    </Window.Resources>
-    -->
+   
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -317,7 +307,7 @@
             <!-- Grid Produto -->
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
                       Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
-                      AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pessoas}">
+                      AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pedidos}">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
