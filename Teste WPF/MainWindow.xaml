@@ -33,7 +33,6 @@
 
             <!--Botões Produto-->
             <Button x:Name="btnCadastrarProduto" Visibility="Collapsed" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarProduto_Click"/>
-
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="3" x:Name="stackMain">
@@ -167,16 +166,23 @@
             <!--Inicio Dados Produto-->
             <Grid x:Name="gridPesquisaProduto" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por nome ou Código:</TextBlock>
+                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Left">Pesquisar por nome ou Código:</TextBlock>
                 <TextBox Grid.Column="1" x:Name="txtBoxPesquisaProduto" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>
                 <Button x:Name="btnPesquisarProduto" Click="BtnPesquisarProduto_Click" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" Margin="136,0,0,4.8" Height="20" Width="30" Grid.ColumnSpan="2">
                     <Image Source="images/Lupa.png" />
                 </Button>
+                <TextBlock Text="Valor: " Grid.Column="3" HorizontalAlignment="Right"/>
+                <TextBox x:Name="minimoTB"  Grid.Column="4" Height="20" Width="65" VerticalAlignment="Top" TextChanged="MinimoTB_TextChanged"/>
+                <TextBox x:Name="maximoTB"  Grid.Column="5" Height="20" Width="65" VerticalAlignment="Top" TextChanged="MaximoTB_TextChanged"/>
+
             </Grid>
 
             <DataGrid Visibility="Collapsed" x:Name="dataGridProduto" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0.2,0" Height="350" >
@@ -209,7 +215,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="excluirProduto" Content="Excluir" Background="Red" 
-                                        Command="Delete" />
+                                        Command="Delete" Click="ExcluirProduto_Click"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -260,9 +266,11 @@
 
             </Grid>
             <!--Fim Dados Produto-->
-            <TextBlock FontSize="20" Grid.Column="0" HorizontalAlignment="Left">CADASTRAR PEDIDO</TextBlock>
-
-            <Grid x:Name="gridPedido" Visibility="Visible">
+            
+            <!-- Dados Pedido-->
+            <TextBlock Visibility="Collapsed" FontSize="20" Grid.Column="0" HorizontalAlignment="Left">DETALHES PEDIDO</TextBlock>
+            
+            <Grid x:Name="gridPedido" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="3*"/>
@@ -305,8 +313,84 @@
                 <Button Visibility="Visible" x:Name="btnSalvaPedido"  Grid.Row="7" Grid.Column="1"
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime"
                         Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnSalvaPedido_Click"/>
-
             </Grid>
+            <!-- Grid Produto -->
+            <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
+                      Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
+                      AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pessoas}">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="LightGray" />
+                        <Setter Property="FontWeight" Value="Regular" />
+                        <Setter Property="BorderThickness" Value="1 1 1 1" />
+                        <Setter Property="BorderBrush" Value="DarkGray" />
+                        <Setter Property="Padding" Value="3 0 0 0" />
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" IsReadOnly="True" 
+                                        Binding="{Binding IdPedido}" Width=".5*"/>
+                    
+                    <DataGridTextColumn Header="Nome" IsReadOnly="True" 
+                                        Binding="{Binding NomePessoa}" Width="3*"> <!-- aqui -->
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <DataGridTextColumn Header="Produtos" IsReadOnly="True" 
+                                        Binding="{Binding Produtos}" Width="2*"/> <!-- aqui -->
+                    <DataGridTextColumn Header="Data" IsReadOnly="True" 
+                                        Binding="{Binding DataVenda}" Width="*"> 
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Pagamento" IsReadOnly="True" 
+                                        Binding="{Binding FormaPagamento}" Width="*">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Status" IsReadOnly="True" 
+                                        Binding="{Binding Status}" Width="*">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Valor total" IsReadOnly="True" 
+                                        Binding="{Binding ValorTotal}" Width="*">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Header="Expandir">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="expandirPedido" Content="Expandir" Background="DeepSkyBlue"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
         </StackPanel>
     </Grid>
 </Window>

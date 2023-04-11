@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using PropertyChanged;
 using System.Windows.Media;
+using System.Collections.Generic;
 
 namespace Teste_WPF
 {
@@ -12,7 +13,6 @@ namespace Teste_WPF
         public string CPF { get; set; }
         public string Endereco { get; set; }
         public Brush Cor { get; set; }
-
 
         public Pessoa()
         {
@@ -63,7 +63,6 @@ namespace Teste_WPF
 		    digito = digito + resto.ToString();
 		    return cpf.EndsWith(digito);
 	     }
-
     }
 }
 

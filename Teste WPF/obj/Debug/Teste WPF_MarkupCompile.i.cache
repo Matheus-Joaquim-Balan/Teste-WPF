@@ -4,17 +4,22 @@
 winexe
 C#
 .cs
-C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\
+C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\obj\Debug\
 Teste_WPF
 none
 false
 DEBUG;TRACE
-C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\App.xaml
+C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\App.xaml
 11151548125
 
+<<<<<<< HEAD
 15991890808
 20604728326
+=======
+15-1646960471
+202030654606
+>>>>>>> main
 MainWindow.xaml;
 
-True
+False
 

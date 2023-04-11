@@ -9,7 +9,7 @@ namespace Teste_WPF
     public enum FormaPagamento
     {
         Dinheiro,
-        Cartão,
+        Cartao,
         Boleto
     }
 }
