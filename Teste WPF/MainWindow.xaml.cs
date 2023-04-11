@@ -522,5 +522,10 @@ namespace Teste_WPF
             gridPedido.Visibility = Visibility.Collapsed;
 
         }
+
+        private void ExpandirPedido_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridPedidoExpandido.Visibility = Visibility.Visible;
+        }
     }
 }
