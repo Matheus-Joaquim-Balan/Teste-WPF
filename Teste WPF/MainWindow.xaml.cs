@@ -54,7 +54,6 @@ namespace Teste_WPF
 
             btnPessoa.Background = Brushes.LightGray;
             btnProduto.Background = Brushes.Transparent;
-
             dataGridPessoa.ItemsSource = pessoas;
         }
 
@@ -298,9 +297,14 @@ namespace Teste_WPF
                     int idText = Convert.ToInt32(idProdutoBox.Text);
                     int indexList = produtos.IndexOf(produtos.Where(p => p.IdProduto == idText).FirstOrDefault());
 
+
                     produtos[indexList].NomeProduto = nomeProdutoBox.Text.ToUpper();
                     produtos[indexList].Codigo = codigoProdutoBox.Text;
-                    produtos[indexList].Valor = double.Parse(valorProdutoBox.Text);
+
+                    if (!string.IsNullOrEmpty(valorProdutoBox.Text))
+                    {
+                        produtos[indexList].Valor = double.Parse(valorProdutoBox.Text);
+                    }
 
                     dataGridProduto.Visibility = Visibility.Visible;
                     gridPesquisaProduto.Visibility = Visibility.Visible;
@@ -457,21 +461,15 @@ namespace Teste_WPF
         {
             dynamic data = dataGridPessoa.SelectedItem;
             string indexData = data.NomePessoa;
-            int indexList = pedidos.IndexOf(pedidos.Where(p => p.Pessoas.NomePessoa == indexData).FirstOrDefault());
+            int indexList = pedidos.IndexOf(pedidos.Where(p => p.NomePessoa == indexData).FirstOrDefault());
 
             if (indexList != -1)
             {
-                gridPedido.Visibility = Visibility.Visible;
 
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Collapsed;
 
-                idPedidoBox.Text = pedidos[indexList].IdPedido.ToString();
-                nomePedidoPessoaBox.Text = pedidos[indexList].Pessoas.NomePessoa;
-                produtosPedidoBox.Text = pedidos[indexList].Produtos.NomeProduto;
-                valorTotalPedidoBox.Text = Convert.ToString(pedidos[indexList].Produtos.Valor * pedido.QntProduto);
-                DataPedidoBox.Text = pedidos[indexList].DataVenda;
-                FormaPagPedidoBox.Text = Convert.ToString(pedidos[indexList].FormaPagamento);
+                dataGridPedidos.ItemsSource = pedidos;    
             }
             else
             {
@@ -500,7 +498,7 @@ namespace Teste_WPF
                 valorTotalPedidoBox.Text = "";
                 DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
             }
-            else if(indexList != -1)
+            else if(indexList != -1 && pedidos.Count > 0)
             {
                 gridPedido.Visibility = Visibility.Visible;
 
@@ -522,7 +520,15 @@ namespace Teste_WPF
 
         private void BtnSalvaPedido_Click(object sender, RoutedEventArgs e)
         {
+            
             pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedidoBox.Text, Convert.ToDouble(valorProdutoBox.Text), DataPedidoBox.Text, FormaPagPedidoBox.Text));
+
+            if (!string.IsNullOrEmpty(valorProdutoBox.Text))
+            {
+                produto.Valor = double.Parse(valorProdutoBox.Text);
+            }
+
+            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedidoBox.Text, produto.Valor, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
             dataGridPessoa.Visibility = Visibility.Visible;
             btnCadastrarPessoa.Visibility = Visibility.Visible;
@@ -532,9 +538,12 @@ namespace Teste_WPF
 
             MessageBox.Show("Cadastro efetuado com sucesso");
 
-            nomePessoaBox.Text = "";
-            CPFBox.Text = "";
-            EnderecoBox.Text = "";
+            //idPedidoBox.Text = "";
+            //nomePedidoPessoaBox.Text = "";
+            produtosPedidoBox.Text = "";
+            valorProdutoBox.Text = "";
+            //DataPedidoBox.Text = "";
+            FormaPagPedidoBox.Text = "";
 
             IdPedidoLista++;
         }
