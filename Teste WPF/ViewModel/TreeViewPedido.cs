@@ -56,7 +56,7 @@ namespace Teste_WPF
             level3_TVI.RowDefinitions.Add(row2);
 
             TreeViewItem produto1TVI = new TreeViewItem();
-            produto1TVI.Header = pedido.Produtos.NomeProduto;
+         //   produto1TVI.Header = pedido.Produtos.NomeProduto;
 
             TreeViewItem qntdProduto1TVI = new TreeViewItem();
             qntdProduto1TVI.Header = "Qtd: " + pedido.QntProduto;

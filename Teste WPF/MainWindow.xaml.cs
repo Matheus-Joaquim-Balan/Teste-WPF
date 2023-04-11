@@ -6,21 +6,21 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Data;
 using System;
+using System.Collections.Generic;
 
 namespace Teste_WPF
 {
 
     public partial class MainWindow : Window
     {
-        private Pessoa pessoa;
         public int IdPessoaLista { get; set; }
         private Produto produto;
         public int IdProdutoLista { get; set; }
-        private Pedido pedido;
         public int IdPedidoLista { get; set; }
         private ObservableCollection<Pessoa> pessoas;
         private ObservableCollection<Produto> produtos;
         private ObservableCollection<Pedido> pedidos;
+        private List<Produto> produtosPedido;
 
         public MainWindow()
         {
@@ -28,12 +28,10 @@ namespace Teste_WPF
             pessoas = new ObservableCollection<Pessoa>();
             produtos = new ObservableCollection<Produto>();
             pedidos = new ObservableCollection<Pedido>();
-            pessoa = new Pessoa();
+            produtosPedido = new List<Produto>();
             produto = new Produto();
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
-            dataGridPedidos.DataContext = pedido;
-
         }
 
         private void AbrirPessoa(object sender, RoutedEventArgs e)
@@ -87,23 +85,6 @@ namespace Teste_WPF
             }
         }
 
-    /*    private void AbrirPedido(object sender, RoutedEventArgs e)
-        {
-            btnsPedido.Visibility = Visibility.Visible;
-
-            dataGridPessoa.Visibility = Visibility.Collapsed;
-            gridCadastrarPessoa.Visibility = Visibility.Collapsed;
-            gridCadastrarProduto.Visibility = Visibility.Collapsed;
-            btnsPessoa.Visibility = Visibility.Collapsed;
-            btnsProduto.Visibility = Visibility.Collapsed;
-            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
-            dataGridProduto.Visibility = Visibility.Collapsed;
-
-            btnPessoa.Background = Brushes.Transparent;
-            btnProduto.Background = Brushes.Transparent;
-            btnPedido.Background = Brushes.LightGray;
-        }*/
-
         #region Botões Pessoa
         private void BtnCadastrarPessoa_Click(object sender, RoutedEventArgs e)
         {
@@ -115,13 +96,10 @@ namespace Teste_WPF
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
-            if (IdPessoaLista < 1)
-            {
+            if (IdPessoaLista < 1)      
                 IdPessoaLista = 1;
-                idPessoaBox.Text = $"{IdPessoaLista}";
-            }
-            else
-                idPessoaBox.Text = $"{IdPessoaLista}";
+
+            idPessoaBox.Text = $"{IdPessoaLista}";
         }
 
         private void BtnSalvarPessoa_Click(object sender, RoutedEventArgs e)
@@ -416,6 +394,7 @@ namespace Teste_WPF
             btnSalvarProdutoEdit.Visibility = Visibility.Visible;
 
             var data = dataGridProduto.SelectedIndex;
+            
 
             if (data != -1)
             {
@@ -469,7 +448,7 @@ namespace Teste_WPF
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Collapsed;
 
-                dataGridPedidos.ItemsSource = pedidos;    
+                dataGridPedidos.ItemsSource = pedidos;
             }
             else
             {
@@ -481,52 +460,35 @@ namespace Teste_WPF
         {
             dynamic data = dataGridPessoa.SelectedItem;
             string indexData = data.NomePessoa;
-            int indexList = pedidos.IndexOf(pedidos.Where(p => p.Pessoas.NomePessoa == indexData).FirstOrDefault());
 
-            if (pedidos.Count == 0)
-            {
+            if (IdPedidoLista < 1)
                 IdPedidoLista = 1;
-                gridPedido.Visibility = Visibility.Visible;
 
-                btnCadastrarPessoa.Visibility = Visibility.Collapsed;
-                dataGridPessoa.Visibility = Visibility.Collapsed;
-                dataGridProduto.Visibility = Visibility.Collapsed;
+            idPedidoBox.Text = $"{IdPedidoLista}";
+            
+            gridPedido.Visibility = Visibility.Visible;
 
-                idPedidoBox.Text = IdPedidoLista.ToString();
-                nomePedidoPessoaBox.Text = indexData;
-                produtosPedidoBox.Text = "";
-                valorTotalPedidoBox.Text = "";
-                DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            }
-            else if(indexList != -1 && pedidos.Count > 0)
-            {
-                gridPedido.Visibility = Visibility.Visible;
+            btnCadastrarPessoa.Visibility = Visibility.Collapsed;
+            dataGridPessoa.Visibility = Visibility.Collapsed;
+            dataGridProduto.Visibility = Visibility.Collapsed;
 
-                btnCadastrarPessoa.Visibility = Visibility.Collapsed;
-                dataGridPessoa.Visibility = Visibility.Collapsed;
-                dataGridProduto.Visibility = Visibility.Collapsed;
-
-                idPedidoBox.Text = IdPedidoLista.ToString();
-                nomePedidoPessoaBox.Text = indexData;
-                produtosPedidoBox.Text = "";
-                valorTotalPedidoBox.Text = "";
-                DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            }
-            else
-            {
-                MessageBox.Show("Nenhum pedido encontrado!!");
-            }
+            nomePedidoPessoaBox.Text = indexData;
+            produtosPedidoBox.Text = "";
+            valorTotalPedidoBox.Text = "";
+            DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
+           
         }
 
         private void BtnSalvaPedido_Click(object sender, RoutedEventArgs e)
         {
-
             if (!string.IsNullOrEmpty(valorProdutoBox.Text))
             {
-                produto.Valor = double.Parse(valorProdutoBox.Text);
+               produto.Valor = double.Parse(valorProdutoBox.Text);
             }
+            
+            produtosPedido.Add(new Produto(produtosPedidoBox.Text));
 
-            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedidoBox.Text, produto.Valor, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
+            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, produto.Valor,Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
             dataGridPessoa.Visibility = Visibility.Visible;
             btnCadastrarPessoa.Visibility = Visibility.Visible;
@@ -535,15 +497,13 @@ namespace Teste_WPF
             gridPedido.Visibility = Visibility.Collapsed;
 
             MessageBox.Show("Cadastro efetuado com sucesso");
-
-            //idPedidoBox.Text = "";
-            //nomePedidoPessoaBox.Text = "";
+         
             produtosPedidoBox.Text = "";
             valorProdutoBox.Text = "";
-            //DataPedidoBox.Text = "";
             FormaPagPedidoBox.Text = "";
 
             IdPedidoLista++;
+
         }
 
         private void BtnCancelarPedido_Click(object sender, RoutedEventArgs e)

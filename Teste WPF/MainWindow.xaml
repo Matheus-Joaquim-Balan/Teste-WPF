@@ -307,7 +307,7 @@
             <!-- Grid Produto -->
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
                       Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
-                      AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pedidos}">
+                      AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding pedidos}">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -320,7 +320,7 @@
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" IsReadOnly="True" 
+                    <DataGridTextColumn Header="Id" x:Name="IdPedidoData" IsReadOnly="True" 
                                         Binding="{Binding IdPedido}" Width=".5*"/>
                     
                     <DataGridTextColumn Header="Nome" IsReadOnly="True" 
@@ -333,7 +333,7 @@
                     </DataGridTextColumn>
                     
                     <DataGridTextColumn Header="Produtos" IsReadOnly="True" 
-                                        Binding="{Binding Produtos}" Width="2*"/> <!-- aqui -->
+                                        Binding="{Binding produtosPedido}" Width="2*"/> <!-- aqui -->
                     <DataGridTextColumn Header="Data" IsReadOnly="True" 
                                         Binding="{Binding DataVenda}" Width="*"> 
                         <DataGridTextColumn.EditingElementStyle>
