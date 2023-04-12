@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Teste_WPF;
+using System.Xml;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Data;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Teste_WPF
 {
@@ -31,6 +32,14 @@ namespace Teste_WPF
             produtosPedido = new List<Produto>();
             produto = new Produto();
 
+            LerXmlProduto("C:\\Produtos.xml");
+            dataGridProduto.ItemsSource = produtos;
+
+            LerXmlPessoa("C:\\Pessoas.xml");
+            dataGridPessoa.ItemsSource = pessoas;
+
+
+
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
         }
 
@@ -52,7 +61,7 @@ namespace Teste_WPF
 
             btnPessoa.Background = Brushes.LightGray;
             btnProduto.Background = Brushes.Transparent;
-            dataGridPessoa.ItemsSource = pessoas;
+           
         }
 
         private void AbrirProduto(object sender, RoutedEventArgs e)
@@ -70,8 +79,6 @@ namespace Teste_WPF
 
             btnPessoa.Background = Brushes.Transparent;
             btnProduto.Background = Brushes.LightGray;
-
-            dataGridProduto.ItemsSource = produtos;
 
             if(dataGridProduto.DataContext == null)
             {
@@ -149,6 +156,8 @@ namespace Teste_WPF
                     EnderecoBox.Text = "";
 
                     IdPessoaLista++;
+
+                    ExportarXmlPessoa("C:\\Pessoas.xml");
                 }
                 else
                 {
@@ -218,7 +227,9 @@ namespace Teste_WPF
                     nomePessoaBox.Text = "";
                     CPFBox.Text = "";
                     EnderecoBox.Text = "";
-                    
+
+                    ExportarXmlPessoa("C:\\Pessoas.xml");
+
                 }
                 else
                 {
@@ -235,6 +246,8 @@ namespace Teste_WPF
         {
             dynamic data = dataGridPessoa.SelectedItem;
             pessoas.Remove(data);
+            ExportarXmlPessoa("C:\\Pessoas.xml");           
+
         }
 
         #endregion
@@ -260,11 +273,16 @@ namespace Teste_WPF
                 nomeProdutoBox.Text = "";
                 codigoProdutoBox.Text = "";
                 valorProdutoBox.Text = "";
+
+                ExportarXmlProduto("C:\\Produtos.xml");
+
             }
             else {
                 MessageBox.Show("Campos obrigatórios não preenchidos!!");
             }
         }
+
+
 
         public void SalvarProdutoEdit()
         {
@@ -296,6 +314,9 @@ namespace Teste_WPF
                     nomeProdutoBox.Text = "";
                     codigoProdutoBox.Text = "";
                     valorProdutoBox.Text = "";
+
+                ExportarXmlProduto("C:\\Produtos.xml");
+
             }
             else
             {
@@ -432,10 +453,113 @@ namespace Teste_WPF
         {
             dynamic data = dataGridProduto.SelectedItem;
             produtos.Remove(data);
+            ExportarXmlProduto("C:\\Produtos.xml");
         }
 
         #endregion
 
+        #region Exportação de XML
+
+        private void ExportarXmlPessoa(string fileName)
+        {
+            var pessoasXml = dataGridPessoa.ItemsSource as List<Produto>;
+
+            if (pedidos == null)
+            {
+                return;
+            }
+
+            var xml = new XElement("Pessoa",
+                new XElement("IdPessoaLista", IdPessoaLista),
+                from p in pessoas
+                select new XElement("Pessoa",
+                    new XElement("IdPessoa", p.IdPessoa),
+                    new XElement("NomePessoa", p.NomePessoa),
+                    new XElement("CPF", p.CPF),
+                    new XElement("Endereco", p.Endereco)
+                )
+            );
+            xml.Save(fileName);
+        }
+
+        private void LerXmlPessoa(string fileName)
+        {
+            try
+            {
+                var xml = XElement.Load(fileName);
+
+                IdPessoaLista = int.Parse(xml.Element("IdPessoaLista").Value);
+
+                foreach (var element in xml.Elements("Pessoa"))
+                {
+                    var pessoa = new Pessoa
+                    {
+                        IdPessoa = int.Parse(element.Element("IdPessoa").Value),
+                        NomePessoa = element.Element("NomePessoa").Value,
+                        CPF = element.Element("CPF").Value,
+                        Endereco = element.Element("Endereco").Value,
+                    };
+                    pessoas.Add(pessoa);
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void ExportarXmlProduto(string fileName)
+        {
+            var produtosJson = dataGridProduto.ItemsSource as List<Produto>;
+
+            if (pedidos == null)
+            {
+                return;
+            }
+
+            var xml = new XElement("Produto",
+                new XElement("IdProdutoLista", IdProdutoLista),
+                from p in produtos
+                select new XElement("Produto",
+                    new XElement("IdProduto", p.IdProduto),
+                    new XElement("NomeProduto", p.NomeProduto),
+                    new XElement("Codigo", p.Codigo),
+                    new XElement("Valor", p.Valor)
+                )
+            );
+            xml.Save(fileName);
+        }
+
+        private void LerXmlProduto(string fileName)
+        {
+            try
+            {
+                var xml = XElement.Load(fileName);
+
+                IdProdutoLista = int.Parse(xml.Element("IdProdutoLista").Value);
+
+                foreach (var element in xml.Elements("Produto"))
+                {
+                    var produtoLerXml = new Produto
+                    {
+                        IdProduto = int.Parse(element.Element("IdProduto").Value),
+                        NomeProduto = element.Element("NomeProduto").Value,
+                        Codigo = element.Element("Codigo").Value,
+                        Valor = double.Parse(element.Element("Valor").Value),
+                    };
+
+                    produtos.Add(produtoLerXml);
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        #endregion
+        
+        #region Botões Pedido
         private void BtnDetalhesPedido_Click(object sender, RoutedEventArgs e)
         {
             dynamic data = dataGridPessoa.SelectedItem;
@@ -528,4 +652,5 @@ namespace Teste_WPF
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
         }
     }
+    #endregion
 }

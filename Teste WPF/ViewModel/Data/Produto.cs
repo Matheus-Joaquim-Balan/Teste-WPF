@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,14 +33,8 @@ namespace Teste_WPF
             NomeProduto = nomeProduto;
         }
 
-        /*
-        public Produto()
+        public static class ExportadorJson
         {
-            this.IdProduto = 1;
-            this.NomeProduto = "PC Gamer";
-            this.Codigo = "477852";
-            this.QntProduto = 56;
-            this.Valor = 2499.99;
-        }*/
+        }
     }
 }
