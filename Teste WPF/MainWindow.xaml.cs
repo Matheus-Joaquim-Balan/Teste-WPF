@@ -585,7 +585,6 @@ namespace Teste_WPF
             dynamic data = dataGridPessoa.SelectedItem;
             string indexData = data.NomePessoa;
 
-            produtosPedidoBox.ItemsSource = produtos;
 
             if (IdPedidoLista < 1)
                 IdPedidoLista = 1;
@@ -599,7 +598,7 @@ namespace Teste_WPF
             dataGridProduto.Visibility = Visibility.Collapsed;
 
             nomePedidoPessoaBox.Text = indexData;
-            produtosPedidoBox.Text = "";
+           // produtosPedidoBox.Text = "";
             DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
            
         }
@@ -611,7 +610,7 @@ namespace Teste_WPF
                produto.Valor = double.Parse(valorProdutoBox.Text);
             }
             
-            produtosPedido.Add(new Produto(produtosPedidoBox.Text));
+          //  produtosPedido.Add(new Produto(produtosPedidoBox.Text));
 
             pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, produto.Valor, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
@@ -623,7 +622,7 @@ namespace Teste_WPF
 
             MessageBox.Show("Cadastro efetuado com sucesso");
          
-            produtosPedidoBox.Text = "";
+           // produtosPedidoBox.Text = "";
             valorProdutoBox.Text = "";
             FormaPagPedidoBox.Text = "";
 
@@ -635,7 +634,7 @@ namespace Teste_WPF
         {
             idPedidoBox.Text = "";
             nomePedidoPessoaBox.Text = "";
-            produtosPedidoBox.Text = "";
+          //  produtosPedidoBox.Text = "";
             valorProdutoBox.Text = "";
             DataPedidoBox.Text = "";
             FormaPagPedidoBox.Text = "";
@@ -653,15 +652,20 @@ namespace Teste_WPF
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
         }
 
-        private void ProdutosPedidoBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ProdutosListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PedProdutosBox == null)
                 return;
          
-            var value = produtosPedidoBox.SelectionBoxItem.ToString();
+           // var value = produtosPedidoBox.SelectionBoxItem.ToString();
 
-            PedProdutosBox.Text = value;
+           // PedProdutosBox.Text = value;
 
+        }
+
+        private void IncluirProdutoPedido_Click(object sender, RoutedEventArgs e)
+        {
+            produtosListBox.Items.Add(PedProdutosBox.Text);
         }
     }
     #endregion
