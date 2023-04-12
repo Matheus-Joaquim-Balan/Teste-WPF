@@ -585,6 +585,7 @@ namespace Teste_WPF
             dynamic data = dataGridPessoa.SelectedItem;
             string indexData = data.NomePessoa;
 
+
             if (IdPedidoLista < 1)
                 IdPedidoLista = 1;
 
@@ -597,8 +598,7 @@ namespace Teste_WPF
             dataGridProduto.Visibility = Visibility.Collapsed;
 
             nomePedidoPessoaBox.Text = indexData;
-            produtosPedidoBox.Text = "";
-            valorTotalPedidoBox.Text = "";
+           // produtosPedidoBox.Text = "";
             DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
            
         }
@@ -610,9 +610,9 @@ namespace Teste_WPF
                produto.Valor = double.Parse(valorProdutoBox.Text);
             }
             
-            produtosPedido.Add(new Produto(produtosPedidoBox.Text));
+          //  produtosPedido.Add(new Produto(produtosPedidoBox.Text));
 
-            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, produto.Valor,Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
+            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, produto.Valor, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
             dataGridPessoa.Visibility = Visibility.Visible;
             btnCadastrarPessoa.Visibility = Visibility.Visible;
@@ -622,7 +622,7 @@ namespace Teste_WPF
 
             MessageBox.Show("Cadastro efetuado com sucesso");
          
-            produtosPedidoBox.Text = "";
+           // produtosPedidoBox.Text = "";
             valorProdutoBox.Text = "";
             FormaPagPedidoBox.Text = "";
 
@@ -634,7 +634,7 @@ namespace Teste_WPF
         {
             idPedidoBox.Text = "";
             nomePedidoPessoaBox.Text = "";
-            produtosPedidoBox.Text = "";
+          //  produtosPedidoBox.Text = "";
             valorProdutoBox.Text = "";
             DataPedidoBox.Text = "";
             FormaPagPedidoBox.Text = "";
@@ -650,6 +650,22 @@ namespace Teste_WPF
         private void ExpandirPedido_Click(object sender, RoutedEventArgs e)
         {
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
+        }
+
+        private void ProdutosListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PedProdutosBox == null)
+                return;
+         
+           // var value = produtosPedidoBox.SelectionBoxItem.ToString();
+
+           // PedProdutosBox.Text = value;
+
+        }
+
+        private void IncluirProdutoPedido_Click(object sender, RoutedEventArgs e)
+        {
+            produtosListBox.Items.Add(PedProdutosBox.Text);
         }
     }
     #endregion
