@@ -585,6 +585,8 @@ namespace Teste_WPF
             dynamic data = dataGridPessoa.SelectedItem;
             string indexData = data.NomePessoa;
 
+            produtosPedidoBox.ItemsSource = produtos;
+
             if (IdPedidoLista < 1)
                 IdPedidoLista = 1;
 
@@ -598,7 +600,6 @@ namespace Teste_WPF
 
             nomePedidoPessoaBox.Text = indexData;
             produtosPedidoBox.Text = "";
-            valorTotalPedidoBox.Text = "";
             DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
            
         }
@@ -612,7 +613,7 @@ namespace Teste_WPF
             
             produtosPedido.Add(new Produto(produtosPedidoBox.Text));
 
-            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, produto.Valor,Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
+            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, produto.Valor, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
             dataGridPessoa.Visibility = Visibility.Visible;
             btnCadastrarPessoa.Visibility = Visibility.Visible;
@@ -650,6 +651,17 @@ namespace Teste_WPF
         private void ExpandirPedido_Click(object sender, RoutedEventArgs e)
         {
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
+        }
+
+        private void ProdutosPedidoBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PedProdutosBox == null)
+                return;
+         
+            var value = produtosPedidoBox.SelectionBoxItem.ToString();
+
+            PedProdutosBox.Text = value;
+
         }
     }
     #endregion
