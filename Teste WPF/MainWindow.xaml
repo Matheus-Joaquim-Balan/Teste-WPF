@@ -286,19 +286,7 @@
 
                 <TextBlock Visibility="Visible" x:Name="produtosPedidoBlock" Grid.Column="0" Grid.Row="2" Text="Produtos" HorizontalAlignment="Right" Margin="0 0 10 0" />
                 <ComboBox Visibility="Visible" x:Name="produtosPedidoBox" SelectionChanged="ProdutosPedidoBox_SelectionChanged" Grid.Column="1" ItemsSource="{Binding produtos}" SelectedValue="{Binding NomeProduto, Mode=OneWay}" HorizontalAlignment="Left" Grid.Row="2" Width="300" Margin="0 0 30 10">
-                    <!--<ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Width="280">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width=".5*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock HorizontalAlignment="Left" Grid.Column="0" Text="{Binding NomeProduto}"/>
-                                <TextBlock HorizontalAlignment="Left" Grid.Column="1" Text="R$ "/>
-                                <TextBlock HorizontalAlignment="Right" Grid.Column="1" Text="{Binding Valor}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>-->
+                  
                 </ComboBox>
 
                 <TextBlock Visibility="Visible" x:Name="PedProdutosBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Todos os Produtos"  Margin="0 0 10 0" />
