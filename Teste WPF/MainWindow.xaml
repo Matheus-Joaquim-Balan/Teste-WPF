@@ -285,11 +285,28 @@
                 <TextBox Visibility="Visible" x:Name="nomePedidoPessoaBox" Grid.Column="1" Grid.Row="1" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="produtosPedidoBlock" Grid.Column="0" Grid.Row="2" Text="Produtos" HorizontalAlignment="Right" Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="produtosPedidoBox" Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
+                <ComboBox Visibility="Visible" x:Name="produtosPedidoBox" SelectionChanged="ProdutosPedidoBox_SelectionChanged" Grid.Column="1" ItemsSource="{Binding produtos}" SelectedValue="{Binding NomeProduto, Mode=OneWay}" HorizontalAlignment="Left" Grid.Row="2" Width="300" Margin="0 0 30 10">
+                    <!--<ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="280">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width=".5*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock HorizontalAlignment="Left" Grid.Column="0" Text="{Binding NomeProduto}"/>
+                                <TextBlock HorizontalAlignment="Left" Grid.Column="1" Text="R$ "/>
+                                <TextBlock HorizontalAlignment="Right" Grid.Column="1" Text="{Binding Valor}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>-->
+                </ComboBox>
 
-                <TextBlock Visibility="Visible" x:Name="valorTotalPedidoBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor Total"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="valorTotalPedidoBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
-
+                <TextBlock Visibility="Visible" x:Name="PedProdutosBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Todos os Produtos"  Margin="0 0 10 0" />
+                <TextBox Visibility="Visible" x:Name="PedProdutosBox" Text="{Binding ElementName=produtosPedidoBox, Path=SelectedValue}" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                
+               <!-- <TextBlock Visibility="Visible" x:Name="qntdProdPedBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor Total"  Margin="0 0 10 0" />
+                <TextBox Visibility="Visible" x:Name="qntdProdPedBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>-->
+                    
                 <TextBlock Visibility="Visible" x:Name="DataPedidoBlock" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" Text="Data Venda"  Margin="0 0 10 0" />
                 <TextBox Visibility="Visible" x:Name="DataPedidoBox" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
@@ -385,7 +402,7 @@
                     <!--lembrar de deixar junto-->
                     <TextBlock Text="NOME" Visibility="Collapsed"/>
                     <Grid>
-                        <DataGrid x:Name="dataGridPedidoExpandido" Visibility="Collapsed" Height="350" AutoGenerateColumns="False" CanUserAddRows="False" >
+                        <DataGrid x:Name="dataGridPedidoExpandido" ItemsSource="{Binding produtosPedido}" Visibility="Collapsed" Height="350" AutoGenerateColumns="False" CanUserAddRows="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Produto" 
                                                     Binding="{Binding NomeProduto}" Width="*" />
