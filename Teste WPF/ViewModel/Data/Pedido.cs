@@ -20,15 +20,15 @@ namespace Teste_WPF
         {
         }
 
-        public Pedido(int id, string nomePessoa, List<Produto> produtos, double valor, int formaPagamento ,int status)
+        public Pedido(int id, string nomePessoa, List<Produto> produtos, double valorTotal,int formaPagamento ,int status)
         {
-
+            produtos = new List<Produto>();
             
             this.IdPedido = id;
             this.NomePessoa = nomePessoa;
             this.Produtos = produtos;
+            this.ValorTotal = valorTotal;
             this.DataVenda = DateTime.Now.ToString("dd-MM-yyyy");
-            this.ValorTotal = valor;
             this.FormaPagamento = (FormaPagamento)formaPagamento;
             this.Status = (Status)status;
         }

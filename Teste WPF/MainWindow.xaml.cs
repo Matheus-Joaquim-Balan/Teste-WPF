@@ -572,6 +572,7 @@ namespace Teste_WPF
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Collapsed;
 
+                dataGridPedidos.Visibility = Visibility.Visible;
                 dataGridPedidos.ItemsSource = pedidos;
             }
             else
@@ -598,21 +599,23 @@ namespace Teste_WPF
             dataGridProduto.Visibility = Visibility.Collapsed;
 
             nomePedidoPessoaBox.Text = indexData;
-           // produtosPedidoBox.Text = "";
             DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
            
         }
 
         private void BtnSalvaPedido_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(valorProdutoBox.Text))
+            double valorPedido = 0;
+
+            foreach (var item in produtosPedido)
             {
-               produto.Valor = double.Parse(valorProdutoBox.Text);
+               var valorPorQntd = item.Valor * item.QntdProduto;
+
+                valorPedido += valorPorQntd;
             }
             
-          //  produtosPedido.Add(new Produto(produtosPedidoBox.Text));
 
-            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, produto.Valor, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
+            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, valorPedido, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
             dataGridPessoa.Visibility = Visibility.Visible;
             btnCadastrarPessoa.Visibility = Visibility.Visible;
@@ -621,8 +624,10 @@ namespace Teste_WPF
             gridPedido.Visibility = Visibility.Collapsed;
 
             MessageBox.Show("Cadastro efetuado com sucesso");
-         
-           // produtosPedidoBox.Text = "";
+
+            qntdProdPedBox.Text = "";
+            PedProdutosBox.Text = "";
+            produtosListBox.Items.Clear();
             valorProdutoBox.Text = "";
             FormaPagPedidoBox.Text = "";
 
@@ -634,8 +639,9 @@ namespace Teste_WPF
         {
             idPedidoBox.Text = "";
             nomePedidoPessoaBox.Text = "";
-          //  produtosPedidoBox.Text = "";
-            valorProdutoBox.Text = "";
+            qntdProdPedBox.Text = "";
+            PedProdutosBox.Text = "";
+            produtosListBox.Items.Clear();
             DataPedidoBox.Text = "";
             FormaPagPedidoBox.Text = "";
 
@@ -651,21 +657,25 @@ namespace Teste_WPF
         {
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
         }
-
-        private void ProdutosListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (PedProdutosBox == null)
-                return;
-         
-           // var value = produtosPedidoBox.SelectionBoxItem.ToString();
-
-           // PedProdutosBox.Text = value;
-
-        }
-
+             
         private void IncluirProdutoPedido_Click(object sender, RoutedEventArgs e)
         {
-            produtosListBox.Items.Add(PedProdutosBox.Text);
+            var dadoProduto = produtos.IndexOf(produtos.Where(p => p.NomeProduto == PedProdutosBox.Text).FirstOrDefault());
+           
+
+            if (dadoProduto != -1 && PedProdutosBox.Text != "" && qntdProdPedBox.Text != "" && int.Parse(qntdProdPedBox.Text) >= 1)
+            {
+                produtosListBox.Items.Add(PedProdutosBox.Text);
+
+                produtosPedido.Add(new Produto(PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
+            }
+            else
+            {
+                MessageBox.Show("Campos necessarios não preenchidos corretamente");
+            }
+
+            PedProdutosBox.Text = "";
+            qntdProdPedBox.Text = "";
         }
     }
     #endregion
