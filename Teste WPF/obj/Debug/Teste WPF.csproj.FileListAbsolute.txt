@@ -35,3 +35,5 @@ C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\obj\Debug\Teste WPF
 C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.csproj.CopyComplete
 C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.exe
 C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.pdb
+C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\bin\Debug\PropertyChanged.dll
+C:\Users\douglas.menchon\Desktop\aastars\Teste-WPF\Teste WPF\bin\Debug\PropertyChanged.xml
