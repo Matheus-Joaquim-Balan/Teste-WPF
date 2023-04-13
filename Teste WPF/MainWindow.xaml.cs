@@ -573,7 +573,7 @@ namespace Teste_WPF
             string indexData = data.NomePessoa;
             var indexList = pedidos.Where(p => p.NomePessoa == indexData).ToList();
 
-            if (indexList != null)
+            if (indexList.Count > 0)
             {
 
                 dataGridPessoa.Visibility = Visibility.Collapsed;
@@ -616,15 +616,16 @@ namespace Teste_WPF
         {
             double valorPedido = 0;
 
-            foreach (var item in produtosPedido)
-            {
-                var valorPorQntd = item.Valor * item.QntdProduto;
-
-                valorPedido += valorPorQntd;
-            }
 
             if (FormaPagPedidoBox.SelectedValue != null)
             {
+
+                foreach (var item in produtosPedido)
+                {
+                    var valorPorQntd = item.Valor * item.QntdProduto;
+
+                    valorPedido += valorPorQntd;
+                }
 
                 pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, valorPedido, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
@@ -642,6 +643,7 @@ namespace Teste_WPF
                 valorProdutoBox.Text = "";
                 FormaPagPedidoBox.Text = "";
 
+                produtosPedido.Clear();
                 IdPedidoLista++;
             }
             else
@@ -672,12 +674,16 @@ namespace Teste_WPF
         private void ExpandirPedido_Click(object sender, RoutedEventArgs e)
         {
             dynamic data = dataGridPedidos.SelectedItem;
-            string indexData = data.NomePessoa;
-            var indexList = pedidos.IndexOf(pedidos.Where(p => p.NomePessoa == indexData).FirstOrDefault());
+            string indexNome = data.NomePessoa;
+            int indexPed = data.IdPedido;
+            var indexList = pedidos.Where(p => p.NomePessoa == indexNome && p.IdPedido == indexPed).ToList();
 
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
 
-            dataGridPedidoExpandido.ItemsSource = pedidos[indexList].Produtos.ToList();
+            foreach(var item in indexList)
+            {
+                dataGridPedidoExpandido.ItemsSource = item.Produtos.ToList();
+            }
 
         }
 
@@ -688,7 +694,7 @@ namespace Teste_WPF
 
             if (dadoProduto != -1 && PedProdutosBox.Text != "" && qntdProdPedBox.Text != "" && int.Parse(qntdProdPedBox.Text) >= 1)
             {
-                produtosListBox.Items.Add(PedProdutosBox.Text);
+                produtosListBox.Items.Add($"{PedProdutosBox.Text}  Qntd: {qntdProdPedBox.Text}   R${produtos[dadoProduto].Valor}");
 
                 produtosPedido.Add(new Produto(PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
             }
