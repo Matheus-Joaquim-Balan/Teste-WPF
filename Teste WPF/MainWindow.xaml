@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Teste_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" >
+        Title="MainWindow" WindowState="Maximized">
 
 
-    <Grid Margin="10">
+    <Grid Margin="20 50 20 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+        <StackPanel Grid.Column="0" Margin="0,50,10,0">
             <Button x:Name="btnPessoa" Content="Pessoa" Background="LightGray" Height="30" Margin="0 0 0 10" Click="AbrirPessoa"/>
             <Button x:Name="btnProduto" Content="Produto" Background="Transparent" Height="30" Margin="0 0 0 10" Click="AbrirProduto"/>
 
@@ -22,7 +22,7 @@
             <Button x:Name="btnCadastrarPessoa" Visibility="Collapsed" Content="Cadastrar" Background="Green" Height="25" Margin="0 50 0 10" Click="BtnCadastrarPessoa_Click"/>
 
             <!--Botões Produto-->
-            <Button x:Name="btnCadastrarProduto" Visibility="Collapsed" Content="Cadastrar" Background="Green" Height="25" Margin="0 0 0 10" Click="BtnCadastrarProduto_Click"/>
+            <Button x:Name="btnCadastrarProduto" Visibility="Collapsed" Content="Cadastrar" Background="Green" Height="25" Margin="0 50 0 10" Click="BtnCadastrarProduto_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="3" x:Name="stackMain">
@@ -42,7 +42,7 @@
             </Grid>
 
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                      Visibility="Collapsed" x:Name="dataGridPessoa" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
+                      Visibility="Collapsed" x:Name="dataGridPessoa" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
                       AutoGenerateColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding pessoas}">
 
                 <DataGrid.Resources>
@@ -76,7 +76,7 @@
                     <DataGridTemplateColumn Header="Incluir" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnIncluirPedido" Content="Incluir"  Background="Lime" Click="BtnIncluirPedido_Click" />
+                                <Button x:Name="btnIncluirPedido" Content="Incluir Pedido"  Background="Lime" Click="BtnIncluirPedido_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -105,7 +105,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Grid x:Name="gridCadastrarPessoa" Visibility="Visible">
+            <Grid x:Name="gridCadastrarPessoa" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="8*"/>
@@ -258,7 +258,7 @@
             <!--Fim Dados Produto-->
 
             <!-- Dados Pedido-->
-            <TextBlock Visibility="Collapsed" FontSize="20" Grid.Column="0" HorizontalAlignment="Left">DETALHES PEDIDO</TextBlock>
+            <TextBlock Visibility="Collapsed" FontSize="20" Grid.Column="0" HorizontalAlignment="Left">INSERIR PEDIDO</TextBlock>
 
             <Grid x:Name="gridPedido" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
@@ -314,8 +314,25 @@
                         Height="25" Margin="-11,50.4,9.8,-1.2" Click="BtnSalvaPedido_Click"/>
             </Grid>
             <!-- Grid Produto -->
+            
+
+            <Grid x:Name="gridPesquisaStatus" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="NOME" x:Name="txtNomePedido" Visibility="Collapsed" Grid.Column="0"/>
+                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por status:</TextBlock>
+                <ComboBox Grid.Column="1" x:Name="comboBoxPesquisaStatus" ItemsSource="{local:EnumBindingSource local:Status}" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
+                <Button x:Name="btnPesquisarStatus" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" Margin="136,0,0,4.8" Height="20" Width="30" Grid.ColumnSpan="2" Click="BtnPesquisarStatus_Click">
+                    <Image Source="images/Lupa.png" />
+                </Button>
+            </Grid>
+            
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                      Visibility="Collapsed" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="350" CanUserAddRows="False" 
+                      Visibility="Collapsed" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
                       AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding pedidos}">
 
                 <DataGrid.Resources>
@@ -342,7 +359,7 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Produtos">
+                    <DataGridTemplateColumn Header="Produtos*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="expandirPedido" Click="ExpandirPedido_Click" Content="Expandir" Background="DeepSkyBlue"/>
@@ -387,10 +404,8 @@
             <!-- Pedidos expandido -->
             <Grid>
                 <StackPanel>
-                    <!--lembrar de deixar junto-->
-                    <TextBlock Text="NOME" Visibility="Collapsed"/>
                     <Grid>
-                        <DataGrid x:Name="dataGridPedidoExpandido" ItemsSource="{Binding pedidos.Produtos}" Visibility="Collapsed" Height="350" AutoGenerateColumns="False" CanUserAddRows="False" >
+                        <DataGrid x:Name="dataGridPedidoExpandido" ItemsSource="{Binding pedidos}" Visibility="Collapsed" Height="150" AutoGenerateColumns="False" CanUserAddRows="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Produto" 
                                                     Binding="{Binding NomeProduto}" Width="*" />

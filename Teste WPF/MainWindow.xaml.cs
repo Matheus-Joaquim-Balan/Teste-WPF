@@ -50,6 +50,9 @@ namespace Teste_WPF
             btnCadastrarPessoa.Visibility = Visibility.Visible;
             gridPesquisaPessoa.Visibility = Visibility.Visible;
 
+            gridPesquisaStatus.Visibility = Visibility.Collapsed;
+            dataGridPedidoExpandido.Visibility = Visibility.Collapsed;
+            dataGridPedidos.Visibility = Visibility.Collapsed;
             gridPedido.Visibility = Visibility.Collapsed;
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
@@ -58,9 +61,9 @@ namespace Teste_WPF
             gridPesquisaProduto.Visibility = Visibility.Collapsed;
 
             txtBoxPesquisaPessoa.Text = "";
-
             btnPessoa.Background = Brushes.LightGray;
             btnProduto.Background = Brushes.Transparent;
+            btnPessoa.Content = "Pessoas";
 
         }
 
@@ -69,6 +72,9 @@ namespace Teste_WPF
             btnCadastrarProduto.Visibility = Visibility.Visible;
             dataGridProduto.Visibility = Visibility.Visible;
 
+            gridPesquisaStatus.Visibility = Visibility.Collapsed;
+            dataGridPedidoExpandido.Visibility = Visibility.Collapsed;
+            dataGridPedidos.Visibility = Visibility.Collapsed;
             gridPedido.Visibility = Visibility.Collapsed;
             dataGridPessoa.Visibility = Visibility.Collapsed;
             gridCadastrarPessoa.Visibility = Visibility.Collapsed;
@@ -140,10 +146,12 @@ namespace Teste_WPF
         {
             var dadosGrid = pessoas.Where(g => g.NomePessoa.Contains(txtBoxPesquisaPessoa.Text) || g.CPF.Contains(txtBoxPesquisaPessoa.Text)).ToList();
 
-            if (dadosGrid.Count > 0)
+            if (dadosGrid.Count > 0 && txtBoxPesquisaPessoa.Text != "")
                 dataGridPessoa.ItemsSource = dadosGrid;
             else
                 MessageBox.Show("Pessoa não encontrada!");
+
+            txtBoxPesquisaPessoa.Text = "";
         }
 
         private void CPFBox__TextChanged(object sender, TextChangedEventArgs e)
@@ -292,7 +300,8 @@ namespace Teste_WPF
                 ExportarXmlProduto("C:\\Produtos.xml");
 
             }
-            else {
+            else
+            {
                 MessageBox.Show("Campos obrigatórios não preenchidos!!");
             }
         }
@@ -465,107 +474,6 @@ namespace Teste_WPF
 
         #endregion
 
-        #region Exportação de XML
-
-        private void ExportarXmlPessoa(string fileName)
-        {
-            var pessoasXml = dataGridPessoa.ItemsSource as List<Produto>;
-
-            if (pedidos == null)
-            {
-                return;
-            }
-
-            var xml = new XElement("Pessoa",
-                new XElement("IdPessoaLista", IdPessoaLista),
-                from p in pessoas
-                select new XElement("Pessoa",
-                    new XElement("IdPessoa", p.IdPessoa),
-                    new XElement("NomePessoa", p.NomePessoa),
-                    new XElement("CPF", p.CPF),
-                    new XElement("Endereco", p.Endereco)
-                )
-            );
-            xml.Save(fileName);
-        }
-
-        private void LerXmlPessoa(string fileName)
-        {
-            try
-            {
-                var xml = XElement.Load(fileName);
-
-                IdPessoaLista = int.Parse(xml.Element("IdPessoaLista").Value);
-
-                foreach (var element in xml.Elements("Pessoa"))
-                {
-                    var pessoa = new Pessoa
-                    {
-                        IdPessoa = int.Parse(element.Element("IdPessoa").Value),
-                        NomePessoa = element.Element("NomePessoa").Value,
-                        CPF = element.Element("CPF").Value,
-                        Endereco = element.Element("Endereco").Value,
-                    };
-                    pessoas.Add(pessoa);
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        private void ExportarXmlProduto(string fileName)
-        {
-            var produtosJson = dataGridProduto.ItemsSource as List<Produto>;
-
-            if (pedidos == null)
-            {
-                return;
-            }
-
-            var xml = new XElement("Produto",
-                new XElement("IdProdutoLista", IdProdutoLista),
-                from p in produtos
-                select new XElement("Produto",
-                    new XElement("IdProduto", p.IdProduto),
-                    new XElement("NomeProduto", p.NomeProduto),
-                    new XElement("Codigo", p.Codigo),
-                    new XElement("Valor", p.Valor)
-                )
-            );
-            xml.Save(fileName);
-        }
-
-        private void LerXmlProduto(string fileName)
-        {
-            try
-            {
-                var xml = XElement.Load(fileName);
-
-                IdProdutoLista = int.Parse(xml.Element("IdProdutoLista").Value);
-
-                foreach (var element in xml.Elements("Produto"))
-                {
-                    var produtoLerXml = new Produto
-                    {
-                        IdProduto = int.Parse(element.Element("IdProduto").Value),
-                        NomeProduto = element.Element("NomeProduto").Value,
-                        Codigo = element.Element("Codigo").Value,
-                        Valor = double.Parse(element.Element("Valor").Value),
-                    };
-
-                    produtos.Add(produtoLerXml);
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        #endregion
-
         #region Botões Pedido
         private void BtnDetalhesPedido_Click(object sender, RoutedEventArgs e)
         {
@@ -577,12 +485,16 @@ namespace Teste_WPF
             {
 
                 dataGridPessoa.Visibility = Visibility.Collapsed;
-                dataGridProduto.Visibility = Visibility.Collapsed;
+                gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
                 dataGridPedidos.Visibility = Visibility.Visible;
+                gridPesquisaStatus.Visibility = Visibility.Visible;
 
                 dataGridPedidos.ItemsSource = indexList;
-                
+
+                btnPessoa.Content = "Voltar";
+                btnPessoa.Background = Brushes.LightBlue;
+                txtNomePedido.Text = indexData;
             }
             else
             {
@@ -606,6 +518,7 @@ namespace Teste_WPF
             btnCadastrarPessoa.Visibility = Visibility.Collapsed;
             dataGridPessoa.Visibility = Visibility.Collapsed;
             dataGridProduto.Visibility = Visibility.Collapsed;
+            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
             nomePedidoPessoaBox.Text = indexData;
             DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
@@ -617,7 +530,7 @@ namespace Teste_WPF
             double valorPedido = 0;
 
 
-            if (FormaPagPedidoBox.SelectedValue != null)
+            if (FormaPagPedidoBox.SelectedValue != null && produtosListBox.HasItems)
             {
 
                 foreach (var item in produtosPedido)
@@ -680,7 +593,7 @@ namespace Teste_WPF
 
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
 
-            foreach(var item in indexList)
+            foreach (var item in indexList)
             {
                 dataGridPedidoExpandido.ItemsSource = item.Produtos.ToList();
             }
@@ -707,6 +620,18 @@ namespace Teste_WPF
             qntdProdPedBox.Text = "";
         }
 
+        private void BtnPesquisarStatus_Click(object sender, RoutedEventArgs e)
+        {
+            var dadoStatus = comboBoxPesquisaStatus.SelectedValue;
+
+            var dado = pedidos.Where(p => p.Status == (Status)dadoStatus && p.NomePessoa == txtNomePedido.Text).ToList();
+
+            if (dado.Count > 0 && comboBoxPesquisaStatus.SelectedValue != null)
+                dataGridPedidos.ItemsSource = dado;
+            else
+                MessageBox.Show("Pedidos não encontrados!");
+
+        }
 
         private void ValorProdutoBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -722,6 +647,108 @@ namespace Teste_WPF
                 }
             }
         }
+
+        #endregion
+
+        #region Exportação de XML
+
+        private void ExportarXmlPessoa(string fileName)
+        {
+            var pessoasXml = dataGridPessoa.ItemsSource as List<Produto>;
+
+            if (pedidos == null)
+            {
+                return;
+            }
+
+            var xml = new XElement("Pessoa",
+                new XElement("IdPessoaLista", IdPessoaLista),
+                from p in pessoas
+                select new XElement("Pessoa",
+                    new XElement("IdPessoa", p.IdPessoa),
+                    new XElement("NomePessoa", p.NomePessoa),
+                    new XElement("CPF", p.CPF),
+                    new XElement("Endereco", p.Endereco)
+                )
+            );
+            xml.Save(fileName);
+        }
+
+        private void LerXmlPessoa(string fileName)
+        {
+            try
+            {
+                var xml = XElement.Load(fileName);
+
+                IdPessoaLista = int.Parse(xml.Element("IdPessoaLista").Value);
+
+                foreach (var element in xml.Elements("Pessoa"))
+                {
+                    var pessoa = new Pessoa
+                    {
+                        IdPessoa = int.Parse(element.Element("IdPessoa").Value),
+                        NomePessoa = element.Element("NomePessoa").Value,
+                        CPF = element.Element("CPF").Value,
+                        Endereco = element.Element("Endereco").Value,
+                    };
+                    pessoas.Add(pessoa);
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void ExportarXmlProduto(string fileName)
+        {           
+            if (pedidos == null)
+            {
+                return;
+            }
+
+            var xml = new XElement("Produto",
+                new XElement("IdProdutoLista", IdProdutoLista),
+                from p in produtos
+                select new XElement("Produto",
+                    new XElement("IdProduto", p.IdProduto),
+                    new XElement("NomeProduto", p.NomeProduto),
+                    new XElement("Codigo", p.Codigo),
+                    new XElement("Valor", p.Valor)
+                )
+            );
+            xml.Save(fileName);
+        }
+
+        private void LerXmlProduto(string fileName)
+        {
+            try
+            {
+                var xml = XElement.Load(fileName);
+
+                IdProdutoLista = int.Parse(xml.Element("IdProdutoLista").Value);
+
+                foreach (var element in xml.Elements("Produto"))
+                {
+                    var produtoLerXml = new Produto
+                    {
+                        IdProduto = int.Parse(element.Element("IdProduto").Value),
+                        NomeProduto = element.Element("NomeProduto").Value,
+                        Codigo = element.Element("Codigo").Value,
+                        Valor = double.Parse(element.Element("Valor").Value),
+                    };
+
+                    produtos.Add(produtoLerXml);
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        #endregion
+
+        
     }
-    #endregion
 }
