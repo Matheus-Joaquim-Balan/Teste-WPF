@@ -571,16 +571,18 @@ namespace Teste_WPF
         {
             dynamic data = dataGridPessoa.SelectedItem;
             string indexData = data.NomePessoa;
-            int indexList = pedidos.IndexOf(pedidos.Where(p => p.NomePessoa == indexData).FirstOrDefault());
+            var indexList = pedidos.Where(p => p.NomePessoa == indexData).ToList();
 
-            if (indexList != -1)
+            if (indexList != null)
             {
 
                 dataGridPessoa.Visibility = Visibility.Collapsed;
                 dataGridProduto.Visibility = Visibility.Collapsed;
 
                 dataGridPedidos.Visibility = Visibility.Visible;
-                dataGridPedidos.ItemsSource = pedidos;
+
+                dataGridPedidos.ItemsSource = indexList;
+                
             }
             else
             {
@@ -621,25 +623,32 @@ namespace Teste_WPF
                 valorPedido += valorPorQntd;
             }
 
+            if (FormaPagPedidoBox.SelectedValue != null)
+            {
 
-            pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, valorPedido, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
+                pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, valorPedido, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
 
-            dataGridPessoa.Visibility = Visibility.Visible;
-            btnCadastrarPessoa.Visibility = Visibility.Visible;
-            gridPesquisaPessoa.Visibility = Visibility.Visible;
+                dataGridPessoa.Visibility = Visibility.Visible;
+                btnCadastrarPessoa.Visibility = Visibility.Visible;
+                gridPesquisaPessoa.Visibility = Visibility.Visible;
 
-            gridPedido.Visibility = Visibility.Collapsed;
+                gridPedido.Visibility = Visibility.Collapsed;
 
-            MessageBox.Show("Cadastro efetuado com sucesso");
+                MessageBox.Show("Cadastro efetuado com sucesso");
 
-            qntdProdPedBox.Text = "";
-            PedProdutosBox.Text = "";
-            produtosListBox.Items.Clear();
-            valorProdutoBox.Text = "";
-            FormaPagPedidoBox.Text = "";
+                qntdProdPedBox.Text = "";
+                PedProdutosBox.Text = "";
+                produtosListBox.Items.Clear();
+                valorProdutoBox.Text = "";
+                FormaPagPedidoBox.Text = "";
 
-            IdPedidoLista++;
+                IdPedidoLista++;
+            }
+            else
+            {
+                MessageBox.Show("Preencha todos os campos obrigatórios!");
 
+            }
         }
 
         private void BtnCancelarPedido_Click(object sender, RoutedEventArgs e)
@@ -662,7 +671,14 @@ namespace Teste_WPF
 
         private void ExpandirPedido_Click(object sender, RoutedEventArgs e)
         {
+            dynamic data = dataGridPedidos.SelectedItem;
+            string indexData = data.NomePessoa;
+            var indexList = pedidos.IndexOf(pedidos.Where(p => p.NomePessoa == indexData).FirstOrDefault());
+
             dataGridPedidoExpandido.Visibility = Visibility.Visible;
+
+            dataGridPedidoExpandido.ItemsSource = pedidos[indexList].Produtos.ToList();
+
         }
 
         private void IncluirProdutoPedido_Click(object sender, RoutedEventArgs e)
