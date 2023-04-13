@@ -105,7 +105,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Grid x:Name="gridCadastrarPessoa" Visibility="Collapsed">
+            <Grid x:Name="gridCadastrarPessoa" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="8*"/>
@@ -130,7 +130,7 @@
                 <TextBox x:Name="nomePessoaBox" Grid.Column="1" Grid.Row="2" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock x:Name="CPFBlock" Grid.Column="0" Grid.Row="3" Text="CPF*" Margin="0 0 10 10" HorizontalAlignment="Right" />
-                <TextBox x:Name="CPFBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
+                <TextBox x:Name="CPFBox" TextChanged="CPFBox__TextChanged"  Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
 
                 <TextBlock x:Name="EnderecoBlock" Grid.Column="0" Grid.Row="4" Text="Endereço" Margin="0 0 10 0" HorizontalAlignment="Right" />
                 <TextBox x:Name="EnderecoBox" Grid.Column="1" Width="350" HorizontalAlignment="Left" Grid.Row="4"  Margin="0 0 30 0" />
@@ -240,7 +240,7 @@
 
 
                 <TextBlock Visibility="Visible" x:Name="valorProdutoBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor*"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="valorProdutoBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <TextBox Visibility="Visible" x:Name="valorProdutoBox" LostFocus="ValorProdutoBox_LostFocus" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <Button Visibility="Visible" x:Name="btnSalvarProduto"  Grid.Row="5" Grid.Column="1" 
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Yellow" 
