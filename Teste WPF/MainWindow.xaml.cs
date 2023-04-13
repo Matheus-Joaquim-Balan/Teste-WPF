@@ -38,7 +38,8 @@ namespace Teste_WPF
             LerXmlPessoa("C:\\Pessoas.xml");
             dataGridPessoa.ItemsSource = pessoas;
 
-
+            LerXmlPedido("C:\\Pedidos.xml");
+            dataGridPedidos.ItemsSource = pedidos;
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
         }
@@ -564,6 +565,71 @@ namespace Teste_WPF
             }
         }
 
+        private void ExportarXmlPedido(string fileName)
+        {
+            var pedidosXml = dataGridPedidos.ItemsSource as List<Pedido>;
+
+            if (pedidos == null)
+            {
+                return;
+            }
+
+            var xml = new XElement("Pedido",
+                new XElement("IdPedidoLista", IdPedidoLista),
+                from p in pedidos
+                select new XElement("Pedido",
+                    new XElement("IdPedido", p.IdPedido),
+                    new XElement("NomePessoa", p.NomePessoa),
+                    new XElement("DataVenda", p.DataVenda),
+                    new XElement("FormaPagamento", p.FormaPagamento),
+                    new XElement("Status", p.Status),
+                    new XElement("ValorTotal", p.ValorTotal),
+                    new XElement("Produtos", p.Produtos
+                    
+                     new XElement("Produto",
+                    new XElement("NomeProduto", ps.NomeProduto),
+                    new XElement("QntdProduto", ps.QntdProduto),
+                    new XElement("Valor", ps.Valor)
+                    )
+                   )
+                )
+            );
+            xml.Save(fileName);
+        }
+
+        private void LerXmlPedido(string fileName)
+        {
+            try
+            {
+                var xml = XElement.Load(fileName);
+                IdPedidoLista = int.Parse(xml.Element("IdPedidoLista").Value);
+
+                foreach (var element in xml.Elements("Pedido"))
+                {
+                    FormaPagamento formaPagamento;
+                    Enum.TryParse(element.Element("FormaPagamento").Value, out formaPagamento);
+
+                    Status status;
+                    Enum.TryParse(element.Element("Status").Value, out status);
+
+                    var pedido = new Pedido
+                    {
+                        IdPedido = int.Parse(element.Element("IdPedido").Value),
+                        NomePessoa = element.Element("NomePessoa").Value,
+                        DataVenda = element.Element("DataVenda").Value,
+                        FormaPagamento = formaPagamento,
+                        Status = status,
+                        ValorTotal = double.Parse(element.Element("ValorTotal").Value)
+                    };
+                    pedidos.Add(pedido);
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+
         #endregion
 
         #region Botões Pedido
@@ -643,6 +709,8 @@ namespace Teste_WPF
                 FormaPagPedidoBox.Text = "";
 
                 IdPedidoLista++;
+
+                ExportarXmlPedido("C:\\Pedidos.xml");
             }
             else
             {
@@ -699,23 +767,7 @@ namespace Teste_WPF
 
             PedProdutosBox.Text = "";
             qntdProdPedBox.Text = "";
-        }
-
-
-        private void ValorProdutoBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                if (double.TryParse(textBox.Text, out double valor))
-                {
-                    textBox.Text = valor.ToString("N2");
-                }
-                else
-                {
-                    MessageBox.Show("Digite um valor numérico válido.");
-                }
-            }
-        }
+        }       
     }
     #endregion
 }

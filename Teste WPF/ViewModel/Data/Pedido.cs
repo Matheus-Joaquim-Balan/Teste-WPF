@@ -9,7 +9,6 @@ namespace Teste_WPF
         public Pessoa Pessoas { get; set; }
         public string NomePessoa { get; set; } // aqui
         public List<Produto> Produtos { get; set; }
-        public string NomeProduto { get; set; } // aqui
         public double ValorTotal { get; set; }
         public string DataVenda { get; set; }
         public FormaPagamento FormaPagamento { get; set; }

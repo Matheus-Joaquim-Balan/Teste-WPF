@@ -105,7 +105,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Grid x:Name="gridCadastrarPessoa" Visibility="Visible">
+            <Grid x:Name="gridCadastrarPessoa" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="8*"/>
@@ -191,7 +191,7 @@
                     <DataGridTextColumn Header="Id" Binding="{Binding IdProduto}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Nome" Binding="{Binding NomeProduto}" Width="3*" />
                     <DataGridTextColumn Header="Codigo" Binding="{Binding Codigo}" Width="2*"/>
-                    <DataGridTextColumn Header="Valor" Binding="{Binding Valor}" Width="*"/>
+                    <DataGridTextColumn Header="Valor" Binding="{Binding Valor, StringFormat=N2}" Width="*"/>
                     <DataGridTemplateColumn Header="Editar">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -240,7 +240,7 @@
 
 
                 <TextBlock Visibility="Visible" x:Name="valorProdutoBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor*"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="valorProdutoBox" LostFocus="ValorProdutoBox_LostFocus" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <TextBox Visibility="Visible" x:Name="valorProdutoBox"  Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <Button Visibility="Visible" x:Name="btnSalvarProduto"  Grid.Row="5" Grid.Column="1" 
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Yellow" 
@@ -260,7 +260,7 @@
             <!-- Dados Pedido-->
             <TextBlock Visibility="Collapsed" FontSize="20" Grid.Column="0" HorizontalAlignment="Left">DETALHES PEDIDO</TextBlock>
 
-            <Grid x:Name="gridPedido" Visibility="Collapsed">
+            <Grid x:Name="gridPedido" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="2*"/>
