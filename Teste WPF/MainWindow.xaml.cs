@@ -479,13 +479,6 @@ namespace Teste_WPF
 
         private void ExportarXmlPessoa(string fileName)
         {
-            var pessoasXml = dataGridPessoa.ItemsSource as List<Produto>;
-
-            if (pedidos == null)
-            {
-                return;
-            }
-
             var xml = new XElement("Pessoa",
                 new XElement("IdPessoaLista", IdPessoaLista),
                 from p in pessoas
@@ -527,13 +520,6 @@ namespace Teste_WPF
 
         private void ExportarXmlProduto(string fileName)
         {
-            var produtosJson = dataGridProduto.ItemsSource as List<Produto>;
-
-            if (pedidos == null)
-            {
-                return;
-            }
-
             var xml = new XElement("Produto",
                 new XElement("IdProdutoLista", IdProdutoLista),
                 from p in produtos
@@ -575,30 +561,23 @@ namespace Teste_WPF
         }
 
         private void ExportarXmlPedido(string fileName)
-        {
-            var pedidosXml = dataGridPedidos.ItemsSource as List<Pedido>;
-
-            if (pedidos == null)
-            {
-                return;
-            }
-
+        {      
             var xml = new XElement("Pedido",
                 new XElement("IdPedidoLista", IdPedidoLista),
-                from p in pedidos
-                select new XElement("Pedido",
-                    new XElement("IdPedido", p.IdPedido),
-                    new XElement("NomePessoa", p.NomePessoa),
-                    new XElement("DataVenda", p.DataVenda),
-                    new XElement("FormaPagamento", p.FormaPagamento),
-                    new XElement("Status", p.Status),
-                    new XElement("ValorTotal", p.ValorTotal),
-                    new XElement("Produtos", p.Produtos
-                    
-                     new XElement("Produto",
-                    new XElement("NomeProduto", ps.NomeProduto),
-                    new XElement("QntdProduto", ps.QntdProduto),
-                    new XElement("Valor", ps.Valor)
+                    from p in pedidos
+                    select new XElement("Pedido",
+                        new XElement("IdPedido", p.IdPedido),
+                        new XElement("NomePessoa", p.NomePessoa),
+                        new XElement("DataVenda", p.DataVenda),
+                        new XElement("FormaPagamento", p.FormaPagamento),
+                        new XElement("Status", p.Status),
+                        new XElement("ValorTotal", p.ValorTotal),
+                        new XElement("Produtos",
+                            from ps in p.Produtos.Where(i => p.NomePessoa == nomePedidoPessoaBox.Text)
+                            select new XElement("Produto",
+                            new XElement("NomeProduto", ps.NomeProduto),
+                            new XElement("QntdProduto", ps.QntdProduto),
+                            new XElement("Valor", ps.Valor)
                     )
                    )
                 )
@@ -723,10 +702,10 @@ namespace Teste_WPF
                 valorProdutoBox.Text = "";
                 FormaPagPedidoBox.Text = "";
 
-                produtosPedido.Clear();
                 IdPedidoLista++;
-
                 ExportarXmlPedido("C:\\Pedidos.xml");
+                produtosPedido.Clear();
+
             }
             else
             {
@@ -776,7 +755,7 @@ namespace Teste_WPF
 
             if (dadoProduto != -1 && PedProdutosBox.Text != "" && qntdProdPedBox.Text != "" && int.Parse(qntdProdPedBox.Text) >= 1)
             {
-                produtosListBox.Items.Add($"{PedProdutosBox.Text}  Qntd: {qntdProdPedBox.Text}   R${produtos[dadoProduto].Valor}");
+                produtosListBox.Items.Add($"{PedProdutosBox.Text}  Qntd: {qntdProdPedBox.Text}   R$ {produtos[dadoProduto].Valor}");
 
                 produtosPedido.Add(new Produto(PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
             }
