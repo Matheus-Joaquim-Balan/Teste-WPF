@@ -282,7 +282,7 @@
                 <TextBox Visibility="Visible" x:Name="idPedidoBox" Grid.Column="1" Grid.Row="0" Background="#eee" Width="70" HorizontalAlignment="Left" IsReadOnly="True"   Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="nomePedidoPessoaBlock" Grid.Column="0" Grid.Row="1" Text="Pessoa*" HorizontalAlignment="Right" Margin="0 0 10 0"/>
-                <TextBox Visibility="Visible" x:Name="nomePedidoPessoaBox" Grid.Column="1" Grid.Row="1" IsReadOnly="True" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <TextBox Visibility="Visible" x:Name="nomePedidoPessoaBox" Grid.Column="1" Grid.Row="1" Background="#eee" IsReadOnly="True" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="PedProdutosBlock" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="Nome do produto*"  Margin="0 0 10 0" />
                 <TextBox Visibility="Visible" x:Name="PedProdutosBox" CharacterCasing="Upper" Grid.Column="1" Grid.Row="2" Width="200" HorizontalAlignment="Left" Margin="0 0 30 10"/>
@@ -368,14 +368,9 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Status" IsReadOnly="True" 
-                                        Binding="{Binding Status}" Width="*">
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style TargetType="TextBox">
-                                <Setter Property="CharacterCasing" Value="Upper"/>
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
+                    <DataGridComboBoxColumn Header="Status" SelectedItemBinding="{Binding Status}"
+                                        ItemsSource="{local:EnumBindingSource local:Status}" Width="*">
+                    </DataGridComboBoxColumn>
 
                     <DataGridTextColumn Header="Valor total" IsReadOnly="True" 
                                         Binding="{Binding ValorTotal}" Width="*">
@@ -399,10 +394,10 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Produto" 
                                                     Binding="{Binding NomeProduto}" Width="*" />
-                                <DataGridTextColumn Header="Preço" 
-                                                    Binding="{Binding Valor}" Width="*"/>
                                 <DataGridTextColumn Header="Quantidade" 
                                                     Binding="{Binding QntdProduto}" Width="*"/>
+                                <DataGridTextColumn Header="Preço" 
+                                                    Binding="{Binding Valor}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

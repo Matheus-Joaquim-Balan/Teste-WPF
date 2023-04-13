@@ -18,15 +18,17 @@ namespace Teste_WPF
 
         public Pedido()
         {
+
         }
 
         public Pedido(int id, string nomePessoa, List<Produto> produtos, double valorTotal,int formaPagamento ,int status)
         {
-            produtos = new List<Produto>();
-            
+            Produtos = new List<Produto>();
+
+            Produtos = produtos.ConvertAll(x => new Produto { NomeProduto = x.NomeProduto, Valor = x.Valor, QntdProduto = x.QntdProduto });
+  
             this.IdPedido = id;
             this.NomePessoa = nomePessoa;
-            this.Produtos = produtos;
             this.ValorTotal = valorTotal;
             this.DataVenda = DateTime.Now.ToString("dd-MM-yyyy");
             this.FormaPagamento = (FormaPagamento)formaPagamento;
