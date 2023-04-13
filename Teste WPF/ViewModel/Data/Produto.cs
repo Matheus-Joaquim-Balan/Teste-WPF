@@ -15,6 +15,7 @@ namespace Teste_WPF
         public string NomeProduto { get; set; }
         public string Codigo { get; set; }
         public double Valor { get; set; }
+        public int QntdProduto { get; set; }
 
         public Produto()
         {
@@ -28,9 +29,11 @@ namespace Teste_WPF
             Valor = valor;
         }
 
-        public Produto(string nomeProduto)
+        public Produto(string nomeProduto, double valor,int qntdProduto)
         {
             NomeProduto = nomeProduto;
+            Valor = valor;
+            QntdProduto = qntdProduto;
         }
 
         public static class ExportadorJson

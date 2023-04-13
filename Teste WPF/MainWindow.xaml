@@ -105,7 +105,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Grid x:Name="gridCadastrarPessoa" Visibility="Collapsed">
+            <Grid x:Name="gridCadastrarPessoa" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="8*"/>
@@ -130,7 +130,7 @@
                 <TextBox x:Name="nomePessoaBox" Grid.Column="1" Grid.Row="2" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock x:Name="CPFBlock" Grid.Column="0" Grid.Row="3" Text="CPF*" Margin="0 0 10 10" HorizontalAlignment="Right" />
-                <TextBox x:Name="CPFBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
+                <TextBox x:Name="CPFBox" TextChanged="CPFBox__TextChanged"  Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
 
                 <TextBlock x:Name="EnderecoBlock" Grid.Column="0" Grid.Row="4" Text="Endereço" Margin="0 0 10 0" HorizontalAlignment="Right" />
                 <TextBox x:Name="EnderecoBox" Grid.Column="1" Width="350" HorizontalAlignment="Left" Grid.Row="4"  Margin="0 0 30 0" />
@@ -240,7 +240,7 @@
 
 
                 <TextBlock Visibility="Visible" x:Name="valorProdutoBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="valorProdutoBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <TextBox Visibility="Visible" x:Name="valorProdutoBox" LostFocus="ValorProdutoBox_LostFocus" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <Button Visibility="Visible" x:Name="btnSalvarProduto"  Grid.Row="5" Grid.Column="1" 
                         Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Yellow" 
@@ -260,7 +260,7 @@
             <!-- Dados Pedido-->
             <TextBlock Visibility="Collapsed" FontSize="20" Grid.Column="0" HorizontalAlignment="Left">DETALHES PEDIDO</TextBlock>
             
-            <Grid x:Name="gridPedido" Visibility="Visible">
+            <Grid x:Name="gridPedido" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="2*"/>
@@ -284,19 +284,20 @@
                 <TextBlock Visibility="Visible" x:Name="nomePedidoPessoaBlock" Grid.Column="0" Grid.Row="1" Text="Pessoa" HorizontalAlignment="Right" Margin="0 0 10 0"/>
                 <TextBox Visibility="Visible" x:Name="nomePedidoPessoaBox" Grid.Column="1" Grid.Row="1" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
+                <TextBlock Visibility="Visible" x:Name="PedProdutosBlock" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="Nome do produto*"  Margin="0 0 10 0" />
+                <TextBox Visibility="Visible" x:Name="PedProdutosBox" CharacterCasing="Upper" Grid.Column="1" Grid.Row="2" Width="200" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <Button x:Name="IncluirProdutoPedido" Click="IncluirProdutoPedido_Click" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Content="ok" Grid.Column="1" Grid.Row="2"
+                        Width="30" Margin="0 0 0 0"/>
+                
                 <TextBlock Visibility="Visible" x:Name="produtosPedidoBlock" Grid.Column="0" 
-                           Grid.Row="3" Text="Produtos" HorizontalAlignment="Right" Margin="0 0 10 0" />
-                <ListBox Visibility="Visible" x:Name="produtosListBox" SelectionChanged="ProdutosListBox_SelectionChanged" Grid.Column="1"  HorizontalAlignment="Left" 
-                         Grid.Row="3" Width="300" Height="150"  Margin="0 0 30 10">
+                           Grid.Row="4" Text="Produtos" HorizontalAlignment="Right" Margin="0 0 10 0" />
+                <ListBox Visibility="Visible" x:Name="produtosListBox" Grid.Column="1"  HorizontalAlignment="Left" 
+                         Grid.Row="4" Width="300" Height="150"  Margin="0 0 30 10">
                 </ListBox>
 
-                <TextBlock Visibility="Visible" x:Name="PedProdutosBlock" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="Nome do produto"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="PedProdutosBox" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
-                <Button x:Name="IncluirProdutoPedido" Click="IncluirProdutoPedido_Click" Height="20" VerticalAlignment="Top" Content="ok" Grid.Column="2" Grid.Row="2"
-                        Width="30" Margin="-950 0 0 0"/>
 
-                <!-- <TextBlock Visibility="Visible" x:Name="qntdProdPedBlock" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Valor Total"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="qntdProdPedBox" Grid.Column="1" Grid.Row="4" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>-->
+                 <TextBlock Visibility="Visible" x:Name="qntdProdPedBlock" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Text="Quantidade*"  Margin="0 0 10 0" />
+                <TextBox Visibility="Visible" x:Name="qntdProdPedBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
                     
                 <TextBlock Visibility="Visible" x:Name="DataPedidoBlock" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" Text="Data Venda"  Margin="0 0 10 0" />
                 <TextBox Visibility="Visible" x:Name="DataPedidoBox" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
