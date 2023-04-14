@@ -1,13 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Globalization;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Data;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Teste_WPF
 {
@@ -38,7 +39,7 @@ namespace Teste_WPF
             LerXmlPessoa("C:\\Pessoas.xml");
             dataGridPessoa.ItemsSource = pessoas;
 
-            LerXmlPedido("C:\\Pedidos.xml");
+            pedidos = LerXmlPedido(); // AQUII
             dataGridPedidos.ItemsSource = pedidos;
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
@@ -560,61 +561,34 @@ namespace Teste_WPF
             }
         }
 
-        private void ExportarXmlPedido(string fileName)
-        {      
-            var xml = new XElement("Pedido",
-                new XElement("IdPedidoLista", IdPedidoLista),
-                    from p in pedidos
-                    select new XElement("Pedido",
-                        new XElement("IdPedido", p.IdPedido),
-                        new XElement("NomePessoa", p.NomePessoa),
-                        new XElement("DataVenda", p.DataVenda),
-                        new XElement("FormaPagamento", p.FormaPagamento),
-                        new XElement("Status", p.Status),
-                        new XElement("ValorTotal", p.ValorTotal),
-                        new XElement("Produtos",
-                            from ps in p.Produtos.Where(i => p.NomePessoa == nomePedidoPessoaBox.Text)
-                            select new XElement("Produto",
-                            new XElement("NomeProduto", ps.NomeProduto),
-                            new XElement("QntdProduto", ps.QntdProduto),
-                            new XElement("Valor", ps.Valor)
-                    )
-                   )
-                )
-            );
-            xml.Save(fileName);
+        private void ExportarXmlPedido()
+        {
+            var arquivoXml = @"C:\\Pedidos.xml";
+            using (var stream = new StreamWriter(arquivoXml))
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(ObservableCollection<Pedido>));
+                serializador.Serialize(stream, pedidos);
+            }
         }
 
-        private void LerXmlPedido(string fileName)
+        private static ObservableCollection<Pedido> LerXmlPedido()
         {
+            ObservableCollection<Pedido> lista = new ObservableCollection<Pedido>();
             try
             {
-                var xml = XElement.Load(fileName);
-                IdPedidoLista = int.Parse(xml.Element("IdPedidoLista").Value);
-
-                foreach (var element in xml.Elements("Pedido"))
+                var arquivoXml = @"C:\\Pedidos.xml";
+                using (StreamReader stream = new StreamReader(arquivoXml))
                 {
-                    FormaPagamento formaPagamento;
-                    Enum.TryParse(element.Element("FormaPagamento").Value, out formaPagamento);
-
-                    Status status;
-                    Enum.TryParse(element.Element("Status").Value, out status);
-
-                    var pedido = new Pedido
-                    {
-                        IdPedido = int.Parse(element.Element("IdPedido").Value),
-                        NomePessoa = element.Element("NomePessoa").Value,
-                        DataVenda = element.Element("DataVenda").Value,
-                        FormaPagamento = formaPagamento,
-                        Status = status,
-                        ValorTotal = double.Parse(element.Element("ValorTotal").Value)
-                    };
-                    pedidos.Add(pedido);
+                    XmlSerializer serializador = new XmlSerializer(typeof(ObservableCollection<Pedido>));
+                    lista = (ObservableCollection<Pedido>)serializador.Deserialize(stream);
                 }
+                return lista;
+
             }
             catch
             {
-                return;
+                MessageBox.Show("Arquivo não encontrado");
+                return lista;
             }
         }
 
@@ -696,14 +670,14 @@ namespace Teste_WPF
 
                 MessageBox.Show("Cadastro efetuado com sucesso");
 
+
+                IdPedidoLista++;
+                ExportarXmlPedido();
                 qntdProdPedBox.Text = "";
                 PedProdutosBox.Text = "";
                 produtosListBox.Items.Clear();
                 valorProdutoBox.Text = "";
                 FormaPagPedidoBox.Text = "";
-
-                IdPedidoLista++;
-                ExportarXmlPedido("C:\\Pedidos.xml");
                 produtosPedido.Clear();
 
             }
@@ -757,7 +731,7 @@ namespace Teste_WPF
             {
                 produtosListBox.Items.Add($"{PedProdutosBox.Text}  Qntd: {qntdProdPedBox.Text}   R$ {produtos[dadoProduto].Valor}");
 
-                produtosPedido.Add(new Produto(PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
+                produtosPedido.Add(new Produto( produtos[dadoProduto].IdProduto,PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
             }
             else
             {
@@ -798,105 +772,5 @@ namespace Teste_WPF
 
         #endregion
 
-        #region Exportação de XML
-
-        private void ExportarXmlPessoa(string fileName)
-        {
-            var pessoasXml = dataGridPessoa.ItemsSource as List<Produto>;
-
-            if (pedidos == null)
-            {
-                return;
-            }
-
-            var xml = new XElement("Pessoa",
-                new XElement("IdPessoaLista", IdPessoaLista),
-                from p in pessoas
-                select new XElement("Pessoa",
-                    new XElement("IdPessoa", p.IdPessoa),
-                    new XElement("NomePessoa", p.NomePessoa),
-                    new XElement("CPF", p.CPF),
-                    new XElement("Endereco", p.Endereco)
-                )
-            );
-            xml.Save(fileName);
-        }
-
-        private void LerXmlPessoa(string fileName)
-        {
-            try
-            {
-                var xml = XElement.Load(fileName);
-
-                IdPessoaLista = int.Parse(xml.Element("IdPessoaLista").Value);
-
-                foreach (var element in xml.Elements("Pessoa"))
-                {
-                    var pessoa = new Pessoa
-                    {
-                        IdPessoa = int.Parse(element.Element("IdPessoa").Value),
-                        NomePessoa = element.Element("NomePessoa").Value,
-                        CPF = element.Element("CPF").Value,
-                        Endereco = element.Element("Endereco").Value,
-                    };
-                    pessoas.Add(pessoa);
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        private void ExportarXmlProduto(string fileName)
-        {           
-            if (pedidos == null)
-            {
-                return;
-            }
-
-            var xml = new XElement("Produto",
-                new XElement("IdProdutoLista", IdProdutoLista),
-                from p in produtos
-                select new XElement("Produto",
-                    new XElement("IdProduto", p.IdProduto),
-                    new XElement("NomeProduto", p.NomeProduto),
-                    new XElement("Codigo", p.Codigo),
-                    new XElement("Valor", p.Valor)
-                )
-            );
-            xml.Save(fileName);
-        }
-
-        private void LerXmlProduto(string fileName)
-        {
-            try
-            {
-                var xml = XElement.Load(fileName);
-
-                IdProdutoLista = int.Parse(xml.Element("IdProdutoLista").Value);
-
-                foreach (var element in xml.Elements("Produto"))
-                {
-                    var produtoLerXml = new Produto
-                    {
-                        IdProduto = int.Parse(element.Element("IdProduto").Value),
-                        NomeProduto = element.Element("NomeProduto").Value,
-                        Codigo = element.Element("Codigo").Value,
-                        Valor = double.Parse(element.Element("Valor").Value),
-                    };
-
-                    produtos.Add(produtoLerXml);
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        #endregion
-
-        
     }
 }

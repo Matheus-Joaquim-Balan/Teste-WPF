@@ -385,7 +385,7 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridComboBoxColumn Header="Status" SelectedItemBinding="{Binding Status}"
+                    <DataGridComboBoxColumn Header="Status" SelectedItemBinding="{Binding Status, Mode=TwoWay}"
                                         ItemsSource="{local:EnumBindingSource local:Status}" Width="*">
                     </DataGridComboBoxColumn>
 

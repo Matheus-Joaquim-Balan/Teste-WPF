@@ -13,18 +13,16 @@ namespace Teste_WPF
         public string DataVenda { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
         public Status Status { get; set; }
-        public int QntProduto { get; set; }
 
         public Pedido()
         {
-
         }
 
         public Pedido(int id, string nomePessoa, List<Produto> produtos, double valorTotal,int formaPagamento ,int status)
         {
             Produtos = new List<Produto>();
 
-            Produtos = produtos.ConvertAll(x => new Produto { NomeProduto = x.NomeProduto, Valor = x.Valor, QntdProduto = x.QntdProduto });
+            Produtos = produtos.ConvertAll(x => new Produto {IdProduto = x.IdProduto ,NomeProduto = x.NomeProduto, Valor = x.Valor, QntdProduto = x.QntdProduto });
   
             this.IdPedido = id;
             this.NomePessoa = nomePessoa;
