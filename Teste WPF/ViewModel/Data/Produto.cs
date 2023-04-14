@@ -36,9 +36,5 @@ namespace Teste_WPF
             Valor = valor;
             QntdProduto = qntdProduto;
         }
-
-        public static class ExportadorJson
-        {
-        }
     }
 }
