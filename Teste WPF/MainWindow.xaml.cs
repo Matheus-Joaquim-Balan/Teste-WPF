@@ -35,6 +35,7 @@ namespace Teste_WPF
 
             LerXmlProduto("C:\\Produtos.xml");
             dataGridProduto.ItemsSource = produtos;
+            produtosPedListBox.ItemsSource = produtos;
 
             LerXmlPessoa("C:\\Pessoas.xml");
             dataGridPessoa.ItemsSource = pessoas;
@@ -454,9 +455,7 @@ namespace Teste_WPF
             if (dataGridProduto.HasItems)
             {
                 dataGridPessoa.Visibility = Visibility.Collapsed;
-                gridCadastrarProduto.Visibility = Visibility.Collapsed;
-                //Conciliar depois
-                //TreeViewPedido.Visibility = Visibility.Collapsed;
+                gridCadastrarProduto.Visibility = Visibility.Collapsed;               
                 gridCadastrarProduto.Visibility = Visibility.Visible;
                 dataGridProduto.Visibility = Visibility.Collapsed;
                 gridPesquisaProduto.Visibility = Visibility.Collapsed;
@@ -638,7 +637,7 @@ namespace Teste_WPF
             btnCadastrarPessoa.Visibility = Visibility.Collapsed;
             dataGridPessoa.Visibility = Visibility.Collapsed;
             dataGridProduto.Visibility = Visibility.Collapsed;
-            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
+            gridPesquisaPessoa.Visibility = Visibility.Collapsed;            
 
             nomePedidoPessoaBox.Text = indexData;
             DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
@@ -772,5 +771,6 @@ namespace Teste_WPF
 
         #endregion
 
+        #endregion 
     }
 }
