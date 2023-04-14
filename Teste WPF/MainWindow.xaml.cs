@@ -74,6 +74,7 @@ namespace Teste_WPF
         {
             btnCadastrarProduto.Visibility = Visibility.Visible;
             dataGridProduto.Visibility = Visibility.Visible;
+            gridPesquisaProduto.Visibility = Visibility.Visible;
 
             gridPesquisaStatus.Visibility = Visibility.Collapsed;
             dataGridPedidoExpandido.Visibility = Visibility.Collapsed;
@@ -84,7 +85,6 @@ namespace Teste_WPF
             gridCadastrarProduto.Visibility = Visibility.Collapsed;
             btnCadastrarPessoa.Visibility = Visibility.Collapsed;
             gridPesquisaPessoa.Visibility = Visibility.Collapsed;
-            gridPesquisaProduto.Visibility = Visibility.Visible;
 
             btnPessoa.Background = Brushes.Transparent;
             btnProduto.Background = Brushes.LightGray;
@@ -585,7 +585,6 @@ namespace Teste_WPF
             }
             catch
             {
-                MessageBox.Show("Arquivo não encontrado");
                 return lista;
             }
         }
@@ -729,7 +728,7 @@ namespace Teste_WPF
             {
                 produtosListBox.Items.Add($"{PedProdutosBox.Text}  Qntd: {qntdProdPedBox.Text}   R$ {produtos[dadoProduto].Valor}");
 
-                produtosPedido.Add(new Produto( produtos[dadoProduto].IdProduto,PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
+                produtosPedido.Add(new Produto(produtos[dadoProduto].IdProduto,PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
             }
             else
             {
@@ -738,26 +737,6 @@ namespace Teste_WPF
 
             PedProdutosBox.Text = "";
             qntdProdPedBox.Text = "";
-        }
-
-        private void BtnPesquisarStatus_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var dadoStatus = comboBoxPesquisaStatus.SelectedValue;
-
-                var dado = pedidos.Where(p => p.Status == (Status)dadoStatus && p.NomePessoa == txtNomePedido.Text).ToList();
-
-                if (dado.Count > 0 && comboBoxPesquisaStatus.SelectedValue != null)
-                    dataGridPedidos.ItemsSource = dado;
-                else
-                    MessageBox.Show("Pedidos não encontrados!");
-
-            }
-            catch
-            {
-                return;
-            }
         }
 
         private void ValorProdutoBox_LostFocus(object sender, RoutedEventArgs e)
@@ -777,5 +756,60 @@ namespace Teste_WPF
 
         #endregion
 
+        private void BtnPedidoPendente_Click(object sender, RoutedEventArgs e)
+        {
+            PesquisaStatus(0);
+        }
+
+        private void BtnPedidoPago_Click(object sender, RoutedEventArgs e)
+        {
+            PesquisaStatus(1);
+        }
+
+        private void BtnPedidoEntregue_Click(object sender, RoutedEventArgs e)
+        {
+            PesquisaStatus(3);
+        }
+
+        private void BtnPedidoTodos_Click(object sender, RoutedEventArgs e)
+        {
+            VoltaDadosPedido();
+        }
+
+        public void PesquisaStatus(int status)
+        {
+            var dado = pedidos.Where(p => p.Status == (Status)status && p.NomePessoa == txtNomePedido.Text).ToList();
+
+            if (dado.Count > 0)
+                dataGridPedidos.ItemsSource = dado;
+            else
+            {
+                MessageBox.Show("Pedidos não encontrados!");
+
+                VoltaDadosPedido();
+            }
+
+        }
+        public void VoltaDadosPedido()
+        {
+            var indexList = pedidos.Where(p => p.NomePessoa == txtNomePedido.Text).ToList();
+
+            dataGridPedidos.ItemsSource = indexList;
+        }
+
+        private void BtnMarcarPago_Click(object sender, RoutedEventArgs e)
+        {
+             
+        }
+
+        private void BtnMarcarEnviado_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnMarcarRecebido_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
