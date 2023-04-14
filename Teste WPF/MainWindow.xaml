@@ -363,7 +363,7 @@
             </Grid>
             
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                      Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
+                      Visibility="Collapsed" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
                       AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding pedidos}">
 
                 <DataGrid.Resources>
