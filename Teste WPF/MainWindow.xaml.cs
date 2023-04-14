@@ -110,7 +110,6 @@ namespace Teste_WPF
             }
         }
 
-
         #region Botões Pessoa
         private void BtnCadastrarPessoa_Click(object sender, RoutedEventArgs e)
         {
@@ -743,15 +742,22 @@ namespace Teste_WPF
 
         private void BtnPesquisarStatus_Click(object sender, RoutedEventArgs e)
         {
-            var dadoStatus = comboBoxPesquisaStatus.SelectedValue;
+            try
+            {
+                var dadoStatus = comboBoxPesquisaStatus.SelectedValue;
 
-            var dado = pedidos.Where(p => p.Status == (Status)dadoStatus && p.NomePessoa == txtNomePedido.Text).ToList();
+                var dado = pedidos.Where(p => p.Status == (Status)dadoStatus && p.NomePessoa == txtNomePedido.Text).ToList();
 
-            if (dado.Count > 0 && comboBoxPesquisaStatus.SelectedValue != null)
-                dataGridPedidos.ItemsSource = dado;
-            else
-                MessageBox.Show("Pedidos não encontrados!");
+                if (dado.Count > 0 && comboBoxPesquisaStatus.SelectedValue != null)
+                    dataGridPedidos.ItemsSource = dado;
+                else
+                    MessageBox.Show("Pedidos não encontrados!");
 
+            }
+            catch
+            {
+                return;
+            }
         }
 
         private void ValorProdutoBox_LostFocus(object sender, RoutedEventArgs e)
@@ -771,6 +777,5 @@ namespace Teste_WPF
 
         #endregion
 
-        #endregion 
     }
 }

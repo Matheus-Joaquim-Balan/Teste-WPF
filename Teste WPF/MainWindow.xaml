@@ -260,7 +260,7 @@
             <!-- Dados Pedido-->
             <TextBlock Visibility="Collapsed" FontSize="20" Grid.Column="0" HorizontalAlignment="Left">INSERIR PEDIDO</TextBlock>
 
-            <Grid x:Name="gridPedido" Visibility="Visible">
+            <Grid x:Name="gridPedido" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="2*"/>
@@ -279,7 +279,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock  Visibility="Visible" x:Name="idPedidoBlock" Grid.Column="0" Grid.Row="0" Text="Id" HorizontalAlignment="Right" Margin="0 0 10 0"/>
-                <TextBox Visibility="Visible" x:Name="idPedidoBox" Grid.Column="1" Grid.Row="0" Background="#eee" Width="70" HorizontalAlignment="Left" IsReadOnly="True"   Margin="0 0 30 10"/>
+                <TextBox Visibility="Visible" x:Name="idPedidoBox" Grid.Column="1" Grid.Row="0" Background="#eee" Width="70" HorizontalAlignment="Left" IsReadOnly="True" Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="nomePedidoPessoaBlock" Grid.Column="0" Grid.Row="1" Text="Pessoa*" HorizontalAlignment="Right" Margin="0 0 10 0"/>
                 <TextBox Visibility="Visible" x:Name="nomePedidoPessoaBox" Grid.Column="1" Grid.Row="1" Background="#eee" IsReadOnly="True" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
@@ -307,10 +307,10 @@
                 </ListBox>
                 
                 <TextBlock Visibility="Visible" x:Name="qntdProdPedBlock" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Text="Quantidade*"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="qntdProdPedBox" Grid.Column="1" Grid.Row="3" Width="100" IsReadOnly="True" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <TextBox Visibility="Visible" x:Name="qntdProdPedBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="DataPedidoBlock" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" Text="Data Venda"  Margin="0 0 10 0" />
-                <TextBox Visibility="Visible" x:Name="DataPedidoBox" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+                <TextBox Visibility="Visible" x:Name="DataPedidoBox" IsReadOnly="True" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
                 <TextBlock Visibility="Visible" x:Name="FormaPagPedidoBlock" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Text="Forma de Pagamento*"  Margin="0 0 10 0" />
                 <ComboBox  Visibility="Visible" x:Name="FormaPagPedidoBox" ItemsSource="{local:EnumBindingSource local:FormaPagamento}" Grid.Column="1" Grid.Row="6" Width="120" HorizontalAlignment="Left" Margin="0 0 30 10" />
@@ -332,7 +332,7 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width=".5*"/>
                 </Grid.ColumnDefinitions>
-
+                
                 <TextBlock Text="NOME" x:Name="txtNomePedido" Visibility="Collapsed" Grid.Column="0"/>
                 <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por status:</TextBlock>
                 <ComboBox Grid.Column="1" x:Name="comboBoxPesquisaStatus" ItemsSource="{local:EnumBindingSource local:Status}" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left"></ComboBox>
@@ -342,7 +342,7 @@
             </Grid>
             
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                      Visibility="Collapsed" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
+                      Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
                       AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding pedidos}">
 
                 <DataGrid.Resources>
@@ -395,8 +395,13 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridComboBoxColumn Header="Status" SelectedItemBinding="{Binding Status, Mode=TwoWay}"
+                    <DataGridComboBoxColumn Header="Status" x:Name="StatusDetalhes" SelectedItemBinding="{Binding Status, Mode=TwoWay}"
                                         ItemsSource="{local:EnumBindingSource local:Status}" Width="*">
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <EventSetter/>
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
 
                     <DataGridTextColumn Header="Valor total" IsReadOnly="True" 
@@ -407,7 +412,6 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
 
