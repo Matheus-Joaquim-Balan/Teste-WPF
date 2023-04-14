@@ -13,7 +13,6 @@ namespace Teste_WPF
         public string DataVenda { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
         public Status Status { get; set; }
-        public int QntProduto { get; set; }
 
         public Pedido()
         {
