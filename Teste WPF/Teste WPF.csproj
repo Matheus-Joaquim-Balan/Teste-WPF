@@ -85,7 +85,6 @@
     <Compile Include="ViewModel\Data\Pessoa.cs" />
     <Compile Include="ViewModel\Data\Produto.cs" />
     <Compile Include="ViewModel\Enums\Status.cs" />
-    <Compile Include="ViewModel\TreeViewPedido.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
