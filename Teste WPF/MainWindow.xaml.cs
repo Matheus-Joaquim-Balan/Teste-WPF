@@ -9,16 +9,17 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.IO;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace Teste_WPF
 {
 
     public partial class MainWindow : Window
     {
-        public int IdPessoaLista { get; set; }
+        private int IdPessoaLista { get; set; }
         private Produto produto;
-        public int IdProdutoLista { get; set; }
-        public int IdPedidoLista { get; set; }
+        private int IdProdutoLista { get; set; }
+        private int IdPedidoLista { get; set; }
         private ObservableCollection<Pessoa> pessoas;
         private ObservableCollection<Produto> produtos;
         private ObservableCollection<Pedido> pedidos;
@@ -754,7 +755,6 @@ namespace Teste_WPF
             }
         }
 
-        #endregion
 
         private void BtnPedidoPendente_Click(object sender, RoutedEventArgs e)
         {
@@ -799,17 +799,29 @@ namespace Teste_WPF
 
         private void BtnMarcarPago_Click(object sender, RoutedEventArgs e)
         {
-
+            AlterarStatus(1);
         }
 
         private void BtnMarcarEnviado_Click(object sender, RoutedEventArgs e)
         {
-
+            AlterarStatus(2);
         }
 
         private void BtnMarcarRecebido_Click(object sender, RoutedEventArgs e)
         {
-
+            AlterarStatus(3);
         }
+
+        private void AlterarStatus(int status)
+        {
+            dynamic data = dataGridPedidos.SelectedItem;
+            int indexPed = data.IdPedido;
+            var indexList = pedidos.Where(p => p.IdPedido == indexPed).FirstOrDefault();
+
+            indexList.Status = (Status)status;
+            dataGridPedidos.Items.Refresh();
+            ExportarXmlPedido();
+        }
+        #endregion
     }
 }
