@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Linq;
@@ -454,7 +454,7 @@ namespace Teste_WPF
             if (dataGridProduto.HasItems)
             {
                 dataGridPessoa.Visibility = Visibility.Collapsed;
-                gridCadastrarProduto.Visibility = Visibility.Collapsed;               
+                gridCadastrarProduto.Visibility = Visibility.Collapsed;
                 gridCadastrarProduto.Visibility = Visibility.Visible;
                 dataGridProduto.Visibility = Visibility.Collapsed;
                 gridPesquisaProduto.Visibility = Visibility.Collapsed;
@@ -635,7 +635,7 @@ namespace Teste_WPF
             btnCadastrarPessoa.Visibility = Visibility.Collapsed;
             dataGridPessoa.Visibility = Visibility.Collapsed;
             dataGridProduto.Visibility = Visibility.Collapsed;
-            gridPesquisaPessoa.Visibility = Visibility.Collapsed;            
+            gridPesquisaPessoa.Visibility = Visibility.Collapsed;
 
             nomePedidoPessoaBox.Text = indexData;
             DataPedidoBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
@@ -728,7 +728,7 @@ namespace Teste_WPF
             {
                 produtosListBox.Items.Add($"{PedProdutosBox.Text}  Qntd: {qntdProdPedBox.Text}   R$ {produtos[dadoProduto].Valor}");
 
-                produtosPedido.Add(new Produto(produtos[dadoProduto].IdProduto,PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
+                produtosPedido.Add(new Produto(produtos[dadoProduto].IdProduto, PedProdutosBox.Text, produtos[dadoProduto].Valor, int.Parse(qntdProdPedBox.Text)));
             }
             else
             {
@@ -799,7 +799,7 @@ namespace Teste_WPF
 
         private void BtnMarcarPago_Click(object sender, RoutedEventArgs e)
         {
-             
+
         }
 
         private void BtnMarcarEnviado_Click(object sender, RoutedEventArgs e)
