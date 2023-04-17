@@ -152,7 +152,7 @@
             </Grid>
 
             <!--Fim Dados Pessoa-->
-            <!--AQUI-->
+            
             <!--Inicio Dados Produto-->
             <Grid x:Name="gridPesquisaProduto" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
@@ -380,7 +380,7 @@
 
                     <DataGridTextColumn Header="Nome" IsReadOnly="True" 
                                         Binding="{Binding NomePessoa}" Width="3*">
-                        <!-- aqui -->
+                        
                         <DataGridTextColumn.EditingElementStyle>
                             <Style TargetType="TextBox">
                                 <Setter Property="CharacterCasing" Value="Upper"/>
@@ -426,12 +426,8 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-
-
                     
                                             <!--POSSIVEL ERRO AQUI-->
-                    
-                    
                     
                     <DataGridTemplateColumn Header="Marcar Pago">
                         <DataGridTemplateColumn.CellTemplate>
@@ -454,10 +450,6 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
-
-
-
                 </DataGrid.Columns>
             </DataGrid>
 

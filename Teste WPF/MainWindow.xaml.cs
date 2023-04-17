@@ -40,7 +40,7 @@ namespace Teste_WPF
             LerXmlPessoa("C:\\Pessoas.xml");
             dataGridPessoa.ItemsSource = pessoas;
 
-            pedidos = LerXmlPedido(); // AQUII
+            pedidos = LerXmlPedido(); 
             dataGridPedidos.ItemsSource = pedidos;
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
