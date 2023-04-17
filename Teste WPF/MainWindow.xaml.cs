@@ -43,6 +43,8 @@ namespace Teste_WPF
 
             pedidos = LerXmlPedido(); 
             dataGridPedidos.ItemsSource = pedidos;
+            if(pedidos.Count() > 0)
+               IdPedidoLista = pedidos.Last().UltimoId;            
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
         }
@@ -581,8 +583,9 @@ namespace Teste_WPF
                     XmlSerializer serializador = new XmlSerializer(typeof(ObservableCollection<Pedido>));
                     lista = (ObservableCollection<Pedido>)serializador.Deserialize(stream);
                 }
+               
                 return lista;
-
+                
             }
             catch
             {
@@ -658,7 +661,7 @@ namespace Teste_WPF
                     valorPedido += valorPorQntd;
                 }
 
-                pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, valorPedido, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0));
+                pedidos.Add(new Pedido(IdPedidoLista, nomePedidoPessoaBox.Text.ToUpper(), produtosPedido, valorPedido, Convert.ToInt32(FormaPagPedidoBox.SelectedValue), 0, IdPedidoLista + 1));
 
                 dataGridPessoa.Visibility = Visibility.Visible;
                 btnCadastrarPessoa.Visibility = Visibility.Visible;
