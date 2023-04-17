@@ -152,7 +152,7 @@
             </Grid>
 
             <!--Fim Dados Pessoa-->
-            <!--AQUI-->
+            
             <!--Inicio Dados Produto-->
             <Grid x:Name="gridPesquisaProduto" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
@@ -439,10 +439,6 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
-
-
-
                 </DataGrid.Columns>
             </DataGrid>
 

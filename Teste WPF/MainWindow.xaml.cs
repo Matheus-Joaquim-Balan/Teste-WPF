@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.IO;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace Teste_WPF
 {
@@ -42,7 +43,8 @@ namespace Teste_WPF
 
             pedidos = LerXmlPedido(); 
             dataGridPedidos.ItemsSource = pedidos;
-            IdPedidoLista = pedidos.Last().UltimoId;
+            if(pedidos.Count() > 0)
+               IdPedidoLista = pedidos.Last().UltimoId;            
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
         }
@@ -812,7 +814,6 @@ namespace Teste_WPF
         {
             AlterarStatus(3);
         }
-        #endregion
 
         private void AlterarStatus(int status)
         {
@@ -822,6 +823,8 @@ namespace Teste_WPF
 
             indexList.Status = (Status)status;
             dataGridPedidos.Items.Refresh();
+            ExportarXmlPedido();
         }
+        #endregion
     }
 }
