@@ -44,7 +44,7 @@ namespace Teste_WPF
             pedidos = LerXmlPedido(); 
             dataGridPedidos.ItemsSource = pedidos;
             if(pedidos.Count() > 0)
-               IdPedidoLista = pedidos.Last().UltimoId;            
+                IdPedidoLista = pedidos.Last().UltimoId;
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
         }
