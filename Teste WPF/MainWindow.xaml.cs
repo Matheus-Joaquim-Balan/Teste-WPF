@@ -42,7 +42,8 @@ namespace Teste_WPF
 
             pedidos = LerXmlPedido(); 
             dataGridPedidos.ItemsSource = pedidos;
-            IdPedidoLista = pedidos.Last().UltimoId;
+            if(pedidos.Count() > 0)
+                IdPedidoLista = pedidos.Last().UltimoId;
 
             dataGridPessoa.SelectionMode = DataGridSelectionMode.Single;
         }
@@ -822,6 +823,7 @@ namespace Teste_WPF
 
             indexList.Status = (Status)status;
             dataGridPedidos.Items.Refresh();
+            ExportarXmlPedido();
         }
     }
 }
