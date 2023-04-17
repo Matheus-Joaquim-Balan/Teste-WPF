@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\Teste WPF.exe.config
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\Teste WPF.exe
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\Teste WPF.pdb
@@ -23,7 +21,17 @@ C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\ro\Xceed.Wpf.A
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
->>>>>>> main
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.csprojAssemblyReference.cache
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\MainWindow.g.cs
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\App.g.cs
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF_MarkupCompile.cache
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF_MarkupCompile.lref
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\MainWindow.baml
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.g.resources
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste_WPF.Properties.Resources.resources
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.csproj.GenerateResource.cache
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.csproj.CoreCompileInputs.cache
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.csproj.CopyComplete
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.exe
+C:\Users\matheus.balan\source\repos\Teste-WPF\Teste WPF\obj\Debug\Teste WPF.pdb
