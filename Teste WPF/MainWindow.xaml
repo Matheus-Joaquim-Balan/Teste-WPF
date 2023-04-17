@@ -406,7 +406,7 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridComboBoxColumn Header="Status" x:Name="StatusDetalhes" SelectedItemBinding="{Binding Status, Mode=TwoWay}"
+                    <DataGridComboBoxColumn Header="Status" IsReadOnly="True" x:Name="StatusDetalhes" SelectedItemBinding="{Binding Status, Mode=TwoWay}"
                                         ItemsSource="{local:EnumBindingSource local:Status}" Width="*">
                     </DataGridComboBoxColumn>
 
