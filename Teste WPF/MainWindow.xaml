@@ -318,14 +318,14 @@
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-
+                                
                                 <TextBlock Text="{Binding Path=NomeProduto}" Grid.Column="0" FontStyle="Normal" FontWeight="Black" />
                                 <TextBlock Text="{Binding Path=Valor, StringFormat=N2}" Grid.Column="1" FontWeight="Black" HorizontalAlignment="Right" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
+                
                 <TextBlock Visibility="Visible" x:Name="qntdProdPedBlock" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Text="Quantidade*"  Margin="0 0 10 0" />
                 <TextBox Visibility="Visible" x:Name="qntdProdPedBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left" Margin="0 0 30 10"/>
 
@@ -353,16 +353,18 @@
                     <ColumnDefinition Width=".5*"/>
                     <ColumnDefinition Width=".5*"/>
                 </Grid.ColumnDefinitions>
-
+                
                 <TextBlock Text="NOME" x:Name="txtNomePedido" Visibility="Visible"/>
-                <Button Grid.Column="0" x:Name="btnPedidoTodos" Content="Todos os pedidos" Height="20" VerticalAlignment="Top" Margin="0 0 5 0" HorizontalAlignment="Right" Click="BtnPedidoTodos_Click"/>
-                <Button Grid.Column="1" x:Name="btnPedidoPendente" Content="Pedidos pendentes" Height="20" VerticalAlignment="Top" Margin="0 0 5 0" HorizontalAlignment="Right" Click="BtnPedidoPendente_Click"/>
-                <Button Grid.Column="2" x:Name="btnPedidoPago" Content="Pedidos pagos" Height="20" VerticalAlignment="Top" Margin="0 0 5 0" HorizontalAlignment="Right" Click="BtnPedidoPago_Click"/>
-                <Button Grid.Column="3" x:Name="btnPedidoEntregue" Content="Pedidos entregues" Height="20" VerticalAlignment="Top" Margin="0 0 5 0" HorizontalAlignment="Right" Click="BtnPedidoEntregue_Click"/>
+
+                <Button Grid.Column="0" x:Name="btnPedidoTodos" Content="Todos os pedidos" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right" Click="BtnPedidoTodos_Click"/>
+                <Button Grid.Column="1" x:Name="btnPedidoPendente" Content="Pedidos pendentes" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right" Click="BtnPedidoPendente_Click"/>
+                <Button Grid.Column="2" x:Name="btnPedidoPago" Content="Pedidos pagos" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right" Click="BtnPedidoPago_Click"/>
+                <Button Grid.Column="3" x:Name="btnPedidoEntregue" Content="Pedidos entregues" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right" Click="BtnPedidoEntregue_Click"/>
             </Grid>
             
             <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                       Visibility="Visible" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False"                      AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding pedidos}">
+                      Visibility="Collapsed" x:Name="dataGridPedidos" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
+                      AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding pedidos}">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -377,18 +379,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" x:Name="IdPedidoData" IsReadOnly="True" 
                                         Binding="{Binding IdPedido}" Width=".5*"/>
-
-                    <DataGridTextColumn Header="Nome" IsReadOnly="True" 
-                                        Binding="{Binding NomePessoa}" Width="3*">
-                        <!-- aqui -->
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style TargetType="TextBox">
-                                <Setter Property="CharacterCasing" Value="Upper"/>
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTemplateColumn Header="Produtos*">
+                    
+                    <DataGridTemplateColumn Header="Produtos">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="expandirPedido" Click="ExpandirPedido_Click" Content="Expandir" Background="DeepSkyBlue"/>
@@ -426,31 +418,24 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-
-
-                    
-                                            <!--POSSIVEL ERRO AQUI-->
-                    
-                    
-                    
                     <DataGridTemplateColumn Header="Marcar Pago">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnMarcarPago" Click="BtnMarcarPago_Click"  Content="Expandir" Background="Gray"/>
+                                <Button x:Name="btnMarcarPago" Click="BtnMarcarPago_Click"  Content="Marcar Pago" Background="Gray"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Marcar enviado">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnMarcarEnviado" Click="BtnMarcarEnviado_Click"  Content="Expandir" Background="Yellow"/>
+                                <Button x:Name="btnMarcarEnviado" Click="BtnMarcarEnviado_Click"  Content="Marcar Enviado" Background="Yellow"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Marcar recebido">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnMarcarRecebido" Click="BtnMarcarRecebido_Click"  Content="Expandir" Background="Lime"/>
+                                <Button x:Name="btnMarcarRecebido" Click="BtnMarcarRecebido_Click"  Content="Marcar Recebido" Background="Lime"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
