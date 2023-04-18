@@ -34,11 +34,11 @@ namespace Teste_WPF
             produtosPedido = new List<Produto>();
             produto = new Produto();
 
-            LerXmlProduto("C:\\Produtos.xml");
+            LerXmlProduto("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Produtos.xml");
             dataGridProduto.ItemsSource = produtos;
             produtosPedListBox.ItemsSource = produtos;
 
-            LerXmlPessoa("C:\\Pessoas.xml");
+            LerXmlPessoa("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Pessoas.xml");
             dataGridPessoa.ItemsSource = pessoas;
 
             pedidos = LerXmlPedido(); 
@@ -185,7 +185,7 @@ namespace Teste_WPF
 
                     IdPessoaLista++;
 
-                    ExportarXmlPessoa("C:\\Pessoas.xml");
+                    ExportarXmlPessoa("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Pessoas.xml");
                 }
                 else
                 {
@@ -256,7 +256,7 @@ namespace Teste_WPF
                     CPFBox.Text = "";
                     EnderecoBox.Text = "";
 
-                    ExportarXmlPessoa("C:\\Pessoas.xml");
+                    ExportarXmlPessoa("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Pessoas.xml");
 
                 }
                 else
@@ -274,7 +274,7 @@ namespace Teste_WPF
         {
             dynamic data = dataGridPessoa.SelectedItem;
             pessoas.Remove(data);
-            ExportarXmlPessoa("C:\\Pessoas.xml");
+            ExportarXmlPessoa("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Pessoas.xml");
 
         }
 
@@ -302,8 +302,7 @@ namespace Teste_WPF
                 codigoProdutoBox.Text = "";
                 valorProdutoBox.Text = "";
 
-                ExportarXmlProduto("C:\\Produtos.xml");
-
+                ExportarXmlProduto("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Produtos.xml");
             }
             else
             {
@@ -344,7 +343,7 @@ namespace Teste_WPF
                 codigoProdutoBox.Text = "";
                 valorProdutoBox.Text = "";
 
-                ExportarXmlProduto("C:\\Produtos.xml");
+                ExportarXmlProduto("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Produtos.xml");
 
             }
             else
@@ -472,7 +471,7 @@ namespace Teste_WPF
         {
             dynamic data = dataGridProduto.SelectedItem;
             produtos.Remove(data);
-            ExportarXmlProduto("C:\\Produtos.xml");
+            ExportarXmlProduto("C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Produtos.xml");
         }
 
         #endregion
@@ -564,7 +563,7 @@ namespace Teste_WPF
 
         private void ExportarXmlPedido()
         {
-            var arquivoXml = @"C:\\Pedidos.xml";
+            var arquivoXml = @"C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Pedidos.xml";
             using (var stream = new StreamWriter(arquivoXml))
             {
                 XmlSerializer serializador = new XmlSerializer(typeof(ObservableCollection<Pedido>));
@@ -577,7 +576,7 @@ namespace Teste_WPF
             ObservableCollection<Pedido> lista = new ObservableCollection<Pedido>();
             try
             {
-                var arquivoXml = @"C:\\Pedidos.xml";
+                var arquivoXml = @"C:\\Users\\matheus.balan\\source\\repos\\Teste-WPF\\Pedidos.xml";
                 using (StreamReader stream = new StreamReader(arquivoXml))
                 {
                     XmlSerializer serializador = new XmlSerializer(typeof(ObservableCollection<Pedido>));

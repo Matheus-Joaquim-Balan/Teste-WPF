@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pessoa>
+  <IdPessoaLista>2</IdPessoaLista>
+  <Pessoa>
+    <IdPessoa>1</IdPessoa>
+    <NomePessoa>JEISON</NomePessoa>
+    <CPF>11111111111</CPF>
+    <Endereco>RUA</Endereco>
+  </Pessoa>
+</Pessoa>

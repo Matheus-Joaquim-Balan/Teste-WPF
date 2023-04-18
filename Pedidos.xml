@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPedido xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Pedido>
+    <IdPedido>1</IdPedido>
+    <NomePessoa>JEISON</NomePessoa>
+    <Produtos>
+      <Produto>
+        <IdProduto>1</IdProduto>
+        <NomeProduto>MILKA</NomeProduto>
+        <Valor>41.5</Valor>
+        <QntdProduto>3</QntdProduto>
+      </Produto>
+    </Produtos>
+    <ValorTotal>124.5</ValorTotal>
+    <DataVenda>18-04-2023</DataVenda>
+    <FormaPagamento>Boleto</FormaPagamento>
+    <Status>Enviado</Status>
+    <UltimoId>2</UltimoId>
+  </Pedido>
+</ArrayOfPedido>

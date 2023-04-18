@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Produto>
+  <IdProdutoLista>2</IdProdutoLista>
+  <Produto>
+    <IdProduto>1</IdProduto>
+    <NomeProduto>MILKA</NomeProduto>
+    <Codigo>263598</Codigo>
+    <Valor>41.5</Valor>
+  </Produto>
+</Produto>
