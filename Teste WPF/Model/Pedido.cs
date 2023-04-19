@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Teste_WPF.Models;
 
 namespace Teste_WPF
 {

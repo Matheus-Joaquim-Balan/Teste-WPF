@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
+using Teste_WPF.Models;
 
 namespace Teste_WPF
 {
@@ -479,46 +480,9 @@ namespace Teste_WPF
 
         #region Exportação de XML
 
-        private void ExportarXmlPessoa(string fileName)
-        {
-            var xml = new XElement("Pessoa",
-                new XElement("IdPessoaLista", IdPessoaLista),
-                from p in pessoas
-                select new XElement("Pessoa",
-                    new XElement("IdPessoa", p.IdPessoa),
-                    new XElement("NomePessoa", p.NomePessoa),
-                    new XElement("CPF", p.CPF),
-                    new XElement("Endereco", p.Endereco)
-                )
-            );
-            xml.Save(fileName);
-        }
+        
 
-        private void LerXmlPessoa(string fileName)
-        {
-            try
-            {
-                var xml = XElement.Load(fileName);
-
-                IdPessoaLista = int.Parse(xml.Element("IdPessoaLista").Value);
-
-                foreach (var element in xml.Elements("Pessoa"))
-                {
-                    var pessoa = new Pessoa
-                    {
-                        IdPessoa = int.Parse(element.Element("IdPessoa").Value),
-                        NomePessoa = element.Element("NomePessoa").Value,
-                        CPF = element.Element("CPF").Value,
-                        Endereco = element.Element("Endereco").Value,
-                    };
-                    pessoas.Add(pessoa);
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
+       
 
         private void ExportarXmlProduto(string fileName)
         {

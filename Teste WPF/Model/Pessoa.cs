@@ -2,8 +2,9 @@
 using PropertyChanged;
 using System.Windows.Media;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
-namespace Teste_WPF
+namespace Teste_WPF.Models
 {
     [AddINotifyPropertyChangedInterface]
     public class Pessoa
@@ -63,6 +64,48 @@ namespace Teste_WPF
 		    digito = digito + resto.ToString();
 		    return cpf.EndsWith(digito);
 	     }
+
+        private void ExportarXmlPessoa(string fileName, int idPessoaLista)
+        {
+            var xml = new XElement("Pessoa",
+                new XElement("IdPessoaLista", idPessoaLista),
+                from p in pessoas
+                select new XElement("Pessoa",
+                    new XElement("IdPessoa", p.IdPessoa),
+                    new XElement("NomePessoa", p.NomePessoa),
+                    new XElement("CPF", p.CPF),
+                    new XElement("Endereco", p.Endereco)
+                )
+            );
+            xml.Save(fileName);
+        }
+
+        private void LerXmlPessoa(string fileName, int idPessoaLista)
+        {
+            try
+            {
+                var xml = XElement.Load(fileName);
+
+                idPessoaLista = int.Parse(xml.Element("IdPessoaLista").Value);
+
+                foreach (var element in xml.Elements("Pessoa"))
+                {
+                    var pessoa = new Pessoa
+                    {
+                        IdPessoa = int.Parse(element.Element("IdPessoa").Value),
+                        NomePessoa = element.Element("NomePessoa").Value,
+                        CPF = element.Element("CPF").Value,
+                        Endereco = element.Element("Endereco").Value,
+                    };
+                    Pessoa(pessoa);
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+
     }
 }
 
