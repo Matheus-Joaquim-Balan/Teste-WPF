@@ -15,8 +15,10 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Margin="0,50,10,0">
-            <Button x:Name="btnPessoa" Content="Pessoa" Background="LightGray" Height="30" Margin="0 0 0 10" Click="AbrirPessoa"/>
-            <Button x:Name="btnProduto" Content="Produto" Background="Transparent" Height="30" Margin="0 0 0 10" Click="AbrirProduto"/>
+            <Button x:Name="btnPessoa" Content="Pessoa" Background="LightGray" Height="30" Margin="0 0 0 10" 
+                    Click="AbrirPessoa"/>
+            <Button x:Name="btnProduto" Command="" Content="Produto" Background="Transparent" Height="30" Margin="0 0 0 10" 
+                    Click="AbrirProduto"/>
 
             <!--Botões Pessoa-->
             <Button x:Name="btnCadastrarPessoa" Visibility="Collapsed" Content="Cadastrar" Background="Green" Height="25" Margin="0 50 0 10" Click="BtnCadastrarPessoa_Click"/>
@@ -76,28 +78,32 @@
                     <DataGridTemplateColumn Header="Incluir" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnIncluirPedido" Content="Incluir Pedido"  Background="Lime" Click="BtnIncluirPedido_Click" />
+                                <Button x:Name="btnIncluirPedido" Content="Incluir Pedido"  Background="Lime" 
+                                        Click="BtnIncluirPedido_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Pedido" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnVerPedido" Content="Detalhes"  Background="Lime" Click="BtnDetalhesPedido_Click" />
+                                <Button x:Name="btnVerPedido" Content="Detalhes"  Background="Lime" 
+                                        Click="BtnDetalhesPedido_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Editar" Width=".6*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnEditarPessoa" Content="Editar"  Background="DeepSkyBlue" Click="BtnEditarPessoa_Click" />
+                                <Button x:Name="btnEditarPessoa" Content="Editar"  Background="DeepSkyBlue" 
+                                        Click="BtnEditarPessoa_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Excluir" Width=".6*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="excluirPessoa" Content="Excluir" Background="{Binding Cor , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="Delete" Click="ExcluirPessoa_Click">
+                                <Button x:Name="excluirPessoa" Content="Excluir" Background="{Binding Cor , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        Command="Delete" Click="ExcluirPessoa_Click">
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -188,10 +194,14 @@
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding IdProduto}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Nome" Binding="{Binding NomeProduto}" Width="3*" />
-                    <DataGridTextColumn Header="Codigo" Binding="{Binding Codigo}" Width="2*"/>
-                    <DataGridTextColumn Header="Valor" Binding="{Binding Valor, StringFormat=N2}" Width="*"/>
+                    <DataGridTextColumn Header="Id" 
+                                        Binding="{Binding IdProduto}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Nome" 
+                                        Binding="{Binding NomeProduto}" Width="3*" />
+                    <DataGridTextColumn Header="Codigo" 
+                                        Binding="{Binding Codigo}" Width="2*"/>
+                    <DataGridTextColumn Header="Valor" 
+                                        Binding="{Binding Valor, StringFormat=N2}" Width="*"/>
                     <DataGridTemplateColumn Header="Editar">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
