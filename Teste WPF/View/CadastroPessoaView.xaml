@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Teste_WPF.View.CadastroPessoaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Teste_WPF.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid x:Name="gridCadastrarPessoa">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="8*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock FontSize="20" Grid.Column="0" HorizontalAlignment="Left">CADASTRO</TextBlock>
+
+            <TextBlock x:Name="idPessoaBlock" Grid.Column="0" Grid.Row="1" Text="Id" Margin="0 0 10 10" HorizontalAlignment="Right"/>
+            <TextBox x:Name="idPessoaBox" Grid.Column="1" Grid.Row="1" Background="#eee" Width="100" HorizontalAlignment="Left" IsReadOnly="True" Margin="0 0 30 10"/>
+
+            <TextBlock x:Name="nomePessoaBlock" Grid.Column="0" Grid.Row="2" Text="Nome*" Margin="0 0 10 10" HorizontalAlignment="Right"/>
+            <TextBox x:Name="nomePessoaBox" Grid.Column="1" Grid.Row="2" Width="250" HorizontalAlignment="Left" Margin="0 0 30 10"/>
+
+            <TextBlock x:Name="CPFBlock" Grid.Column="0" Grid.Row="3" Text="CPF*" Margin="0 0 10 10" HorizontalAlignment="Right" />
+            <TextBox x:Name="CPFBox" Grid.Column="1" Grid.Row="3" Width="100" HorizontalAlignment="Left"  Margin="0 0 30 10"/>
+
+            <TextBlock x:Name="EnderecoBlock" Grid.Column="0" Grid.Row="4" Text="Endereço" Margin="0 0 10 0" HorizontalAlignment="Right" />
+            <TextBox x:Name="EnderecoBox" Grid.Column="1" Width="350" HorizontalAlignment="Left" Grid.Row="4"  Margin="0 0 30 0" />
+
+            <Button Visibility="Visible" x:Name="btnCancelarPessoa"  Grid.Row="5" Grid.Column="0" 
+                        Width="70" Content="Cancelar" HorizontalAlignment="Right" Background="Red" 
+                        Height="25" Margin="-11,50.4,9.8,-1.2" />
+
+            <Button Visibility="Visible" x:Name="btnSalvarNovaPessoa"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0" />
+
+
+            <Button Visibility="Collapsed" x:Name="btnSalvarPessoaEdit"  Grid.Row="5" Grid.Column="1" 
+                        Width="70" Content="Salvar" HorizontalAlignment="Right" Background="Lime" 
+                        Height="25" Margin="0 50 50 0"/>
+
+
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="Teste_WPF.View.PessoaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodels="clr-namespace:Teste_WPF.ViewModel"
+             xmlns:views="clr-namespace:Teste_WPF.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <viewmodels:CadastroPessoaViewModel x:Key="vm" />
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <Grid x:Name="gridPesquisaPessoa" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1*"/>
+                     <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Height="20" VerticalAlignment="Top" Margin="0 0 5 0"  HorizontalAlignment="Right">Pesquisar por nome ou CPF:</TextBlock>
+                <TextBox Grid.Column="1" x:Name="txtBoxPesquisaPessoa" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>
+                <Button x:Name="btnPesquisarNomeCPF" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" Margin="136,0,0,4.8" Height="20" Width="30" Grid.ColumnSpan="2">
+                    <!-- <Image Source="images/Lupa.png" />-->
+                </Button>
+            </Grid>
+
+            <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" 
+                      x:Name="dataGridPessoa" Margin="0,0,0.2,0" Height="280" CanUserAddRows="False" 
+                      AutoGenerateColumns="False" CanUserDeleteRows="True" DataContext="{Binding}">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="LightGray" />
+                        <Setter Property="FontWeight" Value="Regular" />
+                        <Setter Property="BorderThickness" Value="1 1 1 1" />
+                        <Setter Property="BorderBrush" Value="DarkGray" />
+                        <Setter Property="Padding" Value="3 0 0 0" />
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" IsReadOnly="True" Binding="{Binding Path=IdPessoa}" Width="*"/>
+                    <DataGridTextColumn Header="Nome" IsReadOnly="True" Binding="{Binding Path=NomePessoa}" Width="3*">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="CPF" IsReadOnly="True" Binding="{Binding Path=CPF}" Width="2*"/>
+                    <DataGridTextColumn Header="Endereço" IsReadOnly="True" Binding="{Binding Path=Endereco}" Width="4*">
+
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter Property="CharacterCasing" Value="Upper"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Incluir" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnIncluirPedido" Content="Incluir Pedido"  Background="Lime" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Pedido" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnVerPedido" Content="Detalhes"  Background="Lime" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Editar" Width=".6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnEditarPessoa" Content="Editar"  Background="DeepSkyBlue" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Excluir" Width=".6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="excluirPessoa" Content="Excluir" Background="Red" Command="Delete">
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        
+            <Button x:Name="btnCadastrarPessoa" Command="{Binding Source={StaticResource vm}, Path=BotaoComando}" Content="Cadastrar" Background="Green" Height="25" Margin="0 50 0 10" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace Teste_WPF
+namespace Teste_WPF.ViewModel
 {
     public class EnumBindingSourceExtension : MarkupExtension
     {

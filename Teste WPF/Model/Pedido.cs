@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Teste_WPF.Models;
 
-namespace Teste_WPF
+namespace Teste_WPF.Models
 {
     public class Pedido
     {

@@ -1,4 +1,4 @@
-﻿namespace Teste_WPF
+﻿namespace Teste_WPF.Models
 {
     public enum FormaPagamento
     {

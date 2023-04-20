@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Teste_WPF
+namespace Teste_WPF.Models
 {
     public class Produto
     {

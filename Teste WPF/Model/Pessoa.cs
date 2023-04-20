@@ -3,32 +3,84 @@ using PropertyChanged;
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.ComponentModel;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Teste_WPF.Models
 {
-    [AddINotifyPropertyChangedInterface]
-    public class Pessoa
+    public class Pessoa : INotifyPropertyChanged
     {
-        public int IdPessoa { get; set; }
-        public string NomePessoa { get; set; }
-        public string CPF { get; set; }
-        public string Endereco { get; set; }
-        public Brush Cor { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string nomePropriedade)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomePropriedade));
+        }
+
+        private int _idPessoa;    
+        private string _nomePessoa { get; set; }
+        private string _CPF { get; set; }
+        private string _endereco { get; set; }
+        private int _idPessoaLista { get; set; }
+
+        public int IdPessoa
+        {
+            get { return _idPessoa; }
+            set
+            {
+                _idPessoa = value;
+                OnPropertyChanged("IdPessoa");
+            }
+        }
+
+        public string NomePessoa
+        {
+            get { return _nomePessoa; }
+            set
+            {
+                _nomePessoa = value;
+                OnPropertyChanged("NomePessoa");
+            }
+        }
+
+        public string CPF
+        {
+            get { return _CPF; }
+            set
+            {
+                _CPF = value;
+                OnPropertyChanged("CPF");
+            }
+        }
+
+        public string Endereco
+        {
+            get { return _endereco; }
+            set
+            {
+                _endereco = value;
+                OnPropertyChanged("Endereco");
+            }
+        }
+
+        public int IdPessoaLista
+        {
+            get { return _idPessoaLista; }
+            set
+            {
+                _idPessoaLista = value;
+                OnPropertyChanged("IdPessoaLista");
+            }
+        }
 
         public Pessoa()
         {
-            Cor = Brushes.Red;
-        }
-        public Pessoa(int id, string nome, string cpf, string endereco)
-        {
-            IdPessoa = id;
-            NomePessoa = nome;
-            CPF = cpf;
-            Endereco = endereco;
-            Cor = Brushes.Red;
-        }
 
-
+        }
+      
         public static bool ValidaCpf(string cpf)
 	     {
 		    int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -65,44 +117,32 @@ namespace Teste_WPF.Models
 		    return cpf.EndsWith(digito);
 	     }
 
-        private void ExportarXmlPessoa(string fileName, int idPessoaLista)
+        public void ExportarXmlPessoa(ObservableCollection<Pessoa> pessoas)
         {
-            var xml = new XElement("Pessoa",
-                new XElement("IdPessoaLista", idPessoaLista),
-                from p in pessoas
-                select new XElement("Pessoa",
-                    new XElement("IdPessoa", p.IdPessoa),
-                    new XElement("NomePessoa", p.NomePessoa),
-                    new XElement("CPF", p.CPF),
-                    new XElement("Endereco", p.Endereco)
-                )
-            );
-            xml.Save(fileName);
+            var arquivoXml = @"C:\\Pessoas.xml";
+            using (var stream = new StreamWriter(arquivoXml))
+            {
+                XmlSerializer serializador = new XmlSerializer(typeof(ObservableCollection<Pessoa>));
+                serializador.Serialize(stream, pessoas);
+            }
         }
 
-        private void LerXmlPessoa(string fileName, int idPessoaLista)
+        public ObservableCollection<Pessoa> LerXmlPessoa()
         {
+            ObservableCollection<Pessoa> pessoas = new ObservableCollection<Pessoa>();
             try
             {
-                var xml = XElement.Load(fileName);
-
-                idPessoaLista = int.Parse(xml.Element("IdPessoaLista").Value);
-
-                foreach (var element in xml.Elements("Pessoa"))
+                var arquivoXml = @"C:\\Pessoas.xml";
+                using (StreamReader stream = new StreamReader(arquivoXml))
                 {
-                    var pessoa = new Pessoa
-                    {
-                        IdPessoa = int.Parse(element.Element("IdPessoa").Value),
-                        NomePessoa = element.Element("NomePessoa").Value,
-                        CPF = element.Element("CPF").Value,
-                        Endereco = element.Element("Endereco").Value,
-                    };
-                    Pessoa(pessoa);
+                    XmlSerializer serializador = new XmlSerializer(typeof(ObservableCollection<Pessoa>));
+                    pessoas = (ObservableCollection<Pessoa>)serializador.Deserialize(stream);
                 }
+                return pessoas;
             }
             catch
             {
-                return;
+                return pessoas;
             }
         }
 
